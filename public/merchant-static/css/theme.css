@@ -120,7 +120,7 @@ a:hover,a:focus {
 	float:left
 }
 .navbar-nav {
-	margin:0 0 0 10px
+	/*margin:0 0 0 10px*/
 }
 .navbar-nav>li>a {
 	padding-bottom:15px;
@@ -497,7 +497,7 @@ a:hover,a:focus {
 	margin-top:8px;
 }
 #sidebar-nav .nav>li>a>span {
-	margin-left:35px;
+	margin-left:26px;
 	font-weight:400;
 }
 #sidebar-nav .nav>li>a>span.label {
@@ -542,7 +542,7 @@ a:hover,a:focus {
 #sidebar-nav .nav li .submenu>li>a {
 	display:block;
 	line-height:38px;
-	padding-left:66px;
+	padding-left:59px;
 	color:#fff;
 	outline:none;
 	text-decoration:none;
@@ -604,7 +604,7 @@ a:hover,a:focus {
 	position:absolute;
 }
 .dropdown-menu > li > a {
-	padding:6px 20px;
+	padding:7px 20px;
 }
 .dropdown-menu li i {
 	margin-right:8px;

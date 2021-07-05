@@ -56,12 +56,12 @@ class MerchantRulesController extends Controller
     public function update(Request $request, MerchantRule $rule)
     {
         $params = $request->all();
-        if (isset($params['pid']) && $params['pid'] != $rule->pid) {
-            $son_count = MerchantRule::where('pid', $rule->id)->count();
-            if ($son_count > 0){
-                return responseError('该权限下面有子级，不能移动');
-            }
-        }
+//        if (isset($params['pid']) && $params['pid'] != $rule->pid) {
+//            $son_count = MerchantRule::where('pid', $rule->id)->count();
+//            if ($son_count > 0){
+//                return responseError('该权限下面有子级，不能移动');
+//            }
+//        }
 
         $data = [
             'pid' => $params['pid']??$rule->pid,

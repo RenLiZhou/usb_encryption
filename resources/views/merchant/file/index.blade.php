@@ -7,6 +7,7 @@
 @section("css")
     <link rel="stylesheet" href="{{ asset('merchant-static/js/jconfirm/jquery-confirm.min.css') }}">
     <link rel="stylesheet" href="{{ asset('merchant-static/js/bootstrap-treeview/css/bootstrap-treeview.css') }}">
+    <link rel="stylesheet" href="{{ asset('layui/css/layui.css') }}"/>
 @endsection
 
 @section("content")
@@ -31,12 +32,12 @@
                                         <div class="pull-left" id="pathSite"></div>
                                     </div>
                                     <div class="card-header">
-                                        <button class="btn btn-warning m-r-10 btn-sm" onClick="TObj.checkAll()">全选/取消</button>
-                                        <button class="btn btn-warning m-r-10 btn-sm" onclick="TObj.moreDelete()">批量删除</button>
-                                        <button class="btn btn-warning m-r-10 btn-sm" onclick="TObj.moreMoveSelectFolder()">批量移动</button>
-                                        <button class="btn btn-warning m-r-10 btn-sm" onclick="TObj.createFolderOpen()">新建文件夹</button>
-                                        <button class="btn btn-warning m-r-10 btn-sm">上传文件</button>
-                                        <button class="btn btn-warning m-r-10 btn-sm pull-right" onclick="TObj.foldersData('/')">返回根目录</button>
+                                        <button class="btn btn-cyan m-r-10 btn-sm" onClick="TObj.checkAll()">全选/取消</button>
+                                        <button class="btn btn-danger m-r-10 btn-sm" onclick="TObj.moreDelete()">批量删除</button>
+                                        <button class="btn btn-dark m-r-10 btn-sm" onclick="TObj.moreMoveSelectFolder()">批量移动</button>
+                                        <button class="btn btn-success m-r-10 btn-sm" onclick="TObj.createFolderOpen()">新建文件夹</button>
+                                        <button class="btn btn-warning m-r-10 btn-sm" onclick="TObj.uploadOpen()">上传文件</button>
+                                        <button class="btn btn-dark m-r-10 btn-sm pull-right" onclick="TObj.foldersData('/')">返回我的文档</button>
                                     </div>
                                     <div class="card-body clearfix">
                                         <ul id="folders" class="clearfix">
@@ -110,6 +111,50 @@
             </div>
         </div>
 
+        {{-- 上传文件 --}}
+        <div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="myUploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document" style="margin-top: 10vh">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">上传文件</h4>
+                    </div>
+                    <div class="modal-body" style="max-height: 50vh;overflow-y: auto">
+
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn layui-btn-normal" id="uploadList">选择文件</button>
+                            <div class="layui-upload-list">
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col>
+                                        <col width="100">
+                                        <col width="200">
+                                        <col width="120">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>文件名</th>
+                                            <th>大小</th>
+                                            <th>上传进度</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="uploadListDom">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="uploadListAction">开始上传</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <ul class="rightMenu" id="rightMenu">
             <li class="ftsucai-del delete" onmousedown="TObj.moreDelete()">删除</li>
             <li class="ftsucai-44 move" onmousedown="TObj.moreMoveSelectFolder()">移动</li>
@@ -117,188 +162,20 @@
         </ul>
         <!--End 页面主要内容-->
     </body>
-    <style>
-        .file-col-row{
-            height:16px;
-        }
-        .file-col-row span{
-            font-size: 28px;
-            position: relative;
-            top:-10px;
-        }
-        .file_manager_col{
-            padding: 0px;
-            display: block;
-        }
-        .file_manager_col li{
-            position: relative;
-            border: 1px #fff solid;
-            float: left;
-            width: 8.6%;
-            padding: 1vw 1%;
-            overflow: hidden;
-            margin:0px 0.7% 0.7vw;
-            border-radius: 7px;
-            background: none;
-        }
-        .file_manager_col li .checkbox{
-            display: none;
-            position: absolute;
-            top:0.3vw;
-            right:0.3vw;
-            height:17px;
-            width: 17px;
-        }
-        .file_manager_col li img.folder-img{
-            display: block;
-            width: 60%;
-            margin: 0 20%;
-        }
-
-        .file_manager_col li .name{
-            margin-top: 0.3vw;
-            width: 100%;
-            text-align: center;
-            overflow: hidden;
-            text-overflow:ellipsis;
-            white-space: nowrap;
-            margin-bottom: 0px;
-        }
-
-        .file_manager_col li.active,.file_manager_col li:hover{
-            background: #efefef;
-        }
-
-        .file_manager_col li.active .checkbox,.file_manager_col li:hover .checkbox{
-            display: block;
-        }
-
-        .file_manager_col li .tool{
-            display: none;
-        }
-
-
-        .file_manager_row{
-            padding: 0px;
-            display: block;
-        }
-        .file_manager_row li{
-            border-bottom: 1px #eee solid;
-            width: 98%;
-            padding: 15px 1%;
-            height:64px;
-            overflow: hidden;
-            background: none;
-        }
-        .file_manager_row li .checkbox{
-            height:16px;
-            width: 16px;
-            float: left;
-            margin-top:9px;
-        }
-
-        .file_manager_row li img.folder-img{
-            width: 35px;
-            float: left;
-            margin-left: 15px;
-        }
-
-        .file_manager_row li.top-folder-item img.folder-img{
-            margin-left:30px;
-        }
-
-        .file_manager_row li .name{
-            overflow: hidden;
-            text-overflow:ellipsis;
-            white-space: nowrap;
-            margin-bottom: 0px;
-            float: left;
-            line-height: 34px;
-            margin-left: 8px;
-        }
-
-        .file_manager_row li .tool{
-            float: right;
-            margin-left: 17px;
-            line-height: 34px;
-            cursor:pointer;
-        }
-
-        .file_manager_row li.active,.file_manager_row li:hover{
-            background: #efefef;
-        }
-
-
-        .rightMenu {
-            position: fixed;
-            display: none;
-            padding: 8px 20px 8px 4px;
-            border: 1px solid #eee;
-            background: #fff;
-            box-shadow: 0 0 3px #eee;
-            font-size: 14px;
-            color: #66757f;
-        }
-        .rightMenu li {
-            display: block;
-            cursor: pointer;
-            line-height: 32px;
-        }
-        .rightMenu li:hover {
-            color: #7ebee3;
-            border-color: #7ebee3;
-        }
-        .rightMenu li:before {
-            float: left;
-            width: 26px;
-            text-align: center;
-        }
-
-
-        .folder-modal.treeview span.node-icon{
-            width: 20px;
-            font-size: 24px;
-            position: relative;
-            top:5px;
-            margin-right: 13px;
-        }
-
-        .folder-modal.treeview span.folder{
-            color: #FFD977;
-        }
-
-        .folder-modal.treeview span.file{
-            color: #ccc;
-        }
-
-        .folder-modal.treeview span.expand-icon{
-            font-size: 20px;
-            position: relative;
-            top: 2px;
-            color: #ccc;
-        }
-        .folder-modal .node-procitytree{
-            padding: 2px 15px;
-        }
-        .folder-modal.treeview span.empty_icon{
-            width: 20px;
-            height: 30px;
-            display: block;
-            float: left;
-        }
-    </style>
 @endsection
 
 @section("js")
     <script src="{{ asset('merchant-static/js/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('merchant-static/js/jconfirm/jquery-confirm.min.js') }}"></script>
     <script src="{{ asset('merchant-static/js/bootstrap-treeview/js/bootstrap-treeview.js') }}"></script>
+    <script src="{{ asset('layui/layui.js') }}"></script>
     <script>
         var TObject = function(){
             var _self = this;
 
             this.click_times_event = null; //单击双击的时间事件
             this.tree_event = null;
+            this.upload_event = null;
 
             this.folders_class = _jM.getCookie('folders_class'); //文件夹样式
 
@@ -307,10 +184,10 @@
             this.folder_item = ".folder-item"; //文件夹类名
             this.checkbox = ".checkbox"; //复选框
             this.treeId = "#procitytree"; //tree
-            this.folder_modal = "#folder-modal";
-            this.create_folder_modal = "#create-folder-modal"
-            this.rename_modal = "#rename-modal"
-
+            this.folder_modal = "#folder-modal";//选择文件夹
+            this.create_folder_modal = "#create-folder-modal";//创建文件夹
+            this.rename_modal = "#rename-modal";//重命名
+            this.upload_modal = "#upload-modal";//上传
 
             this.current_path = "/"; //当前路径
 
@@ -322,11 +199,17 @@
             this.move_path_status = false; //移动状态
             this.rename_path_status = false; //重命名状态
             this.newfolder_status = false; //新建文件夹状态
+            this.upload_status = false; //上传状态
+
+            this.upload_load = null; //上传状态
+            this.upload_files = {}; //上传文件
+            this.upload_files_count = 6;
 
             this.init = function() {
 
                 _self.foldersClass(); //文件夹样式
                 _self.foldersData(_self.current_path); //文件夹数据
+                _self.uploadStart();
 
                 //单击
                 $(_self.folder_id).on('click', ".folder-img,.name", function(){
@@ -409,6 +292,147 @@
                     that.parent(_self.folder_item).addClass('active');
                 });
 
+            }
+
+            //多文件上传
+            this.uploadStart = function () {
+                layui.use(['upload', 'element'], function(){
+                    var upload = layui.upload,
+                        element = layui.element;
+
+                    _self.upload_event = upload.render({
+                        elem: '#uploadList'
+                        ,data:{
+                           path: _self.current_path
+                        }
+                        ,elemList: $('#uploadListDom') //列表元素对象
+                        ,url: '{{ route("merchant.file.upload") }}'
+                        ,accept: 'file'
+                        ,multiple: true
+                        ,number: _self.upload_files_count
+                        ,field:'files'
+                        ,headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
+                        }
+                        ,auto: false
+                        ,bindAction: '#uploadListAction'
+                        ,choose: function(obj){
+                            var that = this;
+
+                            var upload_files_length = 0;
+                            $.each(_self.upload_files,function(){
+                                upload_files_length ++;
+                            });
+                            if(upload_files_length >= _self.upload_files_count){
+                                _jM.dialogMsg('超出同时上传限制：' + _self.upload_files_count);
+                                return;
+                            }
+
+                            //读取本地文件
+                            obj.preview(function(index, file, result){
+
+                                //检查名称是否合法
+                                if(!_jM.validate.isFileName(file.name)){
+                                    _jM.dialogMsg('存在特殊字符\\/:*?"<>|+$');
+                                    return false;
+                                }
+
+                                //检查是否存在
+                                var is_exist = false;
+                                $.each(_self.upload_files,function(file_index,item){
+                                    if(file_index != index && item.size == file.size && item.type == file.type && item.name == file.name){
+                                        is_exist = true;
+                                        _jM.dialogMsg('文件已存在列表');
+                                        return false;
+                                    }
+                                });
+                                if(is_exist) return false;
+
+                                var tr = $(['<tr id="upload-'+ index +'">'
+                                    ,'<td>'+ file.name +'</td>'
+                                    ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+                                    ,'<td><div class="layui-progress" lay-filter="progress-demo-'+ index +'"><div class="layui-progress-bar" lay-percent=""></div></div></td>'
+                                    ,'<td>'
+                                    ,'<button class="layui-btn layui-btn-xs upload-reload layui-hide m-b-5">重传</button>'
+                                    ,'<button class="layui-btn layui-btn-xs layui-btn-danger upload-delete">删除</button>'
+                                    ,'</td>'
+                                    ,'</tr>'].join(''));
+
+                                //单个重传
+                                tr.find('.upload-reload').on('click', function(){
+                                    obj.upload(index, file);
+                                });
+
+                                //删除
+                                tr.find('.upload-delete').on('click', function(){
+                                    delete _self.upload_files[index]; //删除对应的文件
+                                    tr.remove();
+                                    _self.upload_event.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                                });
+
+                                that.elemList.append(tr);
+                                element.render('progress'); //渲染新加的进度条组件
+
+                                _self.upload_files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                            });
+                        },
+                        before: function (obj) {
+                            if(_self.upload_status){
+                                _jM.dialogMsg('正在上传');
+                                return false;
+                            }
+
+                            //检查是否存在
+                            var upload_files_count = 0;
+                            $.each(_self.upload_files,function(){
+                                upload_files_count++;
+                            });
+                            if(upload_files_count <= 0){
+                                _jM.dialogMsg('没有可上传文件');
+                                return false;
+                            }
+
+                            _self.upload_status = true;
+                            _self.upload_load = _jM.dialogLoad();
+                        }
+                        ,done: function(res, index, upload){ //成功的回调
+                            var that = this;
+                            if(res.code == 0){ //上传成功
+                                var tr = that.elemList.find('tr#upload-'+ index)
+                                    ,tds = tr.children();
+                                tds.eq(0).text(res.data.name); //上传文件名
+                                tds.eq(3).html("<span class='text-success'>上传成功</span>"); //清空操作
+                                delete _self.upload_files[index]; //删除文件队列已经上传成功的文件
+                                return;
+                            }
+                            this.error(index, upload);
+                        }
+                        ,allDone: function(obj){ //多文件上传完毕后的状态回调
+                            if(obj.total == obj.successful){
+                                _jM.dialogMsg('上传成功');
+                            }else{
+                                _jM.dialogMsg('上传失败文件数:' + obj.aborted);
+                            }
+
+                            if(obj.successful > 0){
+                                _self.foldersData(_self.current_path);
+                            }
+
+                            _self.upload_status = false;
+                            _jM.dialogClose(_self.upload_load);
+                        }
+                        ,error: function(index, upload){ //错误回调
+                            var that = this;
+                            var tr = that.elemList.find('tr#upload-'+ index),
+                                tds = tr.children();
+                            tds.eq(3).find('.upload-reload').removeClass('layui-hide'); //显示重传
+                            _jM.dialogClose(_self.upload_load);
+                        }
+                        ,progress: function(n, elem, e, index){ //注意：index 参数为 layui 2.6.6 新增
+                            element.progress('progress-demo-'+ index, n + '%'); //执行进度条。n 即为返回的进度百分比
+                        }
+                    });
+                });
             }
 
             //文件夹显示样式
@@ -527,8 +551,7 @@
                     return false;
                 }
 
-                var reg = new RegExp('^[^\\\\\\/:*?\\"<>|]+$');
-                if(!reg.test(rename)){
+                if(!_jM.validate.isFileName(rename)){
                     _jM.dialogMsg('存在特殊字符\\/:*?"<>|+$');
                     return false;
                 }
@@ -574,8 +597,7 @@
                     return false;
                 }
 
-                var reg = new RegExp('^[^\\\\\\/:*?\\"<>|]+$');
-                if(!reg.test(folder_name)){
+                if(!_jM.validate.isFileName(folder_name)){
                     _jM.dialogMsg('存在特殊字符\\/:*?"<>|+$');
                     return false;
                 }
@@ -735,6 +757,11 @@
                 return obj;
             }
 
+            this.uploadOpen = function () {
+                _self.clearUpload();
+                $(_self.upload_modal).modal({backdrop: 'static', keyboard: false});
+            }
+
             //文件夹数据
             this.foldersData = function (path) {
                 if(_self.load_path_status){
@@ -768,7 +795,7 @@
                         //返回上一级文件夹
                         if(!_jM.validate.isEmpty(topPath)){
                             _html += "<li class='top-folder-item' ondblclick=\"TObj.foldersData(\'"+topPath +"\')\">";
-                            _html += "    <img class='folder-img' src='{{ asset('merchant-static/images/folder.png') }}' />";
+                            _html += "    <img class='folder-img' src='{{ asset('merchant-static/images/return.png') }}' />";
                             _html += "    <p class='name'>返回上一级</p>";
                             _html += "</li>";
                         }
@@ -811,6 +838,15 @@
                         _jM.dialogClose(load);
                     }
                 });
+            }
+
+            //清除所有上传记录
+            this.clearUpload = function () {
+                $.each(_self.upload_files,function(index,item){
+                    delete _self.upload_files[index];
+                    _self.upload_event.config.elem.next()[0].value = '';
+                });
+                $("#uploadListDom").html('');
             }
 
         }

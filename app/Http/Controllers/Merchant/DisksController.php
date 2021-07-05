@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Exports\DiskTrackExport;
 use App\Models\Disk;
+use App\Models\StrategyAuth;
+use App\Models\StrategyUpdate;
 use App\Service\DiskService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,6 +32,7 @@ class DisksController extends Controller
         $usb_serial = $request->input('usb_serial','');
 
         $datas = Disk::query()
+            ->with(['strategy_auth','strategy_update'])
             ->when(!empty($name),function ($query) use ($name) {
                 $query->where('name', $name);
             })
@@ -40,12 +43,14 @@ class DisksController extends Controller
             ->orderBy('id', 'desc')
             ->paginate($per_page);
 
+        $disk_encryption_count = config('services.disk_encryption_count');
+
         $search_data = [
             'per_page' => $per_page,
             'name' => $name,
             'usb_serial' => $usb_serial
         ];
-        return view($this->v . 'index', compact('datas', 'search_data'));
+        return view($this->v . 'index', compact('datas', 'search_data', 'disk_encryption_count'));
     }
 
     /**
@@ -54,9 +59,15 @@ class DisksController extends Controller
     public function edit($disk_id)
     {
         $merchant_id = Auth::guard('merchant')->id();
-        $data = Disk::query()->where('merchant_id', $merchant_id)->findOrFail($disk_id);
+        $data = Disk::query()
+            ->with(['strategy_auth','strategy_update'])
+            ->where('merchant_id', $merchant_id)
+            ->findOrFail($disk_id);
 
-        return view($this->v . 'edit', compact('data'));
+        $strategy_auth = StrategyAuth::query()->where('merchant_id', $merchant_id)->get();
+        $strategy_update = StrategyUpdate::query()->where('merchant_id', $merchant_id)->get();
+
+        return view($this->v . 'edit', compact('data', 'strategy_auth', 'strategy_update'));
     }
 
     /**
@@ -192,7 +203,7 @@ class DisksController extends Controller
             ->get();
 
         $export = new DiskTrackExport($datas);
-        $name = 'disk_track_'.date('YmdHis').'.xlsx';
+        $name = 'disk_track_'.$merchant_id.'_'.$disk_id.'_'.date('YmdHis').'.xlsx';
         return Excel::download($export, $name);
     }
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>登录-LyAdmin</title>
+    <title>登录-CRM后台</title>
     <link rel="stylesheet" href="{{ asset('layui/css/layui.css') }}"/>
     <link rel="stylesheet" href="{{ asset('crm-static/login/login.css') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('crm-static/index/or.ico') }}"/>
@@ -18,7 +18,7 @@
 <body>
 <img class="bgpic" src="{{ asset('crm-static/login/bg.png') }}">
 <div class="login">
-    <h1>LyAdmin-后台登录</h1>
+    <h1>CRM后台-后台登录</h1>
     <form class="layui-form">
         <div class="layui-form-item">
             <input class="layui-input" name="username" placeholder="用户名" lay-verify="required" type="text" autocomplete="off">

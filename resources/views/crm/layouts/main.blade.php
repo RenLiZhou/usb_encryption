@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Lyadmin</title>
+    <title>CRM后台</title>
     <link rel="stylesheet" href="{{ asset('layui/css/layui.css') }}"/>
     <link rel="stylesheet" href="{{ asset('crm-static/css/common.css') }}"/>
     <style>

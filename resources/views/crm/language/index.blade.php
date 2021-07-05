@@ -3,17 +3,18 @@
 @section("content")
 	<blockquote class="layui-elem-quote">
 		@crm_permission('crm.language.create')
-		    <a class="layui-btn layui-btn-normal add" data-url="{{ route('crm.language.create') }}">添加语言</a>
+		    <a class="layui-btn layui-btn-normal add" data-url="{{ route('crm.language.create') }}">添加语言包</a>
 		@endcrm_permission
 	</blockquote>
 	<div>
 	  	<table class="layui-table">
 		    <thead>
 				<tr>
-					<th style="min-width: 50px;width: 50px;">ID</th>
-					<th>标识</th>
-                    <th>名称</th>
+					<th style="min-width: 50px;width: 50px;">编号</th>
+					<th>语言包标识</th>
+                    <th>备注</th>
                     <th>创建时间</th>
+                    <th>更新时间</th>
 					<th style="min-width: 230px;width: 230px;">操作</th>
 				</tr>
 		    </thead>
@@ -24,6 +25,7 @@
 					<td class="role-name">{{ $data->name }}</td>
                     <td class="role-name">{{ $data->desc }}</td>
                     <td class="role-name">{{ $data->created_at }}</td>
+                    <td class="role-name">{{ $data->updated_at }}</td>
 					<td>
 						@crm_permission('crm.language.edit')
 						<a class="layui-btn layui-btn-xs edit"  data-url="{{ route('crm.language.edit', ['language' => $data->id]) }}">

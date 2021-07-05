@@ -9,5 +9,6 @@ return [
     'enterprise' => '企业版',
     'vip' => 'VIP版',
     'exe' => 'EXE版',
-    'exclusive' => '尊享版'
+    'exclusive' => '尊享版',
+    'deluxe' => '豪华版',
 ];

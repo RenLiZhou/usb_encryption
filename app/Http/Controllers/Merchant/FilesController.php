@@ -20,7 +20,7 @@ class FilesController extends Controller
     }
 
     public function files(Request $request){
-        $path = $request->path??'/';
+        $path = $request->input('path')??'/';
 
         $merchant = Auth::guard('merchant')->user();
         $ResourceService = new ResourceService();
@@ -67,7 +67,7 @@ class FilesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function deleteFiles(Request $request){
-        $paths = $request->paths??[];
+        $paths = $request->input('paths')??[];
         if(empty($paths)){
             return responseError('无删除路径');
         }
@@ -102,8 +102,7 @@ class FilesController extends Controller
         }
 
         //删除缓存
-        $cache_key = "cache_merchant_folder_{$merchant->id}";
-        Cache::forget($cache_key);
+        $this->clearCache($merchant->id);
 
         return responseSuccess();
     }
@@ -114,8 +113,8 @@ class FilesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function move(Request $request){
-        $paths = $request->paths??[];
-        $move_path = $request->move_path??'';
+        $paths = $request->input('paths')??[];
+        $move_path = $request->input('move_path')??'';
         if(empty($paths)) return responseError('无源路径');
         if(empty($move_path)) return responseError('无目标路径');
 
@@ -183,8 +182,7 @@ class FilesController extends Controller
         }
 
         //删除缓存
-        $cache_key = "cache_merchant_folder_{$merchant->id}";
-        Cache::forget($cache_key);
+        $this->clearCache($merchant->id);
 
         return responseSuccess();
     }
@@ -195,8 +193,8 @@ class FilesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function rename(Request $request){
-        $path = $request->path??'';
-        $new_name = $request->name??'';
+        $path = $request->input('path')??'';
+        $new_name = $request->input('name')??'';
         if(empty($path)) return responseError('无重命名目标');
         if (empty($new_name) || !preg_match('/^[^\\\\\\/:*?\\"<>|]+$/', $new_name)){
             return responseError('命名不能为空且不包含\/:*?"<>|+$');
@@ -239,8 +237,7 @@ class FilesController extends Controller
         $ResourceService->move($rename_path, $top_path.'/'.$new_name);
 
         //删除缓存
-        $cache_key = "cache_merchant_folder_{$merchant->id}";
-        Cache::forget($cache_key);
+        $this->clearCache($merchant->id);
 
         return responseSuccess();
     }
@@ -251,8 +248,8 @@ class FilesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function createFolder(Request $request){
-        $name = $request->name??'';
-        $path = $request->path??'/';
+        $name = $request->input('name')??'';
+        $path = $request->input('path')??'/';
 
         if (empty($name) || !preg_match('/^[^\\\\\\/:*?\\"<>|]+$/', $name)){
             return responseError('文件夹名不能为空且不包含\/:*?"<>|+$');
@@ -288,8 +285,7 @@ class FilesController extends Controller
         $ResourceService->makeDirectory($parent_path.'/'.$name);
 
         //删除缓存
-        $cache_key = "cache_merchant_folder_{$merchant->id}";
-        Cache::forget($cache_key);
+        $this->clearCache($merchant->id);
 
         return responseSuccess();
     }
@@ -300,7 +296,75 @@ class FilesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadFile(Request $request){
+        $file = $request->file('files');
+        $path = $request->input('path')??'/';
+        if (empty($file)) {
+            return responseError('未上传文件');
+        }
 
+        $merchant = Auth::guard('merchant')->user();
+        $ResourceService = new ResourceService();
+
+        $path = $ResourceService->checkPath($path);
+        if(!$path){
+            return responseError('文件存储目录不存在');
+        }
+
+        $upload_path = $merchant->root_directory.$path;
+
+        $exists = $ResourceService->exists($upload_path);
+        if(!$exists){
+            return responseError('文件存储目录不存在');
+        }
+
+        //判断是不是文件夹
+        $is_dir = $ResourceService->isDirectory($upload_path);
+        if(!$is_dir){
+            return responseError('存储目录错误');
+        }
+
+        //判断文件是否上传成功
+        if ($file->isValid()) {
+            //文件扩展名
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            //设置白名单
+            //$valid_ext = ['amr', 'mp3', 'm4a', 'wav', 'pcm', 'bmp', 'png', 'jpg', 'jpeg', 'gif', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 'txt', 'ini'];
+            //if (!in_array($ext, $valid_ext)) {
+            //    throw new ParametersException(['msg' => __('api.only_supports_upload') . implode('/', $valid_ext) . __('api.format_file')]);
+            //}
+
+            $clientName = $file->getClientOriginalName();//原名称
+
+            //同名增加后缀
+            $namesake = $ResourceService->exists($upload_path.'/'.$clientName);
+            if($namesake){
+                $clientName = str_replace(".".$ext,"",$clientName) . '-' . date('YmdHis') . "." . $ext;
+            }
+
+            //临时绝对路径
+            $realPath = $file->getRealPath();
+
+            //上传
+            $is_upload = $ResourceService->put($upload_path.'/'.$clientName, file_get_contents($realPath));
+
+            //判断是否上传成功
+            if ($is_upload) {
+                //删除缓存
+                $this->clearCache($merchant->id);
+
+                $response_data = [
+                    'path' => ($path == '/'?'':$path) . '/' . $clientName,
+                    'name' => $clientName
+                ];
+                return responseSuccess($response_data);
+            } else {
+                return responseError('上传失败');
+            }
+
+        } else {
+            return responseError('上传失败');
+        }
     }
 
     /**
@@ -345,7 +409,8 @@ class FilesController extends Controller
                         'level' => substr_count($parent, '/') + 1, //层级
                         'text' => $item, //名称，如果是目录保留后面斜杠
                         'path' => $parent, //目录
-                        'type' => $is_dir == true ? 'folder' : 'file'
+                        'type' => $is_dir == true ? 'folder' : 'file',
+                        'size' => $ResourceService->size($root_directory.$parent)??0,
                     );
                     $count_id ++;
                 }
@@ -355,14 +420,24 @@ class FilesController extends Controller
                 'text' => '我的文档',
                 'path' => '/',
                 'type' => 'folder',
+                'size' => 0,
                 'nodes' => listToTree($result_data)
             ];
 
             Cache::put($cache_key, $response_datas, 7200);
         }
 
-        $response_datas = Cache::get($cache_key);
+        $this->clearCache($merchant->id);
 
         return responseSuccess($response_datas);
+    }
+
+    public function clearCache($merchant_id){
+        //删除文件夹缓存
+        $cache_key = "cache_merchant_folder_{$merchant_id}";
+        Cache::forget($cache_key);
+        //删除文件缓存
+        $cache_key = "cache_merchant_file_{$merchant_id}";
+        Cache::forget($cache_key);
     }
 }

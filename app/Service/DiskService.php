@@ -13,25 +13,25 @@ use Illuminate\Support\Facades\Route;
 
 class DiskService{
     /**
-     * CRM管理员登录
+     * 创建U盘
      */
     public static function createData(){
-        $data = [];
-        for ($i = 1; $i <= 10; $i++){
-            $data[] = [
-                'merchant_id' => 7,
-                'name' => uniqid($i),
-                'strategy_update_id' => 0,
-                'strategy_auth_id' => 0,
-                'status' => Disk::STATUS_USE,
-                'run_count' => 0,
-                'encrypt_count' => 1,
-                'capacity' => rand(1000,9999),
-                'usb_serial' => uniqid($i),
-                'first_time_use' => Carbon::now()->toDateTimeString()
-            ];
-        }
-        Disk::query()->insert($data);
+//        $data = [];
+//        for ($i = 1; $i <= 10; $i++){
+//            $data[] = [
+//                'merchant_id' => 7,
+//                'name' => uniqid($i),
+//                'strategy_update_id' => 0,
+//                'strategy_auth_id' => 0,
+//                'status' => Disk::STATUS_USE,
+//                'run_count' => 0,
+//                'encrypt_count' => 1,
+//                'capacity' => rand(1000,9999),
+//                'usb_serial' => uniqid($i),
+//                'first_time_use' => Carbon::now()->toDateTimeString()
+//            ];
+//        }
+//        Disk::query()->insert($data);
     }
 
     /**

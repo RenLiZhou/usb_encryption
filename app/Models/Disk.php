@@ -13,4 +13,14 @@ class Disk extends BaseModel
     {
         return conversionTime($value);
     }
+
+    public function strategy_auth()
+    {
+        return $this->hasOne(StrategyAuth::class, 'id', 'strategy_auth_id');
+    }
+
+    public function strategy_update()
+    {
+        return $this->hasOne(StrategyUpdate::class, 'id', 'strategy_update_id');
+    }
 }

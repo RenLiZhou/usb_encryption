@@ -8,7 +8,7 @@
 @section("content")
     <div class="admin-main layui-anim layui-anim-upbit">
         <fieldset class="layui-elem-field">
-            <legend>配置权限</legend>
+            <legend>配置版本权限</legend>
             <div class="layui-field-box">
                 <form class="layui-form layui-form-pane">
                     <ul id="ztree" class="ztree"></ul>

@@ -93,6 +93,11 @@ class ResourceService{
         return $this->resource->move($path, $new_path);
     }
 
+    //是否是文件夹
+    public function put($path, $contents, $options = []){
+        return $this->resource->put($path, $contents, $options);
+    }
+
     //文件夹下文件夹和文件
     public function getDirectoriesFiles($path, $root_directory){
         $data = [];

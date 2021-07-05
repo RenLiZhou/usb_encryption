@@ -9,6 +9,9 @@ Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant'], function () {
 
         Route::get('overview', 'indexController@overview')->name('merchant.overview');  //概括
 
+        Route::get('update_password', 'indexController@editPassword')->name('merchant.password.edit');  //修改密码
+        Route::post('update_password', 'indexController@updatePassword')->name('merchant.password.update');  //修改密码
+
         Route::group(['middleware' => 'merchant.permission'], function () {
             //路由模块控制权限
 
@@ -75,6 +78,7 @@ Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant'], function () {
                 Route::post('move', 'FilesController@move')->name('merchant.file.move'); //移动文件
                 Route::post('create_folder', 'FilesController@createFolder')->name('merchant.file.create_folder'); //新建文件夹
                 Route::post('rename', 'FilesController@rename')->name('merchant.file.rename'); //重命名
+                Route::post('upload', 'FilesController@uploadFile')->name('merchant.file.upload'); //上传文件
             });
         });
     });

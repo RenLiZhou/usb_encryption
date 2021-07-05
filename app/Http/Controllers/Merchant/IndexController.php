@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Merchant;
 
+use App\Models\Merchant;
 use App\Models\MerchantVersionRelation;
 use App\Service\MerchantService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Validator;
 
 class IndexController extends Controller
 {
@@ -17,11 +21,14 @@ class IndexController extends Controller
      * 首页
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(){
-        $merchant = Auth::guard('merchant')->user();
+    public function index(Request $request){
+        $merchant = Auth::guard('merchant')->user()
+            ->with('version')
+            ->first();
         $menus = $merchant->getMerchantRules();
         $menus = MerchantService::treeMenu($menus);
-        return view($this->v . 'index', compact('merchant', 'menus'));
+        $merchant_timezone = $request->cookie('merchant_timezone', 'local');
+        return view($this->v . 'index', compact('merchant', 'menus', 'merchant_timezone'));
     }
 
     /**
@@ -33,5 +40,45 @@ class IndexController extends Controller
             ->with(['version','language'])
             ->first();
         return view($this->v . 'overview', compact('merchant'));
+    }
+
+    /**
+     * 修改密码
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editPassword(){
+        $merchant = Auth::guard('merchant')->user();
+        return view($this->v . 'edit_password', compact('merchant'));
+    }
+
+    /**
+     * 修改密码
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function updatePassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'password' => 'required'
+        ],[
+            'old_password.required' => '原始密码为空',
+            'password.required' => '新密码为空'
+        ]);
+        $error = $validator->errors()->first();
+        if ($error) return responseError($error);
+
+        $merchant = Auth::guard('merchant')->user();
+
+        $old_password = $request->old_password;
+        $password = $request->password;
+
+        $compare = password_verify($old_password, $merchant->password);
+        if ($compare === false){
+            return responseError('原始密码不正确');
+        }
+
+        $merchant->password = password_hash($password, PASSWORD_DEFAULT, ['cost' => Merchant::PWD_COST]);
+        $merchant->save();
+
+        return responseSuccess();
     }
 }

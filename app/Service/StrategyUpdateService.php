@@ -12,7 +12,8 @@ class StrategyUpdateService{
      * 新建策略
      */
     public static function createStrategy($params){
-        $merchant_id = Auth::guard('merchant')->id();
+        $merchant = Auth::guard('merchant')->user();
+        $merchant_id = $merchant->id;
 
         $name = $params['name']??'New Strategy';
         $hint = $params['hint']??StrategyUpdate::NOT_AUTO_UPDATE;
@@ -47,17 +48,27 @@ class StrategyUpdateService{
 
             if($createStrategy){
                 $insert_files = [];
+                $ResourceService = new ResourceService();
                 foreach ($files as $value){
-                    if(!empty($value['name']) && !empty($value['size']) && !empty($value['type']) && !empty($value['path'])){
-                        $insert_files[] = [
-                            'strategy_id' => $createStrategy->id,
-                            'name' => $value['name'],
-                            'size' => $value['size'],
-                            'type' => $value['type'],
-                            'path' => $value['path'],
-                            'updated_at' => date('Y-m-d H:i:s'),
-                            'created_at' => date('Y-m-d H:i:s')
-                        ];
+                    $path = $ResourceService->checkPath($value);
+
+                    //过滤掉不存在的数据
+                    if($path != false){
+                        $real_path = $merchant->root_directory . $path;
+                        //文件不存在 //判断是不是文件夹
+                        if($ResourceService->exists($real_path) && !$ResourceService->isDirectory($real_path)){
+                            $name = $ResourceService->basename($real_path);
+                            $type = explode('.', $name);
+                            $insert_files[] = [
+                                'strategy_id' => $createStrategy->id,
+                                'name' => $name,
+                                'size' => $ResourceService->size($real_path),
+                                'type' => $type[count($type)-1],
+                                'path' => $path,
+                                'updated_at' => date('Y-m-d H:i:s'),
+                                'created_at' => date('Y-m-d H:i:s')
+                            ];
+                        }
                     }
                 }
 
@@ -80,7 +91,8 @@ class StrategyUpdateService{
      * 编辑策略
      */
     public static function updateStrategy($strategy_id, $params){
-        $merchant_id = Auth::guard('merchant')->id();
+        $merchant = Auth::guard('merchant')->user();
+        $merchant_id = $merchant->id;
 
         $strategy = StrategyUpdate::query()->where('merchant_id', $merchant_id)->findOrFail($strategy_id);
 
@@ -112,22 +124,33 @@ class StrategyUpdateService{
             $updateStrategy = $strategy->save();
 
             if($updateStrategy){
-                $strategy->files()->delete();
+
+                $ResourceService = new ResourceService();
                 $insert_files = [];
                 foreach ($files as $value){
-                    if(!empty($value['name']) && !empty($value['size']) && !empty($value['type']) && !empty($value['path'])){
-                        $insert_files[] = [
-                            'strategy_id' => $strategy_id,
-                            'name' => $value['name'],
-                            'size' => $value['size'],
-                            'type' => $value['type'],
-                            'path' => $value['path'],
-                            'updated_at' => date('Y-m-d H:i:s'),
-                            'created_at' => date('Y-m-d H:i:s')
-                        ];
+                    $path = $ResourceService->checkPath($value);
+
+                    //过滤掉不存在的数据
+                    if($path != false){
+                        $real_path = $merchant->root_directory . $path;
+                        //文件不存在 //判断是不是文件夹
+                        if($ResourceService->exists($real_path) && !$ResourceService->isDirectory($real_path)){
+                            $name = $ResourceService->basename($real_path);
+                            $type = explode('.', $name);
+                            $insert_files[] = [
+                                'strategy_id' => $strategy_id,
+                                'name' => $name,
+                                'size' => $ResourceService->size($real_path),
+                                'type' => $type[count($type)-1],
+                                'path' => $path,
+                                'updated_at' => date('Y-m-d H:i:s'),
+                                'created_at' => date('Y-m-d H:i:s')
+                            ];
+                        }
                     }
                 }
 
+                $strategy->files()->delete();
                 if(!empty($insert_files)){
                     StrategyUpdateFiles::query()->insert($insert_files);
                 }

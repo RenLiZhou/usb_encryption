@@ -6,7 +6,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商户名称</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="name" lay-verify="required" value="{{ $merchant->name }}" placeholder="请输入用户名">
+                    <input type="text" class="layui-input" name="name" lay-verify="required" value="{{ $merchant->name }}" placeholder="请输入商户名称">
                 </div>
             </div>
 
@@ -25,7 +25,7 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">有效期</label>
+                <label class="layui-form-label">有效期设置</label>
                 <div class="layui-input-block">
                     <input type="text" class="layui-input @if($merchant->is_permanent == 1) layui-disabled @endif" id="expire_date" name="expire_date" value="{{ $merchant->expire_time }}" placeholder="请设置有效期" @if($merchant->is_permanent == 1) disabled @endif>
                     <input type="checkbox" id="expire_perpetual" @if($merchant->is_permanent == 1) checked @endif lay-filter="expire_perpetual" name="expire_perpetual" value="1" title="永久有效" lay-skin="primary">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">版本</label>
+                <label class="layui-form-label">选择版本</label>
                 <div class="layui-input-block">
                     <select name="version_id" lay-verify="required">
                         <option value="">请选择版本</option>
@@ -45,7 +45,42 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">语言</label>
+                <label class="layui-form-label">总授权数量</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input layui-disabled" value="{{ empty($merchant->version[0]) ? 0 : $merchant->version[0]->disk_number+$merchant->add_auth_count }}" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">已消耗授权数量</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input layui-disabled" value="{{ $merchant->auth_number }}" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">剩余授权数量</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input layui-disabled" value="{{ empty($merchant->version[0]) ? 0 : $merchant->version[0]->disk_number+$merchant->add_auth_count-$merchant->auth_number }}" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">额外授权数量</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" name="add_auth_count" value="{{ $merchant->add_auth_count }}" placeholder="请设置额外授权数量">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">文档目录</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input layui-disabled" value="{{ $merchant->root_directory }}" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择语言</label>
                 <div class="layui-input-block">
                     <select name="language_id" lay-verify="required">
                         <option value="">请选择语言</option>
@@ -61,27 +96,6 @@
                 <div class="layui-input-block">
                     <input type="radio" name="status" value="1" title="正常" @if($merchant->status == 1) checked @endif>
                     <input type="radio" name="status" value="0" title="禁用" @if($merchant->status == 0) checked @endif>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">已授权数量</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input layui-disabled" value="{{ $merchant->auth_number }}" disabled>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">跟目录</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input layui-disabled" value="{{ $merchant->root_directory }}" disabled>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">额外授权数量</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="add_auth_count" value="{{ $merchant->add_auth_count }}" placeholder="请输入邮箱">
                 </div>
             </div>
 

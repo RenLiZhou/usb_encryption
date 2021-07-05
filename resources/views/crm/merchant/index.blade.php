@@ -21,18 +21,19 @@
     <div class="layui-form">
         <table class="layui-table">
             <thead>
-                <th>ID</th>
+                <th>编号</th>
                 <th>商户名称</th>
-                <th>商户名</th>
+                <th>登录名</th>
                 <th>邮箱</th>
-                <th>状态</th>
-                <th>过期时间</th>
-                <th>版本</th>
-                <th>语言</th>
+                <th>购买版本</th>
+                <th>有效期</th>
+                <th>总授权数量</th>
                 <th>已授权数量</th>
                 <th>额外授权数量</th>
-                <th>存储目录</th>
+                <th>状态</th>
+                <th>备注</th>
                 <th>创建时间</th>
+                <th>更新时间</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -43,17 +44,18 @@
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->username }}</td>
                 <td>{{ $data->email }}</td>
+                <td>{{ !empty($data->version[0]) ? $data->version[0]->title_name : '' }}</td>
+                <td>{{ $data->expire_date }}</td>
+                <td>{{ empty($data->version[0]) ? 0 : $data->version[0]->disk_number+$data->add_auth_count }}</td>
+                <td>{{ $data->auth_number }}</td>
+                <td>{{ $data->add_auth_count }}</td>
                 <td>
                     <input data-url="{{ route('crm.merchant.active', ['merchant' => $data->id]) }}" data-type="PUT" type="checkbox" name="status"
                            lay-skin="switch" lay-filter="active" lay-text="启用|禁用" @if($data->status==1) checked @endif>
                 </td>
-                <td>{{ $data->expire_date }}</td>
-                <td>{{ !empty($data->version[0]) ? $data->version[0]->title_name : '' }}</td>
-                <td>{{ !empty($data->language->desc) ? $data->language->desc : '' }}</td>
-                <td>{{ $data->auth_number }}</td>
-                <td>{{ $data->add_auth_count }}</td>
-                <td>{{ $data->root_directory }}</td>
+                <td>{{ $data->remarks }}</td>
                 <td>{{ $data->created_at }}</td>
+                <td>{{ $data->updated_at }}</td>
                 <td>
                     @crm_permission('crm.merchant.edit')
                     <a data-url="{{ route('crm.merchant.edit', ['merchant' => $data->id]) }}" class="layui-btn layui-btn-xs edit">

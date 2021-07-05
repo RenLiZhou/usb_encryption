@@ -10,11 +10,13 @@
 	  	<table class="layui-table">
 		    <thead>
 				<tr>
-					<th style="min-width: 50px;width: 50px;">ID</th>
-					<th>版本名</th>
+					<th style="min-width: 50px;width: 50px;">编号</th>
+					<th>版本名称</th>
                     <th>可加密U盘数量</th>
-                    <th>价格</th>
-                    <th>额外授权价格/每个</th>
+                    <th>售价</th>
+                    <th>额外授权价格</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
 					<th style="min-width: 230px;width: 230px;">操作</th>
 				</tr>
 		    </thead>
@@ -22,10 +24,12 @@
 			@foreach ($datas as $data)
 				<tr>
 					<td>{{ $data->id }}</td>
-					<td class="role-name">{{ $data->title_name }}</td>
-                    <td class="role-name">{{ $data->disk_number }}</td>
-                    <td class="role-name">{{ $data->price }}</td>
-                    <td class="role-name">{{ $data->extra_price }}</td>
+					<td>{{ $data->title_name }}</td>
+                    <td>{{ $data->disk_number }}</td>
+                    <td>{{ $data->price }}</td>
+                    <td>{{ $data->extra_price }}</td>
+                    <td>{{ $data->created_at }}</td>
+                    <td>{{ $data->updated_at }}</td>
 					<td>
 						@crm_permission('crm.merchant.version.edit')
 						<a class="layui-btn layui-btn-xs edit"  data-url="{{ route('crm.merchant.version.edit', ['version' => $data->id]) }}">

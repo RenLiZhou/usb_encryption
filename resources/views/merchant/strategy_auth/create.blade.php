@@ -43,6 +43,7 @@
                                         <span class="col-sm-4 ml15 m-t-10">
                                             <input type="text" class="form-control form_day" name="expired_day" disabled value=""/>
                                         </span>
+                                        <span class="layui-inline" style="position: relative;top:19px;">天内有效</span>
                                     </div>
                                     <div class="clearfix">
                                         <label class="ftdms-radio radio-primary mt20 pull-left">

@@ -5,16 +5,16 @@
         <form class="layui-form layui-form-pane"  style="width:95%;">
 
             <div class="layui-form-item">
-                <label class="layui-form-label">标识</label>
+                <label class="layui-form-label">语言包标识</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="name" lay-verify="required" placeholder="请输入标识">
+                    <input type="text" class="layui-input" name="name" lay-verify="required" placeholder="请输入语言包标识">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">语言名称</label>
+                <label class="layui-form-label">语言包备注</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="desc" lay-verify="required" placeholder="请输入语言名称">
+                    <input type="text" class="layui-input" name="desc" lay-verify="required" placeholder="请输入语言包备注">
                 </div>
             </div>
 

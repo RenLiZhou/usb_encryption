@@ -6,14 +6,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商户名称</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="name" lay-verify="required" placeholder="请输入用户名">
+                    <input type="text" class="layui-input" name="name" lay-verify="required" placeholder="请输入商户名称">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">登录名</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="username" lay-verify="required" placeholder="请输入用户名(登录名)">
+                    <input type="text" class="layui-input" name="username" lay-verify="required" placeholder="请输入登录名">
                 </div>
             </div>
 
@@ -25,7 +25,7 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">有效期(UTC)</label>
+                <label class="layui-form-label">有效期设置</label>
                 <div class="layui-input-block">
                     <input type="text" class="layui-input" id="expire_date" name="expire_date" placeholder="请设置有效期">
                     <input type="checkbox" id="expire_perpetual" lay-filter="expire_perpetual" name="expire_perpetual" value="1" title="永久有效" lay-skin="primary">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">版本</label>
+                <label class="layui-form-label">选择版本</label>
                 <div class="layui-input-block">
                     <select name="version_id" lay-verify="required">
                         <option value="">请选择版本</option>
@@ -45,7 +45,7 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">语言</label>
+                <label class="layui-form-label">选择语言</label>
                 <div class="layui-input-block">
                     <select name="language_id" lay-verify="required">
                         <option value="">请选择语言</option>
@@ -74,7 +74,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">确认密码</label>
                 <div class="layui-input-block">
-                    <input type="password" id="password_confirmation" required lay-verify="required" placeholder="请输再次输入密码" autocomplete="off" class="layui-input">
+                    <input type="password" id="password_confirmation" required lay-verify="required" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
                 </div>
             </div>
 

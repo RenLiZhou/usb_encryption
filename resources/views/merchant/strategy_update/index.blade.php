@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>U盘列表</title>
+    <title>文件更新策略</title>
 @endsection
 
 @section("css")
@@ -18,7 +18,7 @@
             <div class="row mt15 mb60">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><h4>更新策略</h4></div>
+                        <div class="card-header"><h4>文件更新策略</h4></div>
                         <!--搜索-->
                         <div class="card-toolbar clearfix">
                             <div class="row">

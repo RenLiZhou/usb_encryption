@@ -5,23 +5,23 @@
         <form class="layui-form layui-form-pane"  style="width:95%;">
 
             <div class="layui-form-item">
-                <label class="layui-form-label">版本名</label>
+                <label class="layui-form-label">版本名称</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="name" lay-verify="required" placeholder="请输入版本名">
+                    <input type="text" class="layui-input" name="name" lay-verify="required" placeholder="请输入版本名称">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">U盘数量</label>
+                <label class="layui-form-label">可加密U盘数量</label>
                 <div class="layui-input-block">
                     <input type="number" class="layui-input" name="disk_number" lay-verify="required" placeholder="请输入可加密U盘数量">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">价格</label>
+                <label class="layui-form-label">售价</label>
                 <div class="layui-input-block">
-                    <input type="number" class="layui-input" name="price" lay-verify="required" placeholder="请输入价格">
+                    <input type="number" class="layui-input" name="price" lay-verify="required" placeholder="请输入售价">
                 </div>
             </div>
 

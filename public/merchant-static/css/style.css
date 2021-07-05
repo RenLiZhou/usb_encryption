@@ -3362,3 +3362,175 @@ dd, dt {
     border: none;
     width: 262px;
 }
+
+
+/*文件夹*/
+.file-col-row{
+    height:16px;
+}
+.file-col-row span{
+    font-size: 28px;
+    position: relative;
+    top:-10px;
+}
+.file_manager_col{
+    padding: 0px;
+    display: block;
+}
+.file_manager_col li{
+    position: relative;
+    border: 1px #fff solid;
+    float: left;
+    width: 8.6%;
+    height: 7.8vw;
+    padding: 1vw 1%;
+    overflow: hidden;
+    margin:0px 0.7% 0.7vw;
+    border-radius: 7px;
+    background: none;
+}
+.file_manager_col li .checkbox{
+    display: none;
+    position: absolute;
+    top:0.3vw;
+    right:0.3vw;
+    height:17px;
+    width: 17px;
+}
+.file_manager_col li img.folder-img{
+    display: block;
+    width: 60%;
+    margin: 0 20%;
+}
+
+.file_manager_col li .name{
+    margin-top: 0.3vw;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0px;
+}
+
+.file_manager_col li.active,.file_manager_col li:hover{
+    background: #efefef;
+}
+
+.file_manager_col li.active .checkbox,.file_manager_col li:hover .checkbox{
+    display: block;
+}
+
+.file_manager_col li .tool{
+    display: none;
+}
+
+
+.file_manager_row{
+    padding: 0px;
+    display: block;
+}
+.file_manager_row li{
+    border-bottom: 1px #eee solid;
+    width: 98%;
+    padding: 15px 1%;
+    height:64px;
+    overflow: hidden;
+    background: none;
+}
+.file_manager_row li .checkbox{
+    height:16px;
+    width: 16px;
+    float: left;
+    margin-top:9px;
+}
+
+.file_manager_row li img.folder-img{
+    width: 35px;
+    float: left;
+    margin-left: 15px;
+}
+
+.file_manager_row li.top-folder-item img.folder-img{
+    margin-left:30px;
+}
+
+.file_manager_row li .name{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0px;
+    float: left;
+    line-height: 34px;
+    margin-left: 8px;
+}
+
+.file_manager_row li .tool{
+    float: right;
+    margin-left: 17px;
+    line-height: 34px;
+    cursor:pointer;
+}
+
+.file_manager_row li.active,.file_manager_row li:hover{
+    background: #efefef;
+}
+
+
+.rightMenu {
+    position: fixed;
+    display: none;
+    padding: 8px 20px 8px 4px;
+    border: 1px solid #eee;
+    background: #fff;
+    box-shadow: 0 0 3px #eee;
+    font-size: 14px;
+    color: #66757f;
+}
+.rightMenu li {
+    display: block;
+    cursor: pointer;
+    line-height: 32px;
+}
+.rightMenu li:hover {
+    color: #7ebee3;
+    border-color: #7ebee3;
+}
+.rightMenu li:before {
+    float: left;
+    width: 26px;
+    text-align: center;
+}
+
+
+.folder-modal.treeview span.node-icon{
+    width: 20px;
+    font-size: 24px;
+    position: relative;
+    top:5px;
+    margin-right: 13px;
+}
+
+.folder-modal.treeview span.folder{
+    color: #FFD977;
+}
+
+.folder-modal.treeview span.file{
+    color: #ccc;
+}
+
+.folder-modal.treeview span.expand-icon{
+    font-size: 20px;
+    position: relative;
+    top: 2px;
+    color: #ccc;
+}
+.folder-modal .node-procitytree{
+    padding: 2px 15px;
+}
+.folder-modal.treeview span.empty_icon{
+    width: 20px;
+    height: 30px;
+    display: block;
+    float: left;
+}

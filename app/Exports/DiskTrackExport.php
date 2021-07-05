@@ -30,7 +30,7 @@ class DiskTrackExport implements FromCollection, WithHeadings, WithStrictNullCom
      */
     public function headings(): array
     {
-        return ['ID', 'u盘ID', '事件名', '事件详情', '	操作IP', '机器码', '时间'];
+        return ['ID','用户', '事件名', '事件详情', '时间', '计算机', 'IP地址'];
     }
 
     /**
@@ -42,12 +42,12 @@ class DiskTrackExport implements FromCollection, WithHeadings, WithStrictNullCom
     {
         return [
             $row->id,
-            $row->disk_id,
+            $row->event_username,
             $row->event_name,
             $row->event_desc,
-            $row->ip,
+            $row->created_at,
             $row->machine_code,
-            $row->created_at
+            $row->ip
         ];
     }
 }

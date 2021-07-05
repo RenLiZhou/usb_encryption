@@ -38,20 +38,48 @@
                             </ul>
                         </div>
                         <div class="nav-no-collapse pull-right" id="header-nav">
-                            <ul class="nav navbar-nav pull-right">
+                            <ul class="nav navbar-nav">
                                 <li class="dropdown profile-dropdown">
                                     <a class="dropdown" href="#" data-toggle="dropdown">
-                                        <img class="img-qrcode img-qrcode-46" src="{{ asset('merchant-static/images/ftsucai.png')}}" />
-                                        <span class="hidden-xs">&nbsp;&nbsp;bootstrap中文&nbsp;-&nbsp;管理员</span>
+                                        <span class="hidden-xs">
+                                            @if($merchant_timezone == 'local')
+                                                本地时区
+                                            @else
+                                                UTC时区
+                                            @endif
+                                        </span>
+                                        <i class="ftsucai-100 m-l-5" style="position: relative;top:2px;"></i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
                                         <li>
-                                            <a class="submenuitem" href="pages_edit_pwd.html" data-id="linkpwd" data-index="101">
+                                            <a href="javascript:;" onclick="TObj.switchLanguage('utc')">
+                                                UTC时区
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" onclick="TObj.switchLanguage('local')">
+                                                本地时区
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown profile-dropdown">
+                                    <a class="dropdown" href="#" data-toggle="dropdown">
+                                        <span class="hidden-xs">{{ $merchant->name }}-{{ $merchant->version[0]->title_name }}</span>
+                                        <i class="ftsucai-100 m-l-5" style="position: relative;top:2px;"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a class="editPassword" href="javascript:;" data-url="{{ route("merchant.password.edit") }}">
                                                 <i class="ft ftsucai-edit-2"></i>修改密码
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route("merchant.logout") }}"><i class="ft ftsucai-exit2"></i>安全退出</a>
+                                            <a href="{{ route("merchant.logout") }}">
+                                                <i class="ft ftsucai-exit2"></i>安全退出
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -86,7 +114,7 @@
                                                     <ul class="submenu">
                                                         @foreach($menu['children'] as $children)
                                                             <li>
-                                                                <a class="submenuitem" href="{{ $children['href'] }}" data-id="link{{ $children['id'] }}">{{ $children['title'] }}</a>
+                                                                <a class="submenuitem tabCloseOther" href="{{ $children['href'] }}" data-id="link{{ $children['id'] }}">{{ $children['title'] }}</a>
                                                             </li>
                                                         @endforeach
                                                     </ul>
@@ -126,4 +154,34 @@
     <script src="{{ asset('merchant-static/js/index.js') }}"></script>
     <script src="{{ asset('merchant-static/js/indextab.js') }}"></script>
     <script src="{{ asset('merchant-static/js/pace.min.js') }}"></script>
+    <script>
+        var TObject = function(){
+            var _self = this;
+
+            this.formObj = $("#formsubmit");
+
+            this.init = function() {
+                $(".editPassword").click(function () {
+                    var index = _jM.dialogPop({
+                        'title': '修改密码',
+                        'content': $(this).attr('data-url'),
+                        'area': ['54%', '60%'],
+                        'maxmin': false
+                    });
+                    layer.full(index);
+                });
+            }
+
+            this.switchLanguage = function(type = 'local'){
+                var type = type == 'utc'?'utc':'local';
+                _jM.setCookie('merchant_timezone', type, 86400*10, '/');
+                location.reload();
+            }
+        }
+
+        var TObj = new TObject();
+        $(document).ready(function(){
+            TObj.init();
+        })
+    </script>
 @endsection

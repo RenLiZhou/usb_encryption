@@ -96,6 +96,11 @@ jModule.prototype.validate = {
         v = $.trim(v);
         return v!=null && v.length>=min && v.length<=max;
     },
+    // 文件&文件夹可用名
+    isFileName : function(v){
+        v = $.trim(v);
+        return v.match('^[^\\\\\\/:*?\\"<>|]+$');
+    },
     //截取
     replace: function(obj){
         let a = obj.toString().split('.');

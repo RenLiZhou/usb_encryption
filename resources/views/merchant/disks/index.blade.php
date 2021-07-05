@@ -26,13 +26,13 @@
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button">物理序列号</button>
                                                 </span>
-                                                <input type="text" class="form-control" name="usb_serial" placeholder="请输入物理序列号..." value="{{ $search_data['usb_serial'] }}" >
+                                                <input type="text" class="form-control" name="usb_serial" placeholder="请输入物理序列号" value="{{ $search_data['usb_serial'] }}" >
                                             </div>
                                             <div class="input-group col-md-3">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">备注名</button>
+                                                    <button class="btn btn-default" type="button">U盘备注名</button>
                                                 </span>
-                                                <input type="text" class="form-control" name="name" placeholder="请输入备注名..." value="{{ $search_data['name'] }}" >
+                                                <input type="text" class="form-control" name="name" placeholder="请输入U盘备注名" value="{{ $search_data['name'] }}" >
                                             </div>
                                             <div class="form-group">
                                                 <button class="btn btn btn-dark pull-left ml15" id="searchBtn" type="button">搜索</button>
@@ -60,16 +60,18 @@
                                                     <input type="checkbox" onchange="_jM.checkAll(this, 'ids[]')"><span></span>
                                                 </label>
                                             </th>
+                                            <th>ID</th>
                                             <th>物理序列号</th>
-                                            <th>备注名</th>
-                                            <th>容量</th>
-                                            <th>已加密次数</th>
+                                            <th>U盘备注名</th>
+                                            <th>U盘容量</th>
+                                            <th>U盘被加密次数</th>
                                             <th>更新策略</th>
                                             <th>权限策略</th>
-                                            <th>有效期</th>
-                                            <th>运行次数/总次数</th>
+                                            <th>U盘有效期</th>
+                                            <th>运行次数/允许运行次数</th>
                                             <th>状态</th>
                                             <th>创建时间</th>
+                                            <th>更新时间</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
@@ -81,14 +83,15 @@
                                                     <input type="checkbox" name="ids[]" value="{{ $data->id }}"><span></span>
                                                 </label>
                                             </td>
+                                            <td>{{ $data->id }}</td>
                                             <td>{{ $data->usb_serial }}</td>
                                             <td>{{ $data->name }}</td>
-                                            <td>{{ $data->capacity }}</td>
-                                            <td>{{ $data->encrypt_count }}</td>
-                                            <td>{{ $data->strategy_update_id }}</td>
-                                            <td>{{ $data->strategy_auth_id }}</td>
+                                            <td>{{ round($data->capacity/1024/1024/1024,2) }}GB</td>
+                                            <td>{{ $data->encrypt_count }}次</td>
+                                            <td>{{ empty($data->strategy_update)? '无' : $data->strategy_update->name }}</td>
+                                            <td>{{ empty($data->strategy_auth)? '无' : $data->strategy_auth->name }}</td>
                                             <td>{{ $data->first_time_use }}</td>
-                                            <td>{{ $data->run_count }}/{{ $data->run_count }}</td>
+                                            <td>{{ $data->run_count }}/{{ $disk_encryption_count }}</td>
                                             <td>
                                                 <label class="ftdms-switch switch-solid switch-primary">
                                                     <input type="checkbox" class="active" @if($data->status == 0) checked @endif
@@ -97,6 +100,7 @@
                                                 </label>
                                             </td>
                                             <td>{{ $data->created_at }}</td>
+                                            <td>{{ $data->updated_at }}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default record" title="使用轨迹" data-toggle="tooltip" data-url="{{ route('merchant.disk.track', ['disk' => $data->id]) }}">

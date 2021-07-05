@@ -54,12 +54,12 @@ class RulesController extends Controller
     public function update(Request $request, CrmRule $rule)
     {
         $params = $request->all();
-        if (isset($params['pid']) && $params['pid'] != $rule->pid) {
-            $son_count = CrmRule::where('pid', $rule->id)->count();
-            if ($son_count > 0){
-                return responseError('该权限下面有子级，不能移动');
-            }
-        }
+//        if (isset($params['pid']) && $params['pid'] != $rule->pid) {
+//            $son_count = CrmRule::where('pid', $rule->id)->count();
+//            if ($son_count > 0){
+//                return responseError('该权限下面有子级，不能移动');
+//            }
+//        }
 
         $data = [
             'pid' => $params['pid']??$rule->pid,

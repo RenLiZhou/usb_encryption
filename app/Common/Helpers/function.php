@@ -93,12 +93,18 @@ if (!function_exists('conversionTime')) {
     function conversionTime($time, $format = 'Y-m-d H:i:s')
     {
         //当前设置的时区
-        $timezone = 'local';
+        $timezone = request()->cookie('merchant_timezone')??'local';
         $date = "";
-
         if(!empty($time)){
+            $ip_info = geoip()->getLocation(request()->ip());
+            $offset = date_offset_get(date_create(null, timezone_open($ip_info->timezone)));
+
+            if(request()->ip() == '127.0.0.1'){
+                $offset = 28800;
+            }
+
             if(strtolower($timezone) == 'local'){
-                $date = Carbon::parse($time)->addHours(8)->format($format);
+                $date = Carbon::parse($time)->addSeconds($offset)->format($format);
             }else{
                 $date = Carbon::parse($time)->format($format);
             }
@@ -117,12 +123,19 @@ if (!function_exists('conversionSetTime')) {
     function conversionSetTime($time, $format = 'Y-m-d H:i:s')
     {
         //当前设置的时区
-        $timezone = 'local';
+        $timezone = request()->cookie('merchant_timezone')??'local';
         $date = "";
 
         if(!empty($time)){
+            $ip_info = geoip()->getLocation(request()->ip());
+            $offset = date_offset_get(date_create(null, timezone_open($ip_info->timezone)));
+
+            if(request()->ip() == '127.0.0.1'){
+                $offset = 28800;
+            }
+
             if(strtolower($timezone) == 'local'){
-                $date = Carbon::parse($time)->subHours(8)->format($format);
+                $date = Carbon::parse($time)->addSeconds($offset)->format($format);
             }else{
                 $date = Carbon::parse($time)->format($format);
             }

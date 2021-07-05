@@ -39,24 +39,24 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>u盘ID</th>
+                                            <th>用户</th>
                                             <th>事件名</th>
                                             <th>事件详情</th>
-                                            <th>操作IP</th>
-                                            <th>机器码</th>
                                             <th>时间</th>
+                                            <th>计算机</th>
+                                            <th>操作IP</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($datas as $data)
                                         <tr>
                                             <td>{{ $data->id }}</td>
-                                            <td>{{ $data->disk_id }}</td>
+                                            <td>{{ $data->event_username }}</td>
                                             <td>{{ $data->event_name }}</td>
                                             <td>{{ $data->event_desc }}</td>
-                                            <td>{{ $data->ip }}</td>
-                                            <td>{{ $data->machine_code }}</td>
                                             <td>{{ $data->created_at }}</td>
+                                            <td>{{ $data->machine_code }}</td>
+                                            <td>{{ $data->ip }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
