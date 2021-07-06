@@ -3413,6 +3413,17 @@ dd, dt {
     margin-bottom: 0px;
 }
 
+.file_manager_col li .update_time,
+.file_manager_col li .size,
+.file_manager_col li .type,
+.file_manager_col li .hander{
+    display: none;
+}
+
+.file_manager_col li.title-folder-item{
+    display: none;
+}
+
 .file_manager_col li.active,.file_manager_col li:hover{
     background: #efefef;
 }
@@ -3451,7 +3462,7 @@ dd, dt {
     margin-left: 15px;
 }
 
-.file_manager_row li.top-folder-item img.folder-img{
+.file_manager_row li.top-folder-item img.folder-img,.file_manager_row li.title-folder-item img.folder-img{
     margin-left:30px;
 }
 
@@ -3463,13 +3474,41 @@ dd, dt {
     float: left;
     line-height: 34px;
     margin-left: 8px;
+    width: 30%;
+}
+
+.file_manager_row li .update_time,
+.file_manager_row li .size,
+.file_manager_row li .type,
+.file_manager_row li .hander{
+    width: 16%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0px;
+    float: left;
+    line-height: 34px;
+    margin-left: 8px;
+}
+
+.file_manager_row li .hander{
+    float: right;
+    text-align: right;
+}
+
+.file_manager_row li .type {
+    width: 12%;
+}
+
+.file_manager_row li.title-folder-item .name{
+    margin-left: 75px;
 }
 
 .file_manager_row li .tool{
-    float: right;
     margin-left: 17px;
     line-height: 34px;
     cursor:pointer;
+    float: right;
 }
 
 .file_manager_row li.active,.file_manager_row li:hover{
@@ -3501,7 +3540,6 @@ dd, dt {
     width: 26px;
     text-align: center;
 }
-
 
 .folder-modal.treeview span.node-icon{
     width: 20px;

@@ -800,7 +800,16 @@
                             _html += "</li>";
                         }
 
-                        //位置数据
+                        //列表样式标题
+                        _html += "<li class='title-folder-item'>";
+                        _html += "    <p class='name '>文件名</p>";
+                        _html += "    <p class='update_time'>更新时间</p>";
+                        _html += "    <p class='type'>类型</p>";
+                        _html += "    <p class='size'>大小</p>";
+                        _html += "    <p class='hander'>操作</p>";
+                        _html += "</li>";
+
+                        //文档位置数据
                         var path_arr = resData.current_path.split('/');
                         var path_site_html = '<span class="m-r-10">/我的文档</span>';
                         for(const path_site in path_arr){
@@ -811,25 +820,24 @@
                         $("#pathSite").html(path_site_html);
 
                         for (var i=0; i < pathData.length; i++){
-                            if(pathData[i].type == 'folder'){
-                                _html += "<li class='folder-item' data-path='"+ pathData[i].path +"' data-name='"+ pathData[i].name +"' data-type='folder'>";
-                                _html += "    <input class='checkbox checkbox-warning' type='checkbox' value='"+ pathData[i].path +"' name='files[]' />";
+                            _html += "<li class='folder-item' data-path='"+ pathData[i].path +"' data-name='"+ pathData[i].name +"' data-type='"+ pathData[i].type +"'>";
+                            _html += "    <input class='checkbox checkbox-warning' type='checkbox' value='"+ pathData[i].path +"' name='files[]' />";
+                            var type = '';
+                            if(pathData[i].type == 'folder') {
                                 _html += "    <img class='folder-img' src='{{ asset('merchant-static/images/folder.png') }}' />";
-                                _html += "    <p class='name'>"+ pathData[i].name +"</p>";
-                                _html += "    <span class='delete tool' onclick='TObj.moreDelete()'>删除</span>";
-                                _html += "    <span class='move tool' onclick='TObj.moreMoveSelectFolder()'>移动</span>";
-                                _html += "    <span class='rename tool' onclick='TObj.renameOpen()'>重命名</span>";
-                                _html += "</li>";
+                                type = '文件夹';
                             }else{
-                                _html += "<li class='folder-item' data-path='"+ pathData[i].path +"' data-name='"+ pathData[i].name +"' data-type='file'>";
-                                _html += "    <input class='checkbox checkbox-warning' type='checkbox' value='"+ pathData[i].path +"' name='files[]' />";
                                 _html += "    <img class='folder-img' src='{{ asset("merchant-static/images/file.png") }}' />";
-                                _html += "    <p class='name'>"+ pathData[i].name +"</p>";
-                                _html += "    <span class='delete tool' onclick='TObj.moreDelete()'>删除</span>";
-                                _html += "    <span class='move tool' onclick='TObj.moreMove()'>移动</span>";
-                                _html += "    <span class='rename tool' onclick='TObj.renameOpen()'>重命名</span>";
-                                _html += "</li>";
+                                type = pathData[i].name.substr(pathData[i].name.lastIndexOf(".")+1)
                             }
+                            _html += "    <p class='name'>"+ pathData[i].name +"</p>";
+                            _html += "    <p class='update_time'>"+ pathData[i].modify_time +"</p>";
+                            _html += "    <p class='type'>"+ type +"</p>";
+                            _html += "    <p class='size'>"+ (pathData[i].size/1024).toFixed(1) +"kb</p>";
+                            _html += "    <span class='delete tool' onclick='TObj.moreDelete()'>删除</span>";
+                            _html += "    <span class='move tool' onclick='TObj.moreMoveSelectFolder()'>移动</span>";
+                            _html += "    <span class='rename tool' onclick='TObj.renameOpen()'>重命名</span>";
+                            _html += "</li>";
                         }
                         $(_self.folder_id).html(_html);
                     },
