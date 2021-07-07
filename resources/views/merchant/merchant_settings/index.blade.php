@@ -33,8 +33,8 @@
                                         <form id="form_screen_recording">
                                             <div class="card">
                                                 <div class="card-header"><h4>基础设置</h4></div>
-                                                <div class="card-body">
-                                                    <div class="form-group">
+                                                <div class="card-body clearfix">
+                                                    <div class="form-group col-sm-7 clearfix">
                                                         <label>防翻录功能</label>
                                                         <div class="controls-box m-t-10">
                                                             <label class="ftdms-radio radio-inline radio-primary">
@@ -60,10 +60,10 @@
 
                                         <form id="form_watermark">
 
-                                            <div class="card">
+                                            <div class="card clearfix">
                                                 <div class="card-header"><h4>基础设置</h4></div>
-                                                <div class="card-body">
-                                                    <div class="form-group">
+                                                <div class="card-body clearfix">
+                                                    <div class="form-group col-sm-7 clearfix">
                                                         <label>启用水印</label>
                                                         <div class="controls-box m-t-5">
                                                             <label class="ftdms-radio radio-inline radio-primary">
@@ -76,32 +76,32 @@
                                                         <p class="m-t-10 text-cyan">*说明：启用该功能后，在加密后的文件中将显示设置的水印</p>
                                                     </div>
 
-                                                    <div class="form-group">
+                                                    <div class="form-group col-sm-7 clearfix">
                                                         <label>水印内容</label>
                                                         <select class="form-control m-t-5" name="content">
                                                             <option value="1" @if($watermark->data['content'] == 1) selected @endif>U盘物理序列号</option>
                                                             <option value="2" @if($watermark->data['content'] == 2) selected @endif>U盘备注名</option>
                                                         </select>
                                                     </div>
-
+                                                    <br/>
                                                 </div>
                                             </div>
 
-                                            <div class="card">
+                                            <div class="card clearfix">
                                                 <div class="card-header"><h4>水印文字</h4></div>
-                                                <div class="card-body">
-                                                    <div class="form-group">
+                                                <div class="card-body clearfix">
+                                                    <div class="form-group col-sm-7 clearfix">
                                                         <label>字体大小</label>
                                                         <input class="form-control" type="number" name="size" value="{{ $watermark->data['size'] }}" />
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group col-sm-7 clearfix">
                                                         <label>字体颜色</label>
                                                         <div class="colorpicker input-group colorpicker-element">
                                                             <input class="form-control" type="text" name="color" value="{{ $watermark->data['color'] }}" />
                                                             <span class="input-group-addon"><i style="background-color: {{ $watermark->data['color'] }};"></i></span>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group col-sm-7 clearfix">
                                                         <label>透明度(%)</label>
                                                         <input class="transparency" name="transparency" value="{{ $watermark->data['transparency'] }}" />
                                                     </div>
@@ -111,52 +111,63 @@
 
                                             <div class="card">
                                                 <div class="card-header"><h4>视频文件水印</h4></div>
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label>水印样式</label>
-                                                        <div class="example-box m-t-10">
-                                                            <label class="ftdms-radio radio-primary">
-                                                                <input type="radio" name="video_style" value="1" @if($watermark->data['video_style'] == 1) checked @endif />
-                                                                <span>固定水印</span>
-                                                            </label>
-                                                            <p class="m-t-10 text-cyan">*水印位于屏幕右上方</p>
+                                                <div class="card-body clearfix">
+                                                    <div class="col-sm-5 clearfix">
+                                                        <div class="form-group">
+                                                            <label>水印样式</label>
+                                                            <div class="example-box m-t-10 clearfix">
+                                                                <label class="ftdms-radio radio-primary">
+                                                                    <input type="radio" name="video_style" value="1" @if($watermark->data['video_style'] == 1) checked @endif />
+                                                                    <span>固定水印</span>
+                                                                </label>
+                                                                <p class="m-t-10 text-cyan">*水印位于屏幕右上方</p>
 
-                                                            <label class="ftdms-radio radio-primary m-t-10">
-                                                                <input type="radio" name="video_style" value="2" @if($watermark->data['video_style'] == 2) checked @endif />
-                                                                <span>*跑马灯水印</span>
-                                                            </label>
-                                                            <p class="m-t-10 text-cyan">*水印将在视频顶部从左向右移动显示</p>
+                                                                <label class="ftdms-radio radio-primary m-t-10">
+                                                                    <input type="radio" name="video_style" value="2" @if($watermark->data['video_style'] == 2) checked @endif />
+                                                                    <span>*跑马灯水印</span>
+                                                                </label>
+                                                                <p class="m-t-10 text-cyan">*水印将在视频顶部从左向右移动显示</p>
 
-                                                            <label class="ftdms-radio radio-primary m-t-10">
-                                                                <input type="radio" name="video_style" value="3" @if($watermark->data['video_style'] == 3) checked @endif />
-                                                                <span>*四周浮动水印</span>
-                                                            </label>
-                                                            <p class="m-t-10 text-cyan">*水印将随机出现在屏幕四周边缘</p>
+                                                                <label class="ftdms-radio radio-primary m-t-10">
+                                                                    <input type="radio" name="video_style" value="3" @if($watermark->data['video_style'] == 3) checked @endif />
+                                                                    <span>*四周浮动水印</span>
+                                                                </label>
+                                                                <p class="m-t-10 text-cyan">*水印将随机出现在屏幕四周边缘</p>
 
-                                                            <label class="ftdms-radio radio-primary m-t-10">
-                                                                <input type="radio" name="video_style" value="4" @if($watermark->data['video_style'] == 4) checked @endif />
-                                                                <span>*全屏浮动水印</span>
-                                                            </label>
-                                                            <p class="m-t-10 text-cyan">*全屏随机浮动显示水印</p>
+                                                                <label class="ftdms-radio radio-primary m-t-10">
+                                                                    <input type="radio" name="video_style" value="4" @if($watermark->data['video_style'] == 4) checked @endif />
+                                                                    <span>*全屏浮动水印</span>
+                                                                </label>
+                                                                <p class="m-t-10 text-cyan">*全屏随机浮动显示水印</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="form-group m-r-10">
-                                                        <label>浮动水印刷新间隔</label>
-                                                        <div class="input-group m-r-5">
-                                                            <input type="number" class="form-control" name="video_refresh_interval" value="{{ $watermark->data['video_refresh_interval'] }}"/>
-                                                            <span class="input-group-btn">
+                                                        <div class="form-group m-r-10">
+                                                            <label>浮动水印刷新间隔</label>
+                                                            <div class="input-group m-r-5">
+                                                                <input type="number" class="form-control" name="video_refresh_interval" value="{{ $watermark->data['video_refresh_interval'] }}"/>
+                                                                <span class="input-group-btn">
                                                                 <span class="btn btn-default">秒</span>
                                                             </span>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <style>
+
+                                                    </style>
+                                                    <div class="col-lg-7">
+                                                        <div class="video_img" >
+                                                            <img id="video_img" src="" />
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
 
                                             <div class="card">
                                                 <div class="card-header"><h4>PDF&图片水印设置</h4></div>
-                                                <div class="card-body">
-                                                    <div class="form-group">
+                                                <div class="card-body clearfix">
+                                                    <div class="form-group col-sm-7 clearfix">
                                                         <label>Position</label>
                                                         <div class="example-box m-t-10">
                                                             <label class="ftdms-radio radio-primary">
@@ -188,8 +199,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
 
                                             <div class="form-group mt35">
                                                 <button class="btn btn-primary" type="button" data-url="{{ route('merchant.merchant_setting.watermark') }}" data-type="POST" onClick="TObj.WatermarkSubmit(this)">提交</button>
@@ -229,6 +238,36 @@
                     max: 100,
                     from: {{ $watermark->data['transparency'] }}
                 });
+
+                //默认图片
+                $("input[type='radio'][name='video_style']").change(function () {
+                    var video_style = $(this).val();
+                    _self.switchVideoStyle(video_style);
+                })
+
+                _self.switchVideoStyle("{{ $watermark->data['video_style'] }}");
+            }
+
+            this.switchVideoStyle = function (type) {
+
+                var img = "";
+                switch(type){
+                    case '2' :
+                        img = "{{ asset("/merchant-static/images/watermark2.gif") }}";
+                        break;
+                    case '3' :
+                        img = "{{ asset("/merchant-static/images/watermark3.gif") }}"
+                        break;
+                    case '4' :
+                        img = "{{ asset("/merchant-static/images/watermark4.gif") }}"
+                        break;
+                    default :
+                        img = "{{ asset("/merchant-static/images/watermark1.png") }}"
+                        break;
+                }
+                console.log(type);
+                console.log(img);
+                $("#video_img").prop('src', img);
             }
 
             this.ScreeRecordingSubmit = function(obj){

@@ -363,7 +363,7 @@ jModule.prototype.ajax = function (config) {
                 config.success(res.msg, res.data);
                 return false;
             }else if (res.code == 1001) {  // 未登录的逻辑
-                top.location.href = '/merchant/login';
+                window.top.location.href = '/merchant/login';
                 return false;
             }else if (res.code == 1001) {  // 无权限的逻辑
 

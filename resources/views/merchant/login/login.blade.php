@@ -101,7 +101,7 @@
                         },
                         success: function () {
                             _jM.dialogOkMsg('登录成功,正在为您跳转');
-                            location.href="{{ route('merchant.main') }}";
+                            window.top.location.href="{{ route('merchant.main') }}";
                         },
                         complete: function (XMLHttpRequest, textStatus) {
                             _jM.undisabled(obj);

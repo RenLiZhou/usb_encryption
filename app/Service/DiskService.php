@@ -41,7 +41,7 @@ class DiskService{
         $merchant_id = Auth::guard('merchant')->id();
         $disk = Disk::query()->where('merchant_id', $merchant_id)->find($disk_id);
         if($disk === null){
-            return resultError('非法操作');
+            return resultError(__('common.illegal_operation'));
         }
 
         $name = $params['name']??'';

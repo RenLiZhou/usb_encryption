@@ -22,18 +22,29 @@ class MerchantsController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search','');
+        $version = $request->input('version',0);
+
+        $merchant_version = MerchantVersion::query()->get();
 
         $datas = Merchant::query()
             ->when(!empty($search),function ($query) use ($search) {
-                $query->where('username', 'like', "{$search}%");
+                $query->where('name', 'like', "{$search}%");
             })
+            ->when(!empty($version) && $version > 0,function ($query) use ($version) {
+                $query->join('merchant_version_relation', function ($join) use ($version){
+                    $join->on('merchants.id', 'merchant_version_relation.merchant_id')
+                        ->where('merchant_version_relation.version_id', $version);
+                });
+            })
+            ->select('merchants.*')
             ->with(['version','language'])
             ->orderBy('id', 'desc')->paginate(12);
 
         $search_data = [
-            'search' => $search
+            'search' => $search,
+            'version' => $version
         ];
-        return view($this->v . 'index', compact('search_data', 'datas'));
+        return view($this->v . 'index', compact('search_data', 'datas', 'merchant_version'));
     }
 
     /**

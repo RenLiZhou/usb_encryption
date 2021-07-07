@@ -5,8 +5,19 @@
         <form id="searchform" class="layui-form">
             <div class="layui-row">
                 <div class="layui-col-md10">
+                    <label class="layui-input-inline">商户名称:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="search" value="{{ $search_data['search'] }}" placeholder="商户名" class="layui-input">
+                        <input type="text" name="search" value="{{ $search_data['search'] }}" placeholder="请输入商户名称" class="layui-input">
+                    </div>
+
+                    <label class="layui-input-inline" style="margin-left: 20px;">选择版本:</label>
+                    <div class="layui-input-inline">
+                        <select name="version" class="layui-select">
+                            <option value="">全部</option>
+                            @foreach($merchant_version as $value)
+                                <option value="{{ $value->id }}" @if ($search_data['version'] == $value->id )selected @endif>{{ $value->title_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <a class="layui-btn search">查询</a>
                 </div>
@@ -30,6 +41,7 @@
                 <th>总授权数量</th>
                 <th>已授权数量</th>
                 <th>额外授权数量</th>
+                <th>剩余授权数量</th>
                 <th>状态</th>
                 <th>备注</th>
                 <th>创建时间</th>
@@ -49,6 +61,7 @@
                 <td>{{ empty($data->version[0]) ? 0 : $data->version[0]->disk_number+$data->add_auth_count }}</td>
                 <td>{{ $data->auth_number }}</td>
                 <td>{{ $data->add_auth_count }}</td>
+                <td>{{ empty($data->version[0]) ? 0 : $data->version[0]->disk_number + $data->add_auth_count - $data->auth_number }}</td>
                 <td>
                     <input data-url="{{ route('crm.merchant.active', ['merchant' => $data->id]) }}" data-type="PUT" type="checkbox" name="status"
                            lay-skin="switch" lay-filter="active" lay-text="启用|禁用" @if($data->status==1) checked @endif>

@@ -27,21 +27,26 @@
                             </div>
                             <div class="card-body">
                                 <div class="card">
-                                    <div class="card-header font15">
-                                        <div class="pull-left">当前位置：</div>
-                                        <div class="pull-left" id="pathSite"></div>
-                                    </div>
+
                                     <div class="card-header">
-                                        <button class="btn btn-cyan m-r-10 btn-sm" onClick="TObj.checkAll()">全选/取消</button>
-                                        <button class="btn btn-danger m-r-10 btn-sm" onclick="TObj.moreDelete()">批量删除</button>
-                                        <button class="btn btn-dark m-r-10 btn-sm" onclick="TObj.moreMoveSelectFolder()">批量移动</button>
+                                        <button class="btn btn-cyan m-r-10 btn-sm" onClick="TObj.checkAll()">全选</button>
                                         <button class="btn btn-success m-r-10 btn-sm" onclick="TObj.createFolderOpen()">新建文件夹</button>
                                         <button class="btn btn-warning m-r-10 btn-sm" onclick="TObj.uploadOpen()">上传文件</button>
+                                        <button class="btn btn-danger m-r-10 btn-sm" onclick="TObj.moreDelete()">删除文件</button>
+                                        <button class="btn btn-dark m-r-10 btn-sm" onclick="TObj.moreMoveSelectFolder()">移动文件</button>
                                         <button class="btn btn-dark m-r-10 btn-sm pull-right" onclick="TObj.foldersData('/')">返回我的文档</button>
                                     </div>
+                                    <div class="card-header font15">
+                                        <div class="pull-left m-r-10 font18 l-h-26">
+                                            <a href="javascript:void(0);" title="返回上一页" data-toggle="tooltip" class="glyphicon glyphicon-chevron-left m-r-10 font20 hide" id="return_icon" onClick="TObj.goTopPath()"></a>
+                                            <a href="javascript:void(0);" title="刷新页面" data-toggle="tooltip" class="glyphicon glyphicon-refresh m-r-10" id="refresh_current_page" onClick="TObj.refreshCurrentPath()"></a>
+                                        </div>
+                                        <div class="pull-left l-h-26" id="pathSite">
+                                            <span class="m-r-10" onclick="TObj.foldersData('/')">我的文档</span>
+                                        </div>
+                                    </div>
                                     <div class="card-body clearfix">
-                                        <ul id="folders" class="clearfix">
-                                        </ul>
+                                        <ul id="folders" class="clearfix"></ul>
                                     </div>
                                 </div>
                             </div>
@@ -188,10 +193,12 @@
             this.create_folder_modal = "#create-folder-modal";//创建文件夹
             this.rename_modal = "#rename-modal";//重命名
             this.upload_modal = "#upload-modal";//上传
+            this.return_icon = "#return_icon";//返回上一页
+            this.refresh_current_page = "#refresh_current_page";//刷新当前页
 
             this.current_path = "/"; //当前路径
-
             this.rename_path = ""; //重命名路径
+            this.go_top_path = ""; //上一页路径
 
             this.all_checked_status = false; //是否全选
             this.load_path_status = false; //当前数据加载
@@ -292,6 +299,10 @@
                     that.parent(_self.folder_item).addClass('active');
                 });
 
+                // 提示
+                $('[data-toggle="tooltip"]').tooltip({
+                    "container" : 'body',
+                });
             }
 
             //多文件上传
@@ -762,6 +773,19 @@
                 $(_self.upload_modal).modal({backdrop: 'static', keyboard: false});
             }
 
+            //返回上一页
+            this.goTopPath = function () {
+                var path = _self.go_top_path;
+                if(!_jM.validate.isEmpty(path)){
+                    _self.foldersData(path);
+                }
+            }
+
+            //刷新当前页
+            this.refreshCurrentPath = function () {
+                _self.foldersData(_self.current_path);
+            }
+
             //文件夹数据
             this.foldersData = function (path) {
                 if(_self.load_path_status){
@@ -789,15 +813,15 @@
                         var pathData = resData.paths;
                         var topPath = resData.top_path;
                         _self.current_path = resData.current_path;
+                        _self.go_top_path = resData.top_path;
 
                         var _html = '';
 
-                        //返回上一级文件夹
+                        //返回上一级
                         if(!_jM.validate.isEmpty(topPath)){
-                            _html += "<li class='top-folder-item' ondblclick=\"TObj.foldersData(\'"+topPath +"\')\">";
-                            _html += "    <img class='folder-img' src='{{ asset('merchant-static/images/return.png') }}' />";
-                            _html += "    <p class='name'>返回上一级</p>";
-                            _html += "</li>";
+                            $(_self.return_icon).removeClass('hide');
+                        }else{
+                            $(_self.return_icon).addClass('hide');
                         }
 
                         //列表样式标题
@@ -811,33 +835,42 @@
 
                         //文档位置数据
                         var path_arr = resData.current_path.split('/');
-                        var path_site_html = '<span class="m-r-10">/我的文档</span>';
+                        var site_path_son = '';
+                        var path_site_html = '<span class="m-r-10" onclick="TObj.foldersData(\'/\')">我的文档</span>';
                         for(const path_site in path_arr){
                             if(!_jM.validate.isEmpty(path_arr[path_site])){
-                                path_site_html += '<span class="m-r-10">/'+ path_arr[path_site] +'</span>';
+                                site_path_son += '/' + path_arr[path_site];
+                                path_site_html +=
+                                    '<span class="m-r-10">></span>' +
+                                    '<a href="javascript:void(0);" class="m-r-10" onclick="TObj.foldersData(\''+ site_path_son +'\')">'+ path_arr[path_site] +'</a>';
                             }
                         }
                         $("#pathSite").html(path_site_html);
 
-                        for (var i=0; i < pathData.length; i++){
-                            _html += "<li class='folder-item' data-path='"+ pathData[i].path +"' data-name='"+ pathData[i].name +"' data-type='"+ pathData[i].type +"'>";
-                            _html += "    <input class='checkbox checkbox-warning' type='checkbox' value='"+ pathData[i].path +"' name='files[]' />";
-                            var type = '';
-                            if(pathData[i].type == 'folder') {
-                                _html += "    <img class='folder-img' src='{{ asset('merchant-static/images/folder.png') }}' />";
-                                type = '文件夹';
-                            }else{
-                                _html += "    <img class='folder-img' src='{{ asset("merchant-static/images/file.png") }}' />";
-                                type = pathData[i].name.substr(pathData[i].name.lastIndexOf(".")+1)
+                        //文件数据
+                        if(pathData.length > 0){
+                            for (var i=0; i < pathData.length; i++){
+                                _html += "<li class='folder-item' data-path='"+ pathData[i].path +"' data-name='"+ pathData[i].name +"' data-type='"+ pathData[i].type +"'>";
+                                _html += "    <input class='checkbox checkbox-warning' type='checkbox' value='"+ pathData[i].path +"' name='files[]' />";
+                                var type = '';
+                                if(pathData[i].type == 'folder') {
+                                    _html += "    <img class='folder-img' src='{{ asset('merchant-static/images/folder.png') }}' />";
+                                    type = '文件夹';
+                                }else{
+                                    _html += "    <img class='folder-img' src='{{ asset("merchant-static/images/file.png") }}' />";
+                                    type = pathData[i].name.substr(pathData[i].name.lastIndexOf(".")+1)
+                                }
+                                _html += "    <p class='name'>"+ pathData[i].name +"</p>";
+                                _html += "    <p class='update_time'>"+ pathData[i].modify_time +"</p>";
+                                _html += "    <p class='type'>"+ type +"</p>";
+                                _html += "    <p class='size'>"+ (pathData[i].size/1024).toFixed(1) +"kb</p>";
+                                _html += "    <span class='delete tool' onclick='TObj.moreDelete()'>删除</span>";
+                                _html += "    <span class='move tool' onclick='TObj.moreMoveSelectFolder()'>移动</span>";
+                                _html += "    <span class='rename tool' onclick='TObj.renameOpen()'>重命名</span>";
+                                _html += "</li>";
                             }
-                            _html += "    <p class='name'>"+ pathData[i].name +"</p>";
-                            _html += "    <p class='update_time'>"+ pathData[i].modify_time +"</p>";
-                            _html += "    <p class='type'>"+ type +"</p>";
-                            _html += "    <p class='size'>"+ (pathData[i].size/1024).toFixed(1) +"kb</p>";
-                            _html += "    <span class='delete tool' onclick='TObj.moreDelete()'>删除</span>";
-                            _html += "    <span class='move tool' onclick='TObj.moreMoveSelectFolder()'>移动</span>";
-                            _html += "    <span class='rename tool' onclick='TObj.renameOpen()'>重命名</span>";
-                            _html += "</li>";
+                        }else{
+                            _html += "<div class='col-lg-14 text-center layui-font-16 mb60 mt20 text-dark'>这里什么都没有，快来上传吧~</div>";
                         }
                         $(_self.folder_id).html(_html);
                     },

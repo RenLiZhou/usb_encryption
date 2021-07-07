@@ -28,9 +28,9 @@
                                         <div class="row">
                                             <div class="input-group col-md-3">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">策略名称</button>
+                                                    <button class="btn btn-default" type="button">权限策略名称</button>
                                                 </span>
-                                                <input type="text" class="form-control" name="name" placeholder="请输入策略名称" value="{{ $search_data['name'] }}" >
+                                                <input type="text" class="form-control" name="name" placeholder="请输入权限策略名称" value="{{ $search_data['name'] }}" >
                                             </div>
                                             <div class="form-group">
                                                 <button class="btn btn btn-dark pull-left ml15" id="searchBtn" type="button">搜索</button>
@@ -59,7 +59,7 @@
                                                 </label>
                                             </th>
                                             <th>ID</th>
-                                            <th>策略名称</th>
+                                            <th>权限策略名称</th>
                                             <th>运行次数</th>
                                             <th>U盘有效期</th>
                                             <th>创建时间</th>

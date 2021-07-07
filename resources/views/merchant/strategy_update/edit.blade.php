@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{{ asset('merchant-static/js/bootstrap-validator/css/bootstrapValidator.min.css') }}">
     <link rel="stylesheet" href="{{ asset('merchant-static/js/bootstrap-treeview/css/bootstrap-treeview.css') }}">
     <link rel="stylesheet" href="{{ asset('layui/css/layui.css') }}"/>
+    <style>
+        .node-procitytree span.folder + span.check-icon{
+            display: none;
+        }
+    </style>
 @endsection
 
 @section("content")
@@ -25,8 +30,8 @@
                             <form class="row" id="formsubmit">
 
                                 <div class="form-group col-md-12">
-                                    <label for="title">策略名称</label>
-                                    <input type="text" class="form-control" name="name" value="{{ $data->name }}" placeholder="请输入策略名称"/>
+                                    <label for="title">更新策略名称</label>
+                                    <input type="text" class="form-control" name="name" value="{{ $data->name }}" placeholder="请输入更新策略名称"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
@@ -72,6 +77,10 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="file_list" lay-filter="file_list">
                                         </table>
+
+                                        <div class="mt15 text-danger">
+                                            说明：以上更新的文件在U盘的存储路径与文件库中的文件路径保持一致。
+                                        </div>
                                     </div>
                                 </div>
 
@@ -343,6 +352,29 @@
                             showIcon: true, //是否显示节点图标
                             showBorder: false,
                             levels: 2, //设置整棵树的层级数  Integer
+                            showCheckbox: true,
+                            onNodeSelected: function(event, data) {
+                                $(_self.treeId).treeview('checkNode', [ data.nodeId, { silent: true } ]);
+                            },
+                            onNodeUnselected : function(event, data) {
+                                $(_self.treeId).treeview('uncheckNode', [ data.nodeId, { silent: true } ]);
+                            },
+                            onNodeChecked: function(event, data) {
+                                if(data.type == 'folder'){
+                                    $(_self.treeId).treeview('uncheckNode', [ data.nodeId, { silent: true } ]);
+                                    $(_self.treeId).treeview('unselectNode', [ data.nodeId, { silent: true } ]);
+                                    return;
+                                }
+                                $(_self.treeId).treeview('selectNode', [ data.nodeId, { silent: true } ]);
+                            },
+                            onNodeUnchecked: function(event, data) {
+                                if(data.type == 'folder'){
+                                    $(_self.treeId).treeview('uncheckNode', [ data.nodeId, { silent: true } ]);
+                                    $(_self.treeId).treeview('unselectNode', [ data.nodeId, { silent: true } ]);
+                                    return;
+                                }
+                                $(_self.treeId).treeview('unselectNode', [ data.nodeId, { silent: true } ]);
+                            },
                         });
                     },
                     complete: function () {
@@ -359,6 +391,7 @@
                     var icon = 'file glyphicon glyphicon-file';
                     if(obj[data].type == 'folder'){
                         icon = 'folder glyphicon glyphicon-folder-close';
+                        obj[data].selectable = false;
                     }
                     obj[data].icon = icon;
                     if(typeof(obj[data].nodes) == "object" && !_jM.validate.isEmpty(obj[data].nodes)){

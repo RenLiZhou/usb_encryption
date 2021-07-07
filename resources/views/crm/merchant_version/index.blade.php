@@ -81,7 +81,7 @@
                 dialog.pop({
                     'title': '添加版本',
                     'content': $(this).attr('data-url'),
-                    'area': ['44%', '70%']
+                    'area': ['44%', '58%']
                 });
             });
 
@@ -89,10 +89,9 @@
                 dialog.pop({
                     'title': '编辑版本',
                     'content': $(this).attr('data-url'),
-                    'area': ['44%', '70%']
+                    'area': ['44%', '58%']
                 });
             });
-
 
             $('.set').click(function () {
                 dialog.pop({

@@ -21,8 +21,8 @@
                         <form class="row" id="formsubmit">
 
                             <div class="form-group col-md-12">
-                                <label for="title">策略名称</label>
-                                <input type="text" class="form-control" name="name" value="" placeholder="请输入策略名称"/>
+                                <label for="title">权限策略名称</label>
+                                <input type="text" class="form-control" name="name" value="" placeholder="请输入权限策略名称"/>
                             </div>
 
                             <div class="form-group col-md-12">

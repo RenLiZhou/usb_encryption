@@ -16,7 +16,6 @@ class MerchantSettingController extends Controller
     public $v = 'merchant.merchant_settings.';
 
     public function index(){
-
         //防录屏设置
         $screen_recording = MerchantSettingService::getSetting(MerchantSetting::SCREEN_RECORDING);
         if (!$screen_recording['result']){

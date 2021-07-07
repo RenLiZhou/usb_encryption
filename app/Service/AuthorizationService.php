@@ -28,7 +28,7 @@ class AuthorizationService{
             ->first();
 
         if(empty($code) || $activation_code === null){
-            return resultError('注册码不存在或已激活');
+            return resultError(__("merchant_service.authorization_failed.the_authorization_code_does_not_exist"));
         }
 
         $lock = Cache::lock('activation_code_'.$activation_code->id, 60);
@@ -64,9 +64,9 @@ class AuthorizationService{
                 $lock->release();
             }
 
-            return resultError('授权失败');
+            return resultError(__("merchant_service.authorization_failed"));
         }else{
-            return resultError('系统繁忙，请稍后重试');
+            return resultError(__("common.the_system_is_busy"));
         }
     }
 }

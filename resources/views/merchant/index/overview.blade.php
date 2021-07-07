@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>商户管理</title>
+    <title>概括信息</title>
 @endsection
 
 @section("content")

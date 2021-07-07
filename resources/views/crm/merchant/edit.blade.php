@@ -18,6 +18,13 @@
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">修改密码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="password" placeholder="不填写代表不修改" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-block">
                     <input type="text" class="layui-input" name="email" value="{{ $merchant->email }}" placeholder="请输入邮箱">
@@ -96,13 +103,6 @@
                 <div class="layui-input-block">
                     <input type="radio" name="status" value="1" title="正常" @if($merchant->status == 1) checked @endif>
                     <input type="radio" name="status" value="0" title="禁用" @if($merchant->status == 0) checked @endif>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">修改密码</label>
-                <div class="layui-input-block">
-                    <input type="password" name="password" placeholder="请输入修改密码" autocomplete="off" class="layui-input">
                 </div>
             </div>
 

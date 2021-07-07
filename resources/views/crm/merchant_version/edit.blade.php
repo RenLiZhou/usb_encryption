@@ -4,31 +4,34 @@
     <div class="or-mid">
         <form class="layui-form layui-form-pane"  style="width:95%;">
             <div class="layui-form-item">
-                <label class="layui-form-label">版本名称</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="name" lay-verify="required" value="{{ $data->name }}" placeholder="请输入版本名称">
+                <label class="layui-form-label">版本标识</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input layui-disabled" name="name" disabled lay-verify="required" value="{{ $data->name }}" placeholder="请输入版本标识">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">可加密U盘数量</label>
-                <div class="layui-input-block">
+                <div class="layui-input-inline">
                     <input type="number" class="layui-input" name="disk_number" lay-verify="required" value="{{ $data->disk_number }}" placeholder="请输入可加密U盘数量">
                 </div>
+                <div class="layui-form-mid layui-word-aux">个</div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">售价</label>
-                <div class="layui-input-block">
+                <div class="layui-input-inline">
                     <input type="number" class="layui-input" name="price" lay-verify="required" value="{{ $data->price }}" placeholder="请输入售价">
                 </div>
+                <div class="layui-form-mid layui-word-aux">元</div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">额外授权价格</label>
-                <div class="layui-input-block">
+                <div class="layui-input-inline">
                     <input type="number" class="layui-input" name="extra_price" lay-verify="required" value="{{ $data->extra_price }}" placeholder="请输入额外授权价格">
                 </div>
+                <div class="layui-form-mid layui-word-aux">元/个</div>
             </div>
 
             @crm_permission('crm.merchant.version.update')

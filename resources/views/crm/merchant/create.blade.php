@@ -18,6 +18,13 @@
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-block">
                     <input type="text" class="layui-input" name="email" placeholder="请输入邮箱">
@@ -64,20 +71,6 @@
                 </div>
             </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">密码</label>
-                <div class="layui-input-block">
-                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">确认密码</label>
-                <div class="layui-input-block">
-                    <input type="password" id="password_confirmation" required lay-verify="required" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">备注</label>
                 <div class="layui-input-block">
@@ -103,7 +96,6 @@
             var form = layui.form,
                 ori = layui.ori,
                 laydate = layui.laydate,
-                dialog = layui.dialog,
                 $ = layui.$;
 
             laydate.render({
@@ -122,11 +114,6 @@
             });
 
             form.on('submit(create-data)', function (data) {
-                password_confirmation = $("#password_confirmation").val();
-                if(password_confirmation != data.field.password){
-                    dialog.erMsg('两次密码不一致');
-                    return false;
-                }
                 ori.submit($(this), data.field, function () {
                     parent.location.reload();
                 });

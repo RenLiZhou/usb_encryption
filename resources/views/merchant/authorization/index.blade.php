@@ -21,7 +21,7 @@
                             <div class="card-body">
 
                                 <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                                    <li class="active"><a href="#authorization" id="authorization-tab" role="tab" data-toggle="tab">授权</a></li>
+                                    <li class="active"><a href="#authorization" id="authorization-tab" role="tab" data-toggle="tab">激活授权</a></li>
                                     <li><a href="#log" role="tab" id="log-tab" data-toggle="tab">授权记录</a></li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content">

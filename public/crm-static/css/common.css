@@ -76,3 +76,7 @@ cite {margin-left: 6px;}
 .content-input{height: 30px;line-height: 30px;}
 .layui-form-pane .layui-form-label{width: 150px}
 .layui-form-pane .layui-input-block{margin-left: 150px}
+
+.layui-form-item .layui-input-inline{
+    width:60%;
+}

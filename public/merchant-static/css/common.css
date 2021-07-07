@@ -52,7 +52,19 @@
 .font15{
     font-size: 15px;
 }
+.font18{
+    font-size: 18px;
+}
+.font20{
+    font-size: 20px;
+}
 
+.mb0{
+    margin-bottom: 0px!important;
+}
+.mb10{
+    margin-bottom:10px!important;
+}
 .mb60{
     margin-bottom:60px!important;
 }
@@ -81,9 +93,12 @@
 .ml15{
     margin-left:15px!important;
 }
-.mb10{
-    margin-bottom:10px!important;
+
+.pl0{
+    padding-left: 0px!important;
 }
+
+
 
 .search-from .input-group{
     float: left;
@@ -98,10 +113,6 @@
     margin-left: 15px;line-height: 30px;float: left;
 }
 
-.mb0{
-    margin-bottom: 0px!important;
-}
-
 .layui-layer-setwin .layui-layer-close2{
     right: -5px!important;
     top: -13px!important;
@@ -113,4 +124,19 @@
 
 .top27{
     top:27px!important;
+}
+
+.video_img{
+    background: url(/merchant-static/images/watermarkbox.png) no-repeat;
+    width: 455px;
+    height: 226px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%;
+    margin-top: 50px;
+}
+
+.l-h-26{
+    line-height: 26px;
 }

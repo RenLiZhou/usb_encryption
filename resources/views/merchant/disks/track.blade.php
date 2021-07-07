@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>U盘列表</title>
+    <title>U盘轨迹</title>
 @endsection
 
 @section("css")
