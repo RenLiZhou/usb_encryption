@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>U盘轨迹</title>
+    <title>{{ __('merchant_view.u_disk_track') }}</title>
 @endsection
 
 @section("css")
@@ -19,14 +19,27 @@
             <div class="row mt15 mb60">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><h4>U盘轨迹 | <a class="text-cyan" href="javascript:;" onclick="_jM.dialogCloseCurIf()">返回列表</a></h4></div>
+                        <div class="card-header">
+                            <h4>
+                                {{ __('merchant_view.u_disk_track') }} |
+                                <a class="text-cyan" href="javascript:;" onclick="_jM.dialogCloseCurIf()">
+                                    {{ __('merchant_view.return_to_list') }}
+                                </a>
+                            </h4>
+                        </div>
                         <!--搜索-->
                         <div class="card-toolbar clearfix">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="toolbar-btn-action">
-                                        <a href="{{ route("merchant.disk.track.export", ['disk' => $disk_id]) }}"><button class="btn btn-success m-r-5" onClick="TObj.exportTrack(this)"> 导出日志</button></a>
-                                        <button class="btn btn-warning m-r-5" onClick="TObj.emptyTrack(this)"> 清空日志</button>
+                                        <a href="{{ route("merchant.disk.track.export", ['disk' => $disk_id]) }}">
+                                            <button class="btn btn-success m-r-5" onClick="TObj.exportTrack(this)">
+                                                {{ __('merchant_view.export_log') }}
+                                            </button>
+                                        </a>
+                                        <button class="btn btn-warning m-r-5" onClick="TObj.emptyTrack(this)">
+                                            {{ __('merchant_view.empty_log') }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -39,12 +52,12 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>用户</th>
-                                            <th>事件名</th>
-                                            <th>事件详情</th>
-                                            <th>时间</th>
-                                            <th>计算机</th>
-                                            <th>操作IP</th>
+                                            <th>{{ __('merchant_view.user') }}</th>
+                                            <th>{{ __('merchant_view.event_name') }}</th>
+                                            <th>{{ __('merchant_view.event_details') }}</th>
+                                            <th>{{ __('merchant_view.time') }}</th>
+                                            <th>{{ __('merchant_view.computer') }}</th>
+                                            <th>{{ __('merchant_view.operation_ip') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,7 +105,7 @@
 
             //清空
             this.emptyTrack = function(obj){
-                _jM.dialogHint('是否清空所有轨迹', function() {
+                _jM.dialogHint("{{ __('merchant_view.whether_to_clear_all_tracks') }}", function() {
                     _jM.disabled(obj);
                     _jM.ajax({
                         url: '{{ route("merchant.disk.track.empty", ['disk' => $disk_id]) }}',
@@ -102,7 +115,7 @@
                             _jM.dialogMsg(errMsg);
                         },
                         success: function () {
-                            _jM.dialogSuccess('操作成功', function () {
+                            _jM.dialogSuccess("{{ __('merchant_view.operation_succeeded') }}", function () {
                                 location.href = "{{ route("merchant.disk.track", ['disk' => $disk_id]) }}";
                             });
                         },

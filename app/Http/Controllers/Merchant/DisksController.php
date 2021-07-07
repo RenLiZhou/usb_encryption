@@ -80,12 +80,12 @@ class DisksController extends Controller
             'auth_id' => 'nullable|integer|min:0',
             'status' => ['required',Rule::in([Disk::STATUS_USE, Disk::STATUS_DISABLED]),]
         ],[
-            'status.required' => '状态异常',
-            'status.in' => '状态异常',
-            'update_id.integer' => '文件更新策略错误',
-            'update_id.min' => '文件更新策略错误',
-            'auth_id.integer' => '权限策略错误',
-            'auth_id.min' => '权限策略错误'
+            'status.required' => __('merchant_controller.state_abnormal'),
+            'status.in' => __('merchant_controller.state_abnormal'),
+            'update_id.integer' => __('merchant_controller.file_update_strategy_error'),
+            'update_id.min' => __('merchant_controller.file_update_strategy_error'),
+            'auth_id.integer' => __('merchant_controller.privilege_policy_error'),
+            'auth_id.min' => __('merchant_controller.privilege_policy_error')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);
@@ -125,9 +125,9 @@ class DisksController extends Controller
             'type' => ['required',Rule::in([Disk::STATUS_USE, Disk::STATUS_DISABLED]),],
             'ids' => 'required'
         ],[
-            'type.required' => '操作异常',
-            'type.in' => '操作异常',
-            'ids.required' => '参数错误'
+            'type.required' => __('common.operation_abnormal'),
+            'type.in' => __('common.operation_abnormal'),
+            'ids.required' => __('common.parameter_error')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);

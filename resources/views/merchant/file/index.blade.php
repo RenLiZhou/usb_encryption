@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>文件管理</title>
+    <title>{{ __('merchant_view.file_management') }}</title>
 @endsection
 
 @section("css")
@@ -19,7 +19,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>文件管理</h4>
+                                <h4>{{ __('merchant_view.file_management') }}</h4>
                                 <div class="pull-right file-col-row">
                                     <span class="ftsucai-app m-r-5 file-col" onClick="TObj.switchFoldersClass('col')"></span>
                                     <span class="ftsucai-format_align_justify m-r-5 file-row" onClick="TObj.switchFoldersClass('row')"></span>
@@ -29,20 +29,20 @@
                                 <div class="card">
 
                                     <div class="card-header">
-                                        <button class="btn btn-cyan m-r-10 btn-sm" onClick="TObj.checkAll()">全选</button>
-                                        <button class="btn btn-success m-r-10 btn-sm" onclick="TObj.createFolderOpen()">新建文件夹</button>
-                                        <button class="btn btn-warning m-r-10 btn-sm" onclick="TObj.uploadOpen()">上传文件</button>
-                                        <button class="btn btn-danger m-r-10 btn-sm" onclick="TObj.moreDelete()">删除文件</button>
-                                        <button class="btn btn-dark m-r-10 btn-sm" onclick="TObj.moreMoveSelectFolder()">移动文件</button>
-                                        <button class="btn btn-dark m-r-10 btn-sm pull-right" onclick="TObj.foldersData('/')">返回我的文档</button>
+                                        <button class="btn btn-cyan m-r-10 btn-sm" onClick="TObj.checkAll()">{{ __('merchant_view.select_all') }}</button>
+                                        <button class="btn btn-success m-r-10 btn-sm" onclick="TObj.createFolderOpen()">{{ __('merchant_view.new_folder') }}</button>
+                                        <button class="btn btn-warning m-r-10 btn-sm" onclick="TObj.uploadOpen()">{{ __('merchant_view.upload_file') }}</button>
+                                        <button class="btn btn-danger m-r-10 btn-sm" onclick="TObj.moreDelete()">{{ __('merchant_view.delete_file') }}</button>
+                                        <button class="btn btn-dark m-r-10 btn-sm" onclick="TObj.moreMoveSelectFolder()">{{ __('merchant_view.move_files') }}</button>
+                                        <button class="btn btn-dark m-r-10 btn-sm pull-right" onclick="TObj.foldersData('/')">{{ __('merchant_view.return_to_my_document') }}</button>
                                     </div>
                                     <div class="card-header font15">
                                         <div class="pull-left m-r-10 font18 l-h-26">
-                                            <a href="javascript:void(0);" title="返回上一页" data-toggle="tooltip" class="glyphicon glyphicon-chevron-left m-r-10 font20 hide" id="return_icon" onClick="TObj.goTopPath()"></a>
-                                            <a href="javascript:void(0);" title="刷新页面" data-toggle="tooltip" class="glyphicon glyphicon-refresh m-r-10" id="refresh_current_page" onClick="TObj.refreshCurrentPath()"></a>
+                                            <a href="javascript:void(0);" title="{{ __('merchant_view.return_to_the_previous_page') }}" data-toggle="tooltip" class="glyphicon glyphicon-chevron-left m-r-10 font20 hide" id="return_icon" onClick="TObj.goTopPath()"></a>
+                                            <a href="javascript:void(0);" title="{{ __('merchant_view.refresh_the_page') }}" data-toggle="tooltip" class="glyphicon glyphicon-refresh m-r-10" id="refresh_current_page" onClick="TObj.refreshCurrentPath()"></a>
                                         </div>
                                         <div class="pull-left l-h-26" id="pathSite">
-                                            <span class="m-r-10" onclick="TObj.foldersData('/')">我的文档</span>
+                                            <span class="m-r-10" onclick="TObj.foldersData('/')">{{ __('merchant_view.my_documents') }}</span>
                                         </div>
                                     </div>
                                     <div class="card-body clearfix">
@@ -63,14 +63,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">选择文件夹</h4>
+                        <h4 class="modal-title">{{ __('merchant_view.select_folder') }}</h4>
                     </div>
                     <div class="modal-body" style="max-height: 50vh;overflow-y: auto">
                         <div id="procitytree" class="folder-modal"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="TObj.moreMove()">移动到该文件夹</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('merchant_view.close') }}</button>
+                        <button type="button" class="btn btn-primary" onclick="TObj.moreMove()">{{ __('merchant_view.move_to_this_folder') }}</button>
                     </div>
                 </div>
             </div>
@@ -82,15 +82,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">新建文件夹</h4>
+                        <h4 class="modal-title">{{ __('merchant_view.new_folder') }}</h4>
                     </div>
                     <div class="modal-body" style="max-height: 50vh;overflow-y: auto">
-                        <input type="text" class="form-control" id="folder_name" value="" placeholder="请输入文件夹名"/>
+                        <input type="text" class="form-control" id="folder_name" value="" placeholder="{{ __('merchant_view.please_enter_the_folder_name') }}"/>
                         <br />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="TObj.createFolder()">创建</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('merchant_view.close') }}</button>
+                        <button type="button" class="btn btn-primary" onclick="TObj.createFolder()">{{ __('merchant_view.create') }}</button>
                     </div>
                 </div>
             </div>
@@ -102,15 +102,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">重命名</h4>
+                        <h4 class="modal-title">{{ __('merchant_view.rename') }}</h4>
                     </div>
                     <div class="modal-body" style="max-height: 50vh;overflow-y: auto">
-                        <input type="text" class="form-control" id="rename" value="" placeholder="请输入新的名称"/>
+                        <input type="text" class="form-control" id="rename" value="" placeholder="{{ __('merchant_view.please_enter_a_new_name') }}"/>
                         <br />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="TObj.rename()">提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('merchant_view.close') }}</button>
+                        <button type="button" class="btn btn-primary" onclick="TObj.rename()">{{ __('common.submit') }}</button>
                     </div>
                 </div>
             </div>
@@ -122,12 +122,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">上传文件</h4>
+                        <h4 class="modal-title">{{ __('merchant_view.upload_file') }}</h4>
                     </div>
                     <div class="modal-body" style="max-height: 50vh;overflow-y: auto">
 
                         <div class="layui-upload">
-                            <button type="button" class="layui-btn layui-btn-normal" id="uploadList">选择文件</button>
+                            <button type="button" class="layui-btn layui-btn-normal" id="uploadList">{{ __('merchant_view.select_file') }}</button>
                             <div class="layui-upload-list">
                                 <table class="layui-table">
                                     <colgroup>
@@ -138,10 +138,10 @@
                                     </colgroup>
                                     <thead>
                                         <tr>
-                                            <th>文件名</th>
-                                            <th>大小</th>
-                                            <th>上传进度</th>
-                                            <th>操作</th>
+                                            <th>{{ __('merchant_view.file_name') }}</th>
+                                            <th>{{ __('merchant_view.size') }}</th>
+                                            <th>{{ __('merchant_view.upload_progress') }}</th>
+                                            <th>{{ __('common.operation') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="uploadListDom">
@@ -153,17 +153,17 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" id="uploadListAction">开始上传</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('merchant_view.close') }}</button>
+                        <button type="button" class="btn btn-primary" id="uploadListAction">{{ __('merchant_view.start_upload') }}</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <ul class="rightMenu" id="rightMenu">
-            <li class="ftsucai-del delete" onmousedown="TObj.moreDelete()">删除</li>
-            <li class="ftsucai-44 move" onmousedown="TObj.moreMoveSelectFolder()">移动</li>
-            <li class="ftsucai-edit-2 rename" onmousedown="TObj.renameOpen()">重命名</li>
+            <li class="ftsucai-del delete" onmousedown="TObj.moreDelete()">{{ __('common.delete') }}</li>
+            <li class="ftsucai-44 move" onmousedown="TObj.moreMoveSelectFolder()">{{ __('merchant_view.move') }}</li>
+            <li class="ftsucai-edit-2 rename" onmousedown="TObj.renameOpen()">{{ __('merchant_view.rename') }}</li>
         </ul>
         <!--End 页面主要内容-->
     </body>
@@ -335,7 +335,7 @@
                                 upload_files_length ++;
                             });
                             if(upload_files_length >= _self.upload_files_count){
-                                _jM.dialogMsg('超出同时上传限制：' + _self.upload_files_count);
+                                _jM.dialogMsg("{{ __('merchant_view.simultaneous_upload_limit_exceeded') }}：" + _self.upload_files_count);
                                 return;
                             }
 
@@ -344,7 +344,7 @@
 
                                 //检查名称是否合法
                                 if(!_jM.validate.isFileName(file.name)){
-                                    _jM.dialogMsg('存在特殊字符\\/:*?"<>|+$');
+                                    _jM.dialogMsg("{{ __('merchant_view.special_characters_exist') }}" + '\\/:*?"<>|+$');
                                     return false;
                                 }
 
@@ -353,7 +353,7 @@
                                 $.each(_self.upload_files,function(file_index,item){
                                     if(file_index != index && item.size == file.size && item.type == file.type && item.name == file.name){
                                         is_exist = true;
-                                        _jM.dialogMsg('文件已存在列表');
+                                        _jM.dialogMsg("{{ __('merchant_view.file_already_exists_in_the_list') }}");
                                         return false;
                                     }
                                 });
@@ -364,8 +364,8 @@
                                     ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
                                     ,'<td><div class="layui-progress" lay-filter="progress-demo-'+ index +'"><div class="layui-progress-bar" lay-percent=""></div></div></td>'
                                     ,'<td>'
-                                    ,'<button class="layui-btn layui-btn-xs upload-reload layui-hide m-b-5">重传</button>'
-                                    ,'<button class="layui-btn layui-btn-xs layui-btn-danger upload-delete">删除</button>'
+                                    ,'<button class="layui-btn layui-btn-xs upload-reload layui-hide m-b-5">{{ __("merchant_view.retransmit") }}</button>'
+                                    ,'<button class="layui-btn layui-btn-xs layui-btn-danger upload-delete">{{ __("common.delete") }}</button>'
                                     ,'</td>'
                                     ,'</tr>'].join(''));
 
@@ -389,7 +389,7 @@
                         },
                         before: function (obj) {
                             if(_self.upload_status){
-                                _jM.dialogMsg('正在上传');
+                                _jM.dialogMsg('{{ __("merchant_view.uploading") }}');
                                 return false;
                             }
 
@@ -399,7 +399,7 @@
                                 upload_files_count++;
                             });
                             if(upload_files_count <= 0){
-                                _jM.dialogMsg('没有可上传文件');
+                                _jM.dialogMsg('{{ __("merchant_view.no_file_to_upload") }}');
                                 return false;
                             }
 
@@ -420,9 +420,9 @@
                         }
                         ,allDone: function(obj){ //多文件上传完毕后的状态回调
                             if(obj.total == obj.successful){
-                                _jM.dialogMsg('上传成功');
+                                _jM.dialogMsg('{{ __("merchant_view.upload_successful") }}');
                             }else{
-                                _jM.dialogMsg('上传失败文件数:' + obj.aborted);
+                                _jM.dialogMsg('{{ __("merchant_view.number_of_failed_upload_files") }}:' + obj.aborted);
                             }
 
                             if(obj.successful > 0){
@@ -495,16 +495,16 @@
                 });
 
                 if(_jM.validate.isEmpty(path_data)){
-                    _jM.dialogMsg('删除目标不存在');
+                    _jM.dialogMsg('{{ __("merchant_view.delete_target_does_not_exist") }}');
                     return false;
                 }
 
                 if(_self.delete_path_status){
-                    _jM.dialogMsg('正在删除');
+                    _jM.dialogMsg('{{ __("merchant_view.deleting") }}');
                     return false;
                 }
 
-                _jM.dialogHint('是否删除', function() {
+                _jM.dialogHint('{{ __("merchant_view.delete_or_not") }}', function() {
                     _self.delete_path_status = true;
                     var load = _jM.dialogLoad();
                     _jM.ajax({
@@ -517,7 +517,7 @@
                             _jM.dialogMsg(errMsg);
                         },
                         success: function (resMsg, resData) {
-                            _jM.dialogMsg('已删除');
+                            _jM.dialogMsg('{{ __("common.deleted") }}');
                             _self.foldersData(_self.current_path);
                         },
                         complete: function (XMLHttpRequest, textStatus) {
@@ -535,12 +535,12 @@
                 });
 
                 if(_jM.validate.isEmpty(path_data)){
-                    _jM.dialogMsg('移动源不存在');
+                    _jM.dialogMsg('{{ __("merchant_view.movement_source_does_not_exist") }}');
                     return false;
                 }
 
                 if(path_data.length > 1){
-                    _jM.dialogMsg('不允许同时修改多个');
+                    _jM.dialogMsg('{{ __("merchant_view.it_is_not_allowed_to_modify_multiple_at_the_same_time") }}');
                     return false;
                 }
 
@@ -552,23 +552,23 @@
 
             this.rename = function () {
                 if(_jM.validate.isEmpty(_self.rename_path) || _self.rename_path == '/'){
-                    _jM.dialogMsg('未选则修改文件');
+                    _jM.dialogMsg('{{ __("merchant_view.if_not_selected_modify_the_file") }}');
                     return false;
                 }
 
                 var rename = $("#rename").val();
                 if(_jM.validate.isEmpty(rename)){
-                    _jM.dialogMsg('请输入名称');
+                    _jM.dialogMsg('{{ __("merchant_view.please_enter_a_name") }}');
                     return false;
                 }
 
                 if(!_jM.validate.isFileName(rename)){
-                    _jM.dialogMsg('存在特殊字符\\/:*?"<>|+$');
+                    _jM.dialogMsg('{{ __("merchant_view.special_characters_exist") }}'+'\\/:*?"<>|+$');
                     return false;
                 }
 
                 if(_self.rename_path_status){
-                    _jM.dialogMsg('正在加载');
+                    _jM.dialogMsg('{{ __("common.loading") }}');
                     return false;
                 }
 
@@ -587,7 +587,7 @@
                     },
                     success: function (resMsg, resData) {
                         $(_self.rename_modal).modal('hide');
-                        _jM.dialogMsg('操作成功');
+                        _jM.dialogMsg('{{ __("common.operation_succeeded") }}');
                         _self.foldersData(_self.current_path);
                     },
                     complete: function () {
@@ -604,17 +604,17 @@
             this.createFolder = function () {
                 var folder_name = $('#folder_name').val();
                 if(_jM.validate.isEmpty(folder_name)){
-                    _jM.dialogMsg('请输入文件夹名');
+                    _jM.dialogMsg('{{ __("merchant_view.please_enter_the_folder_name") }}');
                     return false;
                 }
 
                 if(!_jM.validate.isFileName(folder_name)){
-                    _jM.dialogMsg('存在特殊字符\\/:*?"<>|+$');
+                    _jM.dialogMsg('{{ __("merchant_view.special_characters_exist") }}'+'\\/:*?"<>|+$');
                     return false;
                 }
 
                 if(_self.newfolder_status){
-                    _jM.dialogMsg('加载中');
+                    _jM.dialogMsg('{{ __("common.loading") }}');
                     return false;
                 }
 
@@ -635,7 +635,7 @@
                         _self.foldersData(_self.current_path);
                         $(_self.create_folder_modal).modal('hide');
                         $('#folder_name').val('');
-                        _jM.dialogMsg('创建成功');
+                        _jM.dialogMsg('{{ __("common.created_successfully") }}');
                     },
                     complete: function () {
                         _jM.dialogClose(load);
@@ -653,12 +653,12 @@
                 });
 
                 if(_jM.validate.isEmpty(path_data)){
-                    _jM.dialogMsg('移动源不存在');
+                    _jM.dialogMsg('{{ __("merchant_view.movement_source_does_not_exist") }}');
                     return false;
                 }
 
                 if(_self.move_path_status){
-                    _jM.dialogMsg('加载中');
+                    _jM.dialogMsg('{{ __("common.loading") }}');
                     return false;
                 }
 
@@ -703,13 +703,13 @@
                 var select_folder = $(_self.treeId).treeview('getSelected');
 
                 if(select_folder.length <= 0){
-                    _jM.dialogMsg('请选择目标文件夹');
+                    _jM.dialogMsg('{{ __("merchant_view.please_select_the_destination_folder") }}');
                     return false;
                 }
 
                 var move_path = select_folder[0].path;
                 if(_jM.validate.isEmpty(move_path)){
-                    _jM.dialogMsg('目标文件夹不存在');
+                    _jM.dialogMsg('{{ __("merchant_view.the_target_folder_does_not_exist") }}');
                     return false;
                 }
 
@@ -719,12 +719,12 @@
                 });
 
                 if(_jM.validate.isEmpty(path_data)){
-                    _jM.dialogMsg('移动源不存在');
+                    _jM.dialogMsg('{{ __("merchant_view.movement_source_does_not_exist") }}');
                     return false;
                 }
 
                 if(_self.move_path_status){
-                    _jM.dialogMsg('正在移动');
+                    _jM.dialogMsg('{{ __("merchant_view.moving") }}');
                     return false;
                 }
 
@@ -743,7 +743,7 @@
                     },
                     success: function (resMsg, resData) {
                         $(_self.folder_modal).modal('hide');
-                        _jM.dialogMsg('操作成功');
+                        _jM.dialogMsg('{{ __("common.operation_succeeded") }}');
                         _self.foldersData(move_path);
                     },
                     complete: function () {
@@ -789,11 +789,11 @@
             //文件夹数据
             this.foldersData = function (path) {
                 if(_self.load_path_status){
-                    _jM.dialogMsg('正在加载');
+                    _jM.dialogMsg('{{ __("common.loading") }}');
                     return false;
                 }
                 if(_jM.validate.isEmpty(path)){
-                    _jM.dialogMsg('路径错误');
+                    _jM.dialogMsg('{{ __("merchant_view.path_error") }}');
                     return false;
                 }
 
@@ -826,17 +826,17 @@
 
                         //列表样式标题
                         _html += "<li class='title-folder-item'>";
-                        _html += "    <p class='name '>文件名</p>";
-                        _html += "    <p class='update_time'>更新时间</p>";
-                        _html += "    <p class='type'>类型</p>";
-                        _html += "    <p class='size'>大小</p>";
-                        _html += "    <p class='hander'>操作</p>";
+                        _html += "    <p class='name '>{{ __('merchant_view.file_name') }}</p>";
+                        _html += "    <p class='update_time'>{{ __('merchant_view.update_time') }}</p>";
+                        _html += "    <p class='type'>{{ __('merchant_view.type') }}</p>";
+                        _html += "    <p class='size'>{{ __('merchant_view.size') }}</p>";
+                        _html += "    <p class='hander'>{{ __('common.operation') }}</p>";
                         _html += "</li>";
 
                         //文档位置数据
                         var path_arr = resData.current_path.split('/');
                         var site_path_son = '';
-                        var path_site_html = '<span class="m-r-10" onclick="TObj.foldersData(\'/\')">我的文档</span>';
+                        var path_site_html = '<span class="m-r-10" onclick="TObj.foldersData(\'/\')">{{ __("merchant_view.my_documents") }}</span>';
                         for(const path_site in path_arr){
                             if(!_jM.validate.isEmpty(path_arr[path_site])){
                                 site_path_son += '/' + path_arr[path_site];
@@ -864,13 +864,13 @@
                                 _html += "    <p class='update_time'>"+ pathData[i].modify_time +"</p>";
                                 _html += "    <p class='type'>"+ type +"</p>";
                                 _html += "    <p class='size'>"+ (pathData[i].size/1024).toFixed(1) +"kb</p>";
-                                _html += "    <span class='delete tool' onclick='TObj.moreDelete()'>删除</span>";
-                                _html += "    <span class='move tool' onclick='TObj.moreMoveSelectFolder()'>移动</span>";
-                                _html += "    <span class='rename tool' onclick='TObj.renameOpen()'>重命名</span>";
+                                _html += "    <span class='delete tool' onclick='TObj.moreDelete()'>{{ __('common.delete') }}</span>";
+                                _html += "    <span class='move tool' onclick='TObj.moreMoveSelectFolder()'>{{ __('merchant_view.move') }}</span>";
+                                _html += "    <span class='rename tool' onclick='TObj.renameOpen()'>{{ __('merchant_view.rename') }}</span>";
                                 _html += "</li>";
                             }
                         }else{
-                            _html += "<div class='col-lg-14 text-center layui-font-16 mb60 mt20 text-dark'>这里什么都没有，快来上传吧~</div>";
+                            _html += "<div class='col-lg-14 text-center layui-font-16 mb60 mt20 text-dark'>{{ __('merchant_view.there_is_nothing_here_come_upload_it') }}</div>";
                         }
                         $(_self.folder_id).html(_html);
                     },

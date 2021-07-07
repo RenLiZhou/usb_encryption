@@ -61,17 +61,17 @@ class StrategyAuthController extends Controller
             'expired_time' => 'nullable|date',
             'expired_day' => 'nullable|integer|min:0',
         ],[
-            'name.required' => '策略名称为空',
-            'run_number.required' => '运行次数有误',
-            'run_number.integer' => '运行次数有误',
-            'run_number.min' => '运行次数有误',
-            'expired_type.required' => '非法参数',
-            'expired_type.integer' => '非法参数',
-            'expired_type.min' => '非法参数',
-            'expired_type.max' => '非法参数',
-            'expired_day.integer' => '过期天数有误',
-            'expired_day.min' => '过期天数有误',
-            'expired_time.date' => '过期日期有误'
+            'name.required' => __('merchant_controller.auth_strategy_name_is_empty'),
+            'run_number.required' => __('merchant_controller.the_number_of_runs_is_wrong'),
+            'run_number.integer' => __('merchant_controller.the_number_of_runs_is_wrong'),
+            'run_number.min' => __('merchant_controller.the_number_of_runs_is_wrong'),
+            'expired_type.required' => __('common.illegal_parameter'),
+            'expired_type.integer' => __('common.illegal_parameter'),
+            'expired_type.min' => __('common.illegal_parameter'),
+            'expired_type.max' => __('common.illegal_parameter'),
+            'expired_day.integer' => __('merchant_controller.the_number_of_expiration_days_is_wrong'),
+            'expired_day.min' => __('merchant_controller.the_number_of_expiration_days_is_wrong'),
+            'expired_time.date' => __('merchant_controller.the_expiration_date_is_wrong')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);
@@ -113,16 +113,16 @@ class StrategyAuthController extends Controller
             'expired_time' => 'nullable|date',
             'expired_day' => 'nullable|integer|min:0',
         ],[
-            'name.required' => '策略名称为空',
-            'run_number.required' => '运行次数有误',
-            'run_number.integer' => '运行次数有误',
-            'run_number.min' => '运行次数有误',
-            'expired_type.required' => '非法参数',
-            'expired_type.integer' => '非法参数',
-            'expired_type.min' => '非法参数',
-            'expired_day.integer' => '过期天数有误',
-            'expired_day.min' => '过期天数有误',
-            'expired_time.date' => '过期日期有误'
+            'name.required' => __('merchant_controller.policy_name_is_empty'),
+            'run_number.required' => __('merchant_controller.the_number_of_runs_is_wrong'),
+            'run_number.integer' => __('merchant_controller.the_number_of_runs_is_wrong'),
+            'run_number.min' => __('merchant_controller.the_number_of_runs_is_wrong'),
+            'expired_type.required' => __('common.illegal_parameter'),
+            'expired_type.integer' => __('common.illegal_parameter'),
+            'expired_type.min' => __('common.illegal_parameter'),
+            'expired_day.integer' => __('merchant_controller.the_number_of_expiration_days_is_wrong'),
+            'expired_day.min' => __('merchant_controller.the_number_of_expiration_days_is_wrong'),
+            'expired_time.date' => __('merchant_controller.the_expiration_date_is_wrong')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);

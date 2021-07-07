@@ -27,20 +27,20 @@ class FilesController extends Controller
 
         $path = $ResourceService->checkPath($path);
         if(!$path){
-            return responseError('路径错误');
+            return responseError(__('merchant_controller.path_error'));
         }
 
         $merchant_path = $merchant->root_directory.$path;
 
         $exists = $ResourceService->exists($merchant_path);
         if(!$exists){
-            return responseError('该路径不存在');
+            return responseError(__('merchant_controller.the_path_does_not_exist'));
         }
 
         //判断是不是文件夹
         $is_dir = $ResourceService->isDirectory($merchant_path);
         if(!$is_dir){
-            return responseError('该路径不是文件夹');
+            return responseError(__('merchant_controller.the_path_is_not_a_folder'));
         }
 
         //展示该路径下文件夹&&文件
@@ -69,7 +69,7 @@ class FilesController extends Controller
     public function deleteFiles(Request $request){
         $paths = $request->input('paths')??[];
         if(empty($paths)){
-            return responseError('无删除路径');
+            return responseError(__('merchant_controller.no_delete_path'));
         }
 
         $merchant = Auth::guard('merchant')->user();
@@ -79,13 +79,13 @@ class FilesController extends Controller
         foreach ($paths as $path){
             $path = $ResourceService->checkPath($path);
             if(!$path){
-                return responseError('删除路径错误');
+                return responseError(__('merchant_controller.delete_path_error'));
             }
 
             $merchant_path = $merchant->root_directory.$path;
             $exists = $ResourceService->exists($merchant_path);
             if(!$exists){
-                return responseError('删除路径不存在');
+                return responseError(__('merchant_controller.delete_path_does_not_exist'));
             }
 
             $delete_paths[] = $merchant_path;
@@ -115,8 +115,8 @@ class FilesController extends Controller
     public function move(Request $request){
         $paths = $request->input('paths')??[];
         $move_path = $request->input('move_path')??'';
-        if(empty($paths)) return responseError('无源路径');
-        if(empty($move_path)) return responseError('无目标路径');
+        if(empty($paths)) return responseError(__('merchant_controller.passive_path'));
+        if(empty($move_path)) return responseError(__('merchant_controller.no_target_path'));
 
         $merchant = Auth::guard('merchant')->user();
         $ResourceService = new ResourceService();
@@ -124,18 +124,18 @@ class FilesController extends Controller
         //验证目标路径
         $move_path = $ResourceService->checkPath($move_path);
         if(!$move_path){
-            return responseError('移动目标路径错误');
+            return responseError(__('merchant_controller.moving_destination_path_error'));
         }
 
         $target_move_path = $merchant->root_directory.$move_path;
         $exists = $ResourceService->exists($target_move_path);
         if(!$exists){
-            return responseError('移动目标路径不存在');
+            return responseError(__('merchant_controller.the_moving_destination_path_does_not_exist'));
         }
 
         $is_dir = $ResourceService->isDirectory($target_move_path);
         if(!$is_dir){
-            return responseError('移动目标路径不是文件夹');
+            return responseError(__('merchant_controller.move_destination_path_is_not_a_folder'));
         }
 
         //验证源路径
@@ -143,30 +143,30 @@ class FilesController extends Controller
         foreach ($paths as $path){
             $path = $ResourceService->checkPath($path);
             if(!$path){
-                return responseError('移动源错误');
+                return responseError(__('merchant_controller.movement_source_error'));
             }
 
             $move_path = $merchant->root_directory.$path;
             $exists = $ResourceService->exists($move_path);
             if(!$exists){
-                return responseError('移动源不存在');
+                return responseError(__('merchant_controller.the_mobile_source_does_not_exist'));
             }
 
             //跟目录不允许移动
             if($path == '/'){
-                return responseError('跟目录不允许移动');
+                return responseError(__('merchant_controller.my_document_is_not_allowed_to_be_moved'));
             }
 
             //不能是上级移动到下级
             if(strpos($target_move_path,$move_path) !== false){
-                return responseError('不能移动到下级目录');
+                return responseError(__('merchant_controller.cannot_move_to_a_subordinate_directory'));
             }
 
             //是否存在同名
             $name = $ResourceService->basename($move_path);
             $namesake = $ResourceService->exists($target_move_path.'/'.$name);
             if($namesake){
-                return responseError('目标文件夹下存在同名文件');
+                return responseError(__('merchant_controller.a_file_with_the_same_name_exists_in_the_target_folder'));
             }
 
             $source_paths[] = $move_path;
@@ -195,9 +195,9 @@ class FilesController extends Controller
     public function rename(Request $request){
         $path = $request->input('path')??'';
         $new_name = $request->input('name')??'';
-        if(empty($path)) return responseError('无重命名目标');
+        if(empty($path)) return responseError(__('merchant_controller.no_renamed_files'));
         if (empty($new_name) || !preg_match('/^[^\\\\\\/:*?\\"<>|]+$/', $new_name)){
-            return responseError('命名不能为空且不包含\/:*?"<>|+$');
+            return responseError(__('merchant_controller.the_name_cannot_be_empty_and_does_not_contain').'\/:*?"<>|+$');
         }
 
         $merchant = Auth::guard('merchant')->user();
@@ -206,32 +206,32 @@ class FilesController extends Controller
         //验证源路径
         $path = $ResourceService->checkPath($path);
         if(!$path || $path == '/'){
-            return responseError('源目标错误');
+            return responseError(__('merchant_controller.source_target_error'));
         }
 
         //目标不存在
         $rename_path = $merchant->root_directory.$path;
         $exists = $ResourceService->exists($rename_path);
         if(!$exists){
-            return responseError('目标不存在');
+            return responseError(__('merchant_controller.target_does_not_exist'));
         }
 
         //名称未修改
         $basename = $ResourceService->basename($rename_path);
         if($basename == $new_name){
-            return responseError('名称未修改');
+            return responseError(__('merchant_controller.name_has_not_been_modified'));
         }
 
         //是否存在同名
         //上级目录
         $top_path = substr($rename_path,0, strrpos($rename_path, '/'));
         if(empty($top_path)){
-            return responseError('源目标错误');
+            return responseError(__('merchant_controller.source_target_error'));
         }
 
         $namesake = $ResourceService->exists($top_path.'/'.$new_name);
         if($namesake){
-            return responseError('存在同名文件');
+            return responseError(__('merchant_controller.a_file_with_the_same_name_exists'));
         }
 
         $ResourceService->move($rename_path, $top_path.'/'.$new_name);
@@ -252,7 +252,7 @@ class FilesController extends Controller
         $path = $request->input('path')??'/';
 
         if (empty($name) || !preg_match('/^[^\\\\\\/:*?\\"<>|]+$/', $name)){
-            return responseError('文件夹名不能为空且不包含\/:*?"<>|+$');
+            return responseError(__('merchant_controller.the_folder_name_cannot_be_empty_and_does_not_contain').'\/:*?"<>|+$');
         }
 
         $merchant = Auth::guard('merchant')->user();
@@ -260,26 +260,26 @@ class FilesController extends Controller
 
         $path = $ResourceService->checkPath($path);
         if(!$path){
-            return responseError('所属文件夹不存在');
+            return responseError(__('merchant_controller.the_owning_folder_does_not_exist'));
         }
 
         $parent_path = $merchant->root_directory.$path;
 
         $exists = $ResourceService->exists($parent_path);
         if(!$exists){
-            return responseError('所属文件夹不存在');
+            return responseError(__('merchant_controller.the_owning_folder_does_not_exist'));
         }
 
         //判断是不是文件夹
         $is_dir = $ResourceService->isDirectory($parent_path);
         if(!$is_dir){
-            return responseError('所属文件夹错误');
+            return responseError(__('merchant_controller.wrong_belonging_folder'));
         }
 
         //是否存在同名
         $namesake = $ResourceService->exists($parent_path.'/'.$name);
         if($namesake){
-            return responseError('目标文件夹下存在同名文件');
+            return responseError(__('merchant_controller.a_file_with_the_same_name_exists_in_the_target_folder'));
         }
 
         $ResourceService->makeDirectory($parent_path.'/'.$name);
@@ -299,7 +299,7 @@ class FilesController extends Controller
         $file = $request->file('files');
         $path = $request->input('path')??'/';
         if (empty($file)) {
-            return responseError('未上传文件');
+            return responseError(__('merchant_controller.file_not_uploaded'));
         }
 
         $merchant = Auth::guard('merchant')->user();
@@ -307,20 +307,20 @@ class FilesController extends Controller
 
         $path = $ResourceService->checkPath($path);
         if(!$path){
-            return responseError('文件存储目录不存在');
+            return responseError(__('merchant_controller.file_storage_directory_does_not_exist'));
         }
 
         $upload_path = $merchant->root_directory.$path;
 
         $exists = $ResourceService->exists($upload_path);
         if(!$exists){
-            return responseError('文件存储目录不存在');
+            return responseError(__('merchant_controller.file_storage_directory_does_not_exist'));
         }
 
         //判断是不是文件夹
         $is_dir = $ResourceService->isDirectory($upload_path);
         if(!$is_dir){
-            return responseError('存储目录错误');
+            return responseError(__('merchant_controller.storage_directory_error'));
         }
 
         //判断文件是否上传成功
@@ -359,11 +359,11 @@ class FilesController extends Controller
                 ];
                 return responseSuccess($response_data);
             } else {
-                return responseError('上传失败');
+                return responseError(__('merchant_controller.upload_failed'));
             }
 
         } else {
-            return responseError('上传失败');
+            return responseError(__('merchant_controller.upload_failed'));
         }
     }
 
@@ -417,7 +417,7 @@ class FilesController extends Controller
             }
 
             $response_datas[] = [
-                'text' => '我的文档',
+                'text' => __('merchant_controller.my_documents'),
                 'path' => '/',
                 'type' => 'folder',
                 'size' => 0,

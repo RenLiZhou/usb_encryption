@@ -40,8 +40,8 @@ class MerchantSettingController extends Controller
                 Rule::in([MerchantSetting::SCREEN_RECORDING_ENABLE,MerchantSetting::SCREEN_RECORDING_DISABLE])
             ]
         ],[
-            'status.required' => '防翻录功能未设置',
-            'status.in' => '防翻录功能设置有误',
+            'status.required' => __('merchant_controller.rip_function_is_not_set'),
+            'status.in' => __('merchant_controller.ripping_function_is_set_incorrectly'),
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);
@@ -87,25 +87,25 @@ class MerchantSettingController extends Controller
                 ])
             ], //Position
         ],[
-            'status.required' => '水印功能设置未设置',
-            'status.in' => '水印功能设置有误',
-            'content.required' => '水印内容未设置',
-            'content.in' => '水印内容设置有误',
-            'size.required' => '水印字体大小未设置',
-            'size.integer' => '水印字体大小设置有误',
-            'size.min' => '水印字体大小设置有误',
-            'color.required' => '水印文字颜色未设置',
-            'transparency.required' => '水印文字透明度未设置',
-            'transparency.integer' => '水印文字透明度设置有误',
-            'transparency.min' => '水印文字透明度设置有误',
-            'transparency.max' => '水印文字透明度设置有误',
-            'video_style.required' => '视频文件水印样式未设置',
-            'video_style.in' => '视频文件水印样式设置有误',
-            'video_refresh_interval.required' => '视频文件水印刷新间隔未设置',
-            'video_refresh_interval.numeric' => '视频文件水印刷新间隔设置有误',
-            'video_refresh_interval.min' => '视频文件水印刷新间隔设置有误',
-            'picture_style.required' => '图片水印未设置',
-            'picture_style.in' => '图片水印设置有误'
+            'status.required' => __('merchant_controller.watermark_function_setting_is_not_set'),
+            'status.in' => __('merchant_controller.the_watermark_function_is_set_incorrectly'),
+            'content.required' => __('merchant_controller.watermark_content_is_not_set'),
+            'content.in' => __('merchant_controller.the_watermark_content_is_set_incorrectly'),
+            'size.required' => __('merchant_controller.watermark_font_size_is_not_set'),
+            'size.integer' => __('merchant_controller.the_watermark_font_size_is_set_incorrectly'),
+            'size.min' => __('merchant_controller.the_watermark_font_size_is_set_incorrectly'),
+            'color.required' => __('merchant_controller.watermark_text_color_is_not_set'),
+            'transparency.required' => __('merchant_controller.watermark_text_transparency_is_not_set'),
+            'transparency.integer' =>  __('merchant_controller.the_transparency_of_the_watermark_text_is_set_incorrectly'),
+            'transparency.min' =>  __('merchant_controller.the_transparency_of_the_watermark_text_is_set_incorrectly'),
+            'transparency.max' =>  __('merchant_controller.the_transparency_of_the_watermark_text_is_set_incorrectly'),
+            'video_style.required' => __('merchant_controller.video_file_watermark_style_is_not_set'),
+            'video_style.in' => __('merchant_controller.the_watermark_style_of_the_video_file_is_set_incorrectly'),
+            'video_refresh_interval.required' => __('merchant_controller.the_new_interval_for_water_printing_of_video_files_is_not_set'),
+            'video_refresh_interval.numeric' => __('merchant_controller.the_new_water_printing_interval_of_the_video_file_is_set_incorrectly'),
+            'video_refresh_interval.min' => __('merchant_controller.the_new_water_printing_interval_of_the_video_file_is_set_incorrectly'),
+            'picture_style.required' => __('merchant_controller.picture_watermark_is_not_set'),
+            'picture_style.in' => __('merchant_controller.the_picture_watermark_is_set_incorrectly')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);

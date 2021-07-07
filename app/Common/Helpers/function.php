@@ -27,8 +27,9 @@ if (!function_exists('responseError')) {
      * @param int $httpCode
      * @return \Illuminate\Http\JsonResponse
      */
-    function responseError(string $errMsg = '服务异常', int $code = 1, int $httpCode = \App\Common\Enum\HttpCode::OK)
+    function responseError(string $errMsg, int $code = 1, int $httpCode = \App\Common\Enum\HttpCode::OK)
     {
+        $errMsg = empty($errMsg) ? __('common.service_exception') : $errMsg;
         $return = [
             'code' => $code,
             'exception' => $errMsg

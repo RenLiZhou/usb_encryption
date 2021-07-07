@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>商户管理</title>
+    <title>{{ __('merchant_view.merchant_management') }}</title>
 @endsection
 
 @section("css")
@@ -22,7 +22,7 @@
         <div id="theme-wrapper">
             <header class="navbar" id="header-navbar">
                 <div class="container" style="padding-right: 0px;">
-                    <a class="navbar-brand" id="logo" href="#">商户管理</a>
+                    <a class="navbar-brand" id="logo" href="#">{{ __('merchant_view.merchant_management') }}</a>
                     <div class="clearfix">
                         <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
                             <ul class="nav navbar-nav pull-left">
@@ -43,9 +43,9 @@
                                     <a class="dropdown" href="#" data-toggle="dropdown">
                                         <span class="hidden-xs">
                                             @if($merchant_timezone == 'local')
-                                                本地时区
+                                                {{ __('merchant_view.local_time_zone') }}
                                             @else
-                                                UTC时区
+                                                {{ __('merchant_view.utc_time_zone') }}
                                             @endif
                                         </span>
                                         <i class="ftsucai-100 m-l-5" style="position: relative;top:2px;"></i>
@@ -53,12 +53,12 @@
                                     <ul class="dropdown-menu pull-right">
                                         <li>
                                             <a href="javascript:;" onclick="TObj.switchLanguage('utc')">
-                                                UTC时区
+                                                {{ __('merchant_view.utc_time_zone') }}
                                             </a>
                                         </li>
                                         <li>
                                             <a href="javascript:;" onclick="TObj.switchLanguage('local')">
-                                                本地时区
+                                                {{ __('merchant_view.local_time_zone') }}
                                             </a>
                                         </li>
                                     </ul>
@@ -73,12 +73,14 @@
                                     <ul class="dropdown-menu pull-right">
                                         <li>
                                             <a class="editPassword" href="javascript:;" data-url="{{ route("merchant.password.edit") }}">
-                                                <i class="ft ftsucai-edit-2"></i>修改密码
+                                                <i class="ft ftsucai-edit-2"></i>
+                                                {{ __('merchant_view.change_password') }}
                                             </a>
                                         </li>
                                         <li>
                                             <a href="{{ route("merchant.logout") }}">
-                                                <i class="ft ftsucai-exit2"></i>安全退出
+                                                <i class="ft ftsucai-exit2"></i>
+                                                {{ __('merchant_view.safe_exit') }}
                                             </a>
                                         </li>
                                     </ul>
@@ -98,7 +100,7 @@
                                         <li>
                                             <a class="dropdown-toggle tabCloseOther submenuitem" href="{{ route("merchant.overview") }}" data-id="overview">
                                                 <i class="ft ftsucai-cate"></i>
-                                                <span>概括</span>
+                                                <span>{{ __('merchant_view.summary') }}</span>
                                             </a>
                                         </li>
                                         @foreach($menus as $menu)
@@ -143,7 +145,7 @@
         </div>
         <div id="loadingPage" style="display: none;">
             <div class="loading-shade"></div>
-            <div class="loading-content" onClick="$.loading(false)">数据加载中，请稍后…</div>
+            <div class="loading-content" onClick="$.loading(false)">{{ __('merchant_view.data_loading_please_wait') }}</div>
         </div>
     </body>
 @endsection
@@ -163,7 +165,7 @@
             this.init = function() {
                 $(".editPassword").click(function () {
                     var index = _jM.dialogPop({
-                        'title': '修改密码',
+                        'title': "{{ __('merchant_view.change_password') }}",
                         'content': $(this).attr('data-url'),
                         'area': ['54%', '60%'],
                         'maxmin': false

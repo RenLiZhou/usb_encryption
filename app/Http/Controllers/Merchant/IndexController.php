@@ -60,8 +60,8 @@ class IndexController extends Controller
             'old_password' => 'required',
             'password' => 'required'
         ],[
-            'old_password.required' => '原始密码为空',
-            'password.required' => '新密码为空'
+            'old_password.required' => __('merchant_controller.the_original_password_is_empty'),
+            'password.required' => __('merchant_controller.the_new_password_is_empty')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);
@@ -73,7 +73,7 @@ class IndexController extends Controller
 
         $compare = password_verify($old_password, $merchant->password);
         if ($compare === false){
-            return responseError('原始密码不正确');
+            return responseError(__('merchant_controller.the_original_password_is_incorrect'));
         }
 
         $merchant->password = password_hash($password, PASSWORD_DEFAULT, ['cost' => Merchant::PWD_COST]);

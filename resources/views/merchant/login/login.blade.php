@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>登录页面-商家后台</title>
+    <title>{{ __('merchant_view.login_page_merchant_background') }}</title>
 @endsection
 
 @section("css")
@@ -14,29 +14,29 @@
             <div class="login">
                 <div class="login-center">
                     <div class="login-header text-center">
-                        商家后台
+                        {{ __('merchant_view.business_background') }}
                     </div>
                     <form id="formsubmit">
                         <div class="form-group has-feedback feedback-left">
                             <span class="ftsucai-65 form-control-feedback" aria-hidden="true"></span>
-                            <input type="text" placeholder="请输入您的用户名" class="form-control" name="uname"/>
+                            <input type="text" placeholder="{{ __('merchant_view.please_enter_your_username') }}" class="form-control" name="uname"/>
                         </div>
                         <div class="form-group has-feedback feedback-left">
                             <span class="ftsucai-216 form-control-feedback" aria-hidden="true"></span>
-                            <input type="password" placeholder="请输入密码" class="form-control" name="psword"/>
+                            <input type="password" placeholder="{{ __('merchant_view.please_enter_a_password') }}" class="form-control" name="psword"/>
                         </div>
                         <div class="form-group has-feedback feedback-left row">
                             <div class="col-xs-7">
                                 <span class="ftsucai-mao form-control-feedback" aria-hidden="true"></span>
-                                <input type="text" name="captcha" class="form-control" placeholder="验证码">
+                                <input type="text" name="captcha" class="form-control" placeholder="{{ __('merchant_view.verification_code') }}">
                             </div>
                             <div class="col-xs-5">
                                 <img src="{{ captcha_src() }}" class="pull-right" id="captcha" style="cursor: pointer;"
-                                     onclick="TObj.flushForm()" title="点击刷新" alt="captcha">
+                                     onclick="TObj.flushForm()" title="{{ __('merchant_view.click_to_refresh') }}" alt="captcha">
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-block btn-primary" type="button" onClick="TObj.login(this)">立即登录</button>
+                            <button class="btn btn-block btn-primary" type="button" onClick="TObj.login(this)">{{ __('merchant_view.log_in_now') }}</button>
                         </div>
                     </form>
                 </div>
@@ -58,21 +58,21 @@
                     uname: {
                         validators: {
                             notEmpty: {
-                                message: '商家用户名为空'
+                                message: "{{ __('merchant_view.business_user_name_is_empty') }}"
                             }
                         }
                     },
                     psword: {
                         validators: {
                             notEmpty: {
-                                message: '密码为空'
+                                message: "{{ __('merchant_view.password_is_empty') }}"
                             }
                         }
                     },
                     captcha: {
                         validators: {
                             notEmpty: {
-                                message: '图形验证码为空'
+                                message: "{{ __('merchant_view.graphic_verification_code_is_empty') }}"
                             }
                         }
                     }
@@ -100,7 +100,7 @@
                             _self.flushForm();
                         },
                         success: function () {
-                            _jM.dialogOkMsg('登录成功,正在为您跳转');
+                            _jM.dialogOkMsg("{{ __('merchant_view.login_is_successful_we_are_redirecting_for_you') }}");
                             window.top.location.href="{{ route('merchant.main') }}";
                         },
                         complete: function (XMLHttpRequest, textStatus) {

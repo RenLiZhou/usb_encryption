@@ -14,7 +14,7 @@ class AuthorizationController extends Controller
     public $v = 'merchant.authorization.';
 
     /**
-     * 新增授权页面
+     * 激活授权页面
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
@@ -40,7 +40,7 @@ class AuthorizationController extends Controller
         $validator = Validator::make($request->all(), [
             'code' => 'required'
         ],[
-            'code.required' => '激活码不存在'
+            'code.required' => __('merchant_controller.activation_code_does_not_exist')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);

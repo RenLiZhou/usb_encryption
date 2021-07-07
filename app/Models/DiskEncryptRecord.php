@@ -7,7 +7,7 @@ class DiskEncryptRecord extends BaseModel
     protected $guarded = [];
 
     /**
-     * 获得拥有此电话的用户
+     * 对应u盘
      */
     public function disk()
     {

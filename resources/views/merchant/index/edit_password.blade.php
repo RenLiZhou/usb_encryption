@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>修改密码</title>
+    <title>{{ __('merchant_view.change_password') }}</title>
 @endsection
 
 @section("content")
@@ -17,24 +17,31 @@
                             <form class="row" id="formsubmit">
 
                                 <div class="form-group col-md-12">
-                                    <label for="title">原始密码</label>
-                                    <input type="password" class="form-control" name="old_password" value="" placeholder="请输入原始密码"/>
+                                    <label for="title">{{ __('merchant_view.original_password') }}</label>
+                                    <input type="password" class="form-control" name="old_password" value=""
+                                           placeholder="{{ __('merchant_view.please_enter_the_original_password') }}"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <label for="title">新密码</label>
-                                    <input type="password" class="form-control" name="new_password1" value="" placeholder="请输入新密码"/>
+                                    <label for="title">{{ __('merchant_view.new_password') }}</label>
+                                    <input type="password" class="form-control" name="new_password1" value=""
+                                           placeholder="{{ __('merchant_view.please_enter_a_new_password') }}"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <label for="title">确认新密码</label>
-                                    <input type="password" class="form-control" name="new_password2" value="" placeholder="请确认新密码"/>
+                                    <label for="title">{{ __('merchant_view.confirm_new_password') }}</label>
+                                    <input type="password" class="form-control" name="new_password2" value=""
+                                           placeholder="{{ __('merchant_view.please_confirm_the_new_password') }}"/>
                                 </div>
 
 
                                 <div class="form-group col-md-12 text-center mt35">
-                                    <button type="button" class="btn btn-primary" data-url="{{ route('merchant.password.update') }}" data-type="POST" onClick="TObj.submit(this)">确定</button>
-                                    <button type="button" class="btn btn-default ml15">取消</button>
+                                    <button type="button" class="btn btn-primary" data-url="{{ route('merchant.password.update') }}" data-type="POST" onClick="TObj.submit(this)">
+                                        {{ __('common.ok') }}
+                                    </button>
+                                    <button type="button" class="btn btn-default ml15">
+                                        {{ __('common.cancel') }}
+                                    </button>
                                 </div>
                             </form>
 
@@ -62,21 +69,21 @@
                     old_password: {
                         validators: {
                             notEmpty: {
-                                message: '原始密码为空'
+                                message: "{{ __('merchant_view.the_original_password_is_empty') }}"
                             }
                         }
                     },
                     new_password1: {
                         validators: {
                             notEmpty: {
-                                message: '新密码为空'
+                                message: "{{ __('merchant_view.the_new_password_is_empty') }}"
                             }
                         }
                     },
                     new_password2: {
                         validators: {
                             notEmpty: {
-                                message: '确认密码为空'
+                                message: "{{ __('merchant_view.confirm_that_the_password_is_empty') }}"
                             }
                         }
                     }
@@ -96,7 +103,7 @@
                     var ajaxdata = _jM.getFormJson(_self.formId);
 
                     if(ajaxdata['new_password1'] != ajaxdata['new_password2']){
-                        _jM.dialogErMsg('确认密码不一致');
+                        _jM.dialogErMsg("{{ __('merchant_view.confirm_that_the_passwords_are_inconsistent') }}");
                         return false;
                     }
 
@@ -114,7 +121,7 @@
                             _jM.dialogMsg(errMsg);
                         },
                         success: function () {
-                            _jM.dialogSuccess('修改成功',function () {
+                            _jM.dialogSuccess("{{ __('merchant_view.modified_successfully') }}", function () {
                                 _jM.dialogCloseCurIf();
                             });
                             _jM.dialogClose();

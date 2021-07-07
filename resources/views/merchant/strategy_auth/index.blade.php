@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>权限策略</title>
+    <title>{{ __('merchant_view.permission_policy') }}</title>
 @endsection
 
 @section("css")
@@ -18,7 +18,7 @@
             <div class="row mt15 mb60">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><h4>权限策略</h4></div>
+                        <div class="card-header"><h4>{{ __('merchant_view.permission_policy') }}</h4></div>
                         <!--搜索-->
                         <div class="card-toolbar clearfix">
                             <div class="row">
@@ -28,20 +28,28 @@
                                         <div class="row">
                                             <div class="input-group col-md-3">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">权限策略名称</button>
+                                                    <button class="btn btn-default" type="button">{{ __('merchant_view.permission_policy_name') }}</button>
                                                 </span>
-                                                <input type="text" class="form-control" name="name" placeholder="请输入权限策略名称" value="{{ $search_data['name'] }}" >
+                                                <input type="text" class="form-control" name="name"
+                                                       placeholder="{{ __('merchant_view.please_enter_the_permission_policy_name') }}"
+                                                       value="{{ $search_data['name'] }}" >
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn btn-dark pull-left ml15" id="searchBtn" type="button">搜索</button>
+                                                <button class="btn btn btn-dark pull-left ml15" id="searchBtn" type="button">
+                                                    {{ __('common.search') }}
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="toolbar-btn-action pull-right">
-                                        <button class="btn btn-success m-r-5 create" data-url="{{ route('merchant.strategy_auth.create') }}"> 新建策略</button>
-                                        <button class="btn btn-warning m-r-5" onClick="TObj.bacthDelete(this)"> 批量删除</button>
+                                        <button class="btn btn-success m-r-5 create" data-url="{{ route('merchant.strategy_auth.create') }}">
+                                            {{ __('merchant_view.new_strategy') }}
+                                        </button>
+                                        <button class="btn btn-warning m-r-5" onClick="TObj.bacthDelete(this)">
+                                            {{ __('common.batch_delete') }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -59,11 +67,11 @@
                                                 </label>
                                             </th>
                                             <th>ID</th>
-                                            <th>权限策略名称</th>
-                                            <th>运行次数</th>
-                                            <th>U盘有效期</th>
-                                            <th>创建时间</th>
-                                            <th>操作</th>
+                                            <th>{{ __('merchant_view.permission_policy_name') }}</th>
+                                            <th>{{ __('merchant_view.run_times_title') }}</th>
+                                            <th>{{ __('merchant_view.strategy_auth_u_disk_validity_period') }}</th>
+                                            <th>{{ __('common.created_time') }}</th>
+                                            <th>{{ __('common.operation') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,10 +89,10 @@
                                             <td>{{ $data->created_at }}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default edit" title="编辑" data-toggle="tooltip" data-url="{{ route('merchant.strategy_auth.edit', ['strategy_auth' => $data->id]) }}">
+                                                    <a class="btn btn-xs btn-default edit" title="{{ __('common.edit') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_auth.edit', ['strategy_auth' => $data->id]) }}">
                                                         <i class="ftsucai-edit-2"></i>
                                                     </a>
-                                                    <a class="btn btn-xs btn-default delete" title="删除" data-toggle="tooltip" data-url="{{ route('merchant.strategy_auth.delete', ['strategy_auth' => $data->id]) }}" data-type="DELETE">
+                                                    <a class="btn btn-xs btn-default delete" title="{{ __('common.delete') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_auth.delete', ['strategy_auth' => $data->id]) }}" data-type="DELETE">
                                                         <i class="ftsucai-del"></i>
                                                     </a>
                                                 </div>
@@ -126,7 +134,7 @@
 
                 $('.create').click(function () {
                     _jM.dialogPop({
-                        'title': '创建',
+                        'title': "{{ __('merchant_view.new_strategy') }}",
                         'content': $(this).attr('data-url'),
                         'area': ['54%', '60%'],
                         'maxmin': false
@@ -135,7 +143,7 @@
 
                 $('.edit').click(function () {
                     _jM.dialogPop({
-                        'title': '编辑',
+                        'title': "{{ __('common.edit') }}",
                         'content': $(this).attr('data-url'),
                         'area': ['54%', '60%'],
                         'maxmin': false
@@ -144,7 +152,7 @@
 
                 $('.delete').click(function () {
                     var _that = $(this);
-                    _jM.dialogHint('是否删除', function() {
+                    _jM.dialogHint("{{ __('merchant_view.strategy_auth_delete_or_not') }}", function() {
                         _jM.submit(_that, {}, function () {
                             window.location.reload();
                         });
@@ -160,11 +168,11 @@
                 });
                 var ids = checkID.join('|');
                 if(!ids){
-                    _jM.dialogErMsg('请选择需要操作数据');
+                    _jM.dialogErMsg("{{ __('merchant_view.please_select_the_data_you_need_to_operate') }}");
                     return false;
                 }
 
-                _jM.dialogHint('是否删除', function() {
+                _jM.dialogHint("{{ __('merchant_view.strategy_auth_delete_or_not') }}", function() {
                     _jM.disabled(obj);
                     _jM.ajax({
                         url: '{{ route("merchant.strategy_auth.delete.bacth") }}',
@@ -176,7 +184,7 @@
                             _jM.dialogMsg(errMsg);
                         },
                         success: function () {
-                            _jM.dialogSuccess('操作成功', function () {
+                            _jM.dialogSuccess("{{ __('common.operation_succeeded') }}", function () {
                                 window.location.reload();
                             });
                         },

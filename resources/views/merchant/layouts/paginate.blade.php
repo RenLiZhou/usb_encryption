@@ -37,6 +37,6 @@
         <option value="30" @if($paginator->perPage() == 30) selected @endif>50</option>
         <option value="100" @if($paginator->perPage() == 100) selected @endif>100</option>
     </select>
-    <span class="paginator-total">共{{ $paginator->total() }}条</span>
+    <span class="paginator-total">{{ __('merchant_view.a_total_of_n', ['count' => $paginator->total()]) }}</span>
 
 </ul>

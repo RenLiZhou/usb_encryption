@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ForbiddenController extends Controller
 {
-    public $v = 'home.forbidden.';
+    public $v = 'web.forbidden.';
 
     public function index()
     {

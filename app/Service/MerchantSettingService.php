@@ -15,7 +15,7 @@ class MerchantSettingService{
                 $result = self::setSetting($name);
                 if(!$result['result']) return $result;
             }else{
-                return resultError('该配置不存在');
+                return resultError(__('merchant_service.the_configuration_does_not_exist'));
             }
             $setting = MerchantSetting::query()->where('name',$name)->first();
         }
@@ -46,7 +46,7 @@ class MerchantSettingService{
             Log::info('设置异常'.$exception->getMessage());
         }
 
-        return resultError('设置失败');
+        return resultError(__('merchant_service.setup_failed'));
     }
 
     public static function getSettingData($name, $params = []){

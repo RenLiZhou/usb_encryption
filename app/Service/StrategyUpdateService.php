@@ -82,7 +82,7 @@ class StrategyUpdateService{
         } catch (\Exception $exception) {
             Log::info('创建更新策略异常:'.$exception->getMessage());
         }
-        return resultError('创建更新策略失败');
+        return resultError(__('merchant_service.failed_to_create_update_policy'));
     }
 
 
@@ -161,6 +161,6 @@ class StrategyUpdateService{
         } catch (\Exception $exception) {
             Log::info('编辑更新策略异常:'.$exception->getMessage());
         }
-        return resultError('编辑更新策略失败');
+        return resultError(__('merchant_service.failed_to_edit_update_policy'));
     }
 }

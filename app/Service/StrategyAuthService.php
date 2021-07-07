@@ -47,7 +47,7 @@ class StrategyAuthService{
         } catch (\Exception $exception) {
             Log::info('创建权限策略异常:'.$exception->getMessage());
         }
-        return resultError('创建权限策略失败');
+        return resultError(__('merchant_service.failed_to_create_permission_policy'));
     }
 
 
@@ -90,6 +90,6 @@ class StrategyAuthService{
         } catch (\Exception $exception) {
             Log::info('编辑权限策略异常:'.$exception->getMessage());
         }
-        return resultError('编辑权限策略失败');
+        return resultError(__('merchant_service.failed_to_update_permission_policy'));
     }
 }

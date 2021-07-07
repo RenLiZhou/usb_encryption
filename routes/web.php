@@ -1,4 +1,4 @@
 <?php
-Route::group(['namespace' => 'Home'], function () {
+Route::group(['namespace' => 'Web'], function () {
     Route::get('forbidden', 'ForbiddenController@index')->name('403');
 });

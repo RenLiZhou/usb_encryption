@@ -250,7 +250,7 @@ class Merchant extends Authuser
     public function getExpireDateAttribute()
     {
         if($this->is_permanent == self::PERMANENT){
-            return "永久";
+            return __('merchant_model.permanent');
         }
         return $this->expire_time;
     }
@@ -265,7 +265,7 @@ class Merchant extends Authuser
 
     public function getMerchantRules()
     {
-        $version_rules = MerchantVersionRulesService::cacheRules(true);
+        $version_rules = MerchantVersionRulesService::cacheRules();
         $vesion = MerchantVersionRelation::query()->where('merchant_id', $this->id)->first();
         return $vesion === null ? [] : $version_rules[$vesion->version_id] ?: [];
     }

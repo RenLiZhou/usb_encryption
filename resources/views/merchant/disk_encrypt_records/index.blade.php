@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>U盘加密记录</title>
+    <title>{{ __('merchant_view.u_disk_encryption_record') }}</title>
 @endsection
 
 @section("content")
@@ -14,7 +14,7 @@
             <div class="row mt15 mb60">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><h4>U盘加密记录</h4></div>
+                        <div class="card-header"><h4>{{ __('merchant_view.u_disk_encryption_record') }}</h4></div>
 
                         <div class="card-body">
                             <!--内容-->
@@ -23,11 +23,11 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>U盘物理序列号</th>
-                                            <th>U盘逻辑序列号</th>
-                                            <th>U盘容量</th>
-                                            <th>U盘备注名</th>
-                                            <th>操作时间</th>
+                                            <th>{{ __('merchant_view.u_disk_physical_serial_number') }}</th>
+                                            <th>{{ __('merchant_view.u_disk_logical_serial_number') }}</th>
+                                            <th>{{ __('merchant_view.u_disk_capacity') }}</th>
+                                            <th>{{ __('merchant_view.u_disk_remarks_name') }}</th>
+                                            <th>{{ __('common.operation_time') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>

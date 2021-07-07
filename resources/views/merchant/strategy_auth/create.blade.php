@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>新建权限策略</title>
+    <title>{{ __('merchant_view.new_permission_policy') }}</title>
 @endsection
 
 @section("css")
@@ -21,33 +21,38 @@
                         <form class="row" id="formsubmit">
 
                             <div class="form-group col-md-12">
-                                <label for="title">权限策略名称</label>
-                                <input type="text" class="form-control" name="name" value="" placeholder="请输入权限策略名称"/>
+                                <label for="title">{{ __('merchant_view.permission_policy_name') }}</label>
+                                <input type="text" class="form-control" name="name" value=""
+                                       placeholder="{{ __('merchant_view.please_enter_the_permission_policy_name') }}"/>
                             </div>
 
                             <div class="form-group col-md-12">
-                                <label for="title">运行次数(-1表示永久)</label>
-                                <input type="number" class="form-control" name="run_number" value="" placeholder="请输入运行次数"/>
+                                <label for="title">{{ __('merchant_view.run_times') }}</label>
+                                <input type="number" class="form-control" name="run_number" value=""
+                                       placeholder="{{ __('merchant_view.please_enter_the_number_of_runs') }}"/>
                             </div>
 
                             <div class="form-group col-md-12 clearfix">
-                                <label for="valid_time">U盘有效期</label>
+                                <label for="valid_time">{{ __('merchant_view.strategy_auth_u_disk_validity_period') }}</label>
                                 <div class="example-box">
                                     <label class="ftdms-radio radio-primary mt15 clearfix">
-                                        <input type="radio" name="expired_type" value="0" checked><span>永久有效</span>
+                                        <input type="radio" name="expired_type" value="0" checked>
+                                        <span>{{ __('merchant_view.permanently_effective') }}</span>
                                     </label>
                                     <div class="clearfix  m-t-5">
                                         <label class="ftdms-radio radio-primary mt20 pull-left">
-                                            <input type="radio" name="expired_type" value="1"><span>固定天数</span>
+                                            <input type="radio" name="expired_type" value="1">
+                                            <span>{{ __('merchant_view.fixed_days') }}</span>
                                         </label>
                                         <span class="col-sm-4 ml15 m-t-10">
                                             <input type="text" class="form-control form_day" name="expired_day" disabled value=""/>
                                         </span>
-                                        <span class="layui-inline" style="position: relative;top:19px;">天内有效</span>
+                                        <span class="layui-inline" style="position: relative;top:19px;">{{ __('merchant_view.valid_within_days') }}</span>
                                     </div>
                                     <div class="clearfix">
                                         <label class="ftdms-radio radio-primary mt20 pull-left">
-                                            <input type="radio" name="expired_type" value="2"><span>固定日期</span>
+                                            <input type="radio" name="expired_type" value="2">
+                                            <span>{{ __('merchant_view.fixed_date') }}</span>
                                         </label>
                                         <span class="col-sm-4 ml15">
                                             <div class="input-group m-t-10">
@@ -62,8 +67,12 @@
                             </div>
 
                             <div class="form-group col-md-12 text-center mt35">
-                                <button type="button" class="btn btn-primary" data-url="{{ route('merchant.strategy_auth.store') }}" data-type="POST" onClick="TObj.submit(this)">确定</button>
-                                <button type="button" class="btn btn-default ml15">取消</button>
+                                <button type="button" class="btn btn-primary" data-url="{{ route('merchant.strategy_auth.store') }}" data-type="POST" onClick="TObj.submit(this)">
+                                    {{ __('common.ok') }}
+                                </button>
+                                <button type="button" class="btn btn-default ml15">
+                                    {{ __('common.cancel') }}
+                                </button>
                             </div>
                         </form>
 
@@ -112,14 +121,14 @@
                     name: {
                         validators: {
                             notEmpty: {
-                                message: '策略名称为空'
+                                message: "{{ __('merchant_view.policy_name_is_empty') }}"
                             }
                         }
                     },
                     run_number: {
                         validators: {
                             notEmpty: {
-                                message: '运行次数为空'
+                                message: "{{ __('merchant_view.the_number_of_runs_is_empty') }}"
                             }
                         }
                     }
@@ -142,7 +151,7 @@
                         || (ajaxdata['expired_type'] == 1 && _jM.validate.isEmpty(ajaxdata['expired_day']))
                         || (ajaxdata['expired_type'] == 2 && _jM.validate.isEmpty(ajaxdata['expired_time']))
                     ){
-                        _jM.dialogErMsg('请设置生效时间');
+                        _jM.dialogErMsg("{{ __('merchant_view.please_set_the_effective_time') }}");
                         return false;
                     }
 
@@ -155,7 +164,7 @@
                             _jM.dialogMsg(errMsg);
                         },
                         success: function () {
-                            _jM.dialogSuccess('创建成功', function () {
+                            _jM.dialogSuccess("{{ __('common.created_successfully') }}", function () {
                                 parent.location.reload();
                             });
                         },

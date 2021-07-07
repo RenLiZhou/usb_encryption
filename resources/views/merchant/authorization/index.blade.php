@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>增加授权</title>
+    <title>{{ __('merchant_view.add_authorization') }}</title>
 @endsection
 
 @section("css")
@@ -17,12 +17,20 @@
 
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-header"><h4>增加授权</h4></div>
+                            <div class="card-header"><h4>{{ __('merchant_view.add_authorization') }}</h4></div>
                             <div class="card-body">
 
                                 <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                                    <li class="active"><a href="#authorization" id="authorization-tab" role="tab" data-toggle="tab">激活授权</a></li>
-                                    <li><a href="#log" role="tab" id="log-tab" data-toggle="tab">授权记录</a></li>
+                                    <li class="active">
+                                        <a href="#authorization" id="authorization-tab" role="tab" data-toggle="tab">
+                                            {{ __('merchant_view.activate_authorization') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#log" role="tab" id="log-tab" data-toggle="tab">
+                                            {{ __('merchant_view.authorization_record') }}
+                                        </a>
+                                    </li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content">
 
@@ -31,15 +39,21 @@
 
                                         <form id="formsubmit">
                                             <div class="input-group m-b-10">
-                                                <span class="input-group-addon" id="activation-code">激活码</span>
-                                                <input type="text" class="form-control" placeholder="请输入激活码" name="code" aria-describedby="activation-code">
+                                                <span class="input-group-addon" id="activation-code">
+                                                    {{ __('merchant_view.activation_code') }}
+                                                </span>
+                                                <input type="text" class="form-control"
+                                                       placeholder="{{ __('merchant_view.please_enter_the_activation_code') }}"
+                                                       name="code" aria-describedby="activation-code">
                                             </div>
                                             <div class="form-group mt35">
-                                                <button class="btn btn-primary" type="button" data-url="{{ route('merchant.authorization.exchange') }}" data-type="POST" onClick="TObj.submit(this)">提交</button>
+                                                <button class="btn btn-primary" type="button" data-url="{{ route('merchant.authorization.exchange') }}" data-type="POST" onClick="TObj.submit(this)">
+                                                    {{ __('common.submit') }}
+                                                </button>
                                             </div>
                                         </form>
 
-                                        <p>注意： 购买后，系统将自动发送包含激活码的邮件到您的邮箱。 在上方填写激活码后即可增加U盘授权。</p>
+                                        <p>{{ __('merchant_view.activation_code_hint') }}</p>
                                     </div>
 
                                     <!--记录-->
@@ -82,12 +96,14 @@
                     table.render({
                         elem: '#log_list'
                         ,data: _self.logs
-                        ,page: true
+                        ,page: {
+                            layout: [ 'prev', 'page', 'next', 'count', 'limit'], //自定义分页布局
+                        }
                         ,limits: [10,30,50,100]
                         ,cols: [[
-                            {field:'code', title: '激活码', sort: true},
-                            {field:'auth_count', title: '新增U盘授权数量', sort: true},
-                            {field:'active_time', title: '激活时间', sort: true},
+                            {field:'code', title: "{{ __('merchant_view.activation_code') }}", sort: true},
+                            {field:'auth_count', title: "{{ __('merchant_view.the_number_of_new_u_disk_authorizations') }}", sort: true},
+                            {field:'active_time', title: "{{ __('merchant_view.activation_time') }}", sort: true},
                         ]]
                     });
                 });
@@ -98,7 +114,7 @@
                 var ajaxdata = _jM.getFormJson(_self.formId);
 
                 if(_jM.validate.isEmpty(ajaxdata['code'])){
-                    _jM.dialogErMsg('请输入激活码');
+                    _jM.dialogErMsg("{{ __('merchant_view.please_enter_the_activation_code') }}");
                     return false;
                 }
 
@@ -114,7 +130,7 @@
                         _jM.dialogMsg(errMsg);
                     },
                     success: function () {
-                        _jM.dialogSuccess('操作成功', function () {
+                        _jM.dialogSuccess("{{ __('common.operation_succeeded') }}", function () {
                             location.reload();
                         });
                     },

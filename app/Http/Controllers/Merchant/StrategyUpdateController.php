@@ -50,7 +50,7 @@ class StrategyUpdateController extends Controller
     }
 
     /**
-     * 保存商户
+     * 保存
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -62,13 +62,13 @@ class StrategyUpdateController extends Controller
             'valid_type' => 'required|integer|min:1',
             'valid_time' => 'nullable|date'
         ],[
-            'name.required' => '策略名称为空',
-            'hint.integer' => '非法参数',
-            'hint.min' => '非法参数',
-            'valid_type.required' => '生效时间有误',
-            'valid_type.integer' => '生效时间有误',
-            'valid_type.min' => '生效时间有误',
-            'valid_time.date' => '生效时间有误'
+            'name.required' => __('merchant_controller.update_strategy_name_is_empty'),
+            'hint.integer' => __('common.parameter_error'),
+            'hint.min' => __('common.parameter_error'),
+            'valid_type.required' => __('merchant_controller.the_effective_time_is_wrong'),
+            'valid_type.integer' => __('merchant_controller.the_effective_time_is_wrong'),
+            'valid_type.min' => __('merchant_controller.the_effective_time_is_wrong'),
+            'valid_time.date' => __('merchant_controller.the_effective_time_is_wrong')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);
@@ -81,7 +81,7 @@ class StrategyUpdateController extends Controller
     }
 
     /**
-     * 编辑商户页面
+     * 编辑
      * @param $uid
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -99,7 +99,7 @@ class StrategyUpdateController extends Controller
     }
 
     /**
-     * 更新商户
+     * 更新
      * @param Request $request
      * @param $merchant_id
      * @return \Illuminate\Http\JsonResponse
@@ -112,13 +112,13 @@ class StrategyUpdateController extends Controller
             'valid_type' => 'required|integer|min:1',
             'valid_time' => 'nullable|date'
         ],[
-            'name.required' => '策略名称为空',
-            'hint.integer' => '非法参数',
-            'hint.min' => '非法参数',
-            'valid_type.required' => '生效时间有误',
-            'valid_type.integer' => '生效时间有误',
-            'valid_type.min' => '生效时间有误',
-            'valid_time.date' => '生效时间有误'
+            'name.required' => __('merchant_controller.update_strategy_name_is_empty'),
+            'hint.integer' => __('common.parameter_error'),
+            'hint.min' => __('common.parameter_error'),
+            'valid_type.required' => __('merchant_controller.the_effective_time_is_wrong'),
+            'valid_type.integer' => __('merchant_controller.the_effective_time_is_wrong'),
+            'valid_type.min' => __('merchant_controller.the_effective_time_is_wrong'),
+            'valid_time.date' => __('merchant_controller.the_effective_time_is_wrong')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);

@@ -28,10 +28,10 @@ class LoginController extends Controller
             'psword' => 'required',
             'captcha' => 'required|captcha',
         ],[
-            'uname.required' => '商家用户名为空',
-            'psword.required' => '密码为空',
-            'captcha.required' => '图形验证码为空',
-            'captcha.captcha' => '图形验证码错误'
+            'uname.required' => __('merchant_service.business_user_name_is_empty'),
+            'psword.required' => __('merchant_service.password_is_empty'),
+            'captcha.required' => __('merchant_service.graphic_verification_code_is_empty'),
+            'captcha.captcha' => __('merchant_service.graphic_verification_code_error')
         ]);
         $error = $validator->errors()->first();
         if ($error) return responseError($error);

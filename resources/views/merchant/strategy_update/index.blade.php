@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>文件更新策略</title>
+    <title>{{ __('merchant_view.strategy_update_file_update_strategy') }}</title>
 @endsection
 
 @section("css")
@@ -18,7 +18,7 @@
             <div class="row mt15 mb60">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><h4>文件更新策略</h4></div>
+                        <div class="card-header"><h4>{{ __('merchant_view.strategy_update_file_update_strategy') }}</h4></div>
                         <!--搜索-->
                         <div class="card-toolbar clearfix">
                             <div class="row">
@@ -28,20 +28,28 @@
                                         <div class="row">
                                             <div class="input-group col-md-3">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">策略名称</button>
+                                                    <button class="btn btn-default" type="button">{{ __('merchant_view.policy_name') }}</button>
                                                 </span>
-                                                <input type="text" class="form-control" name="name" placeholder="请输入策略名称" value="{{ $search_data['name'] }}" >
+                                                <input type="text" class="form-control" name="name"
+                                                       placeholder="{{ __('merchant_view.please_enter_the_name_of_the_strategy') }}"
+                                                       value="{{ $search_data['name'] }}" >
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn btn-dark pull-left ml15" id="searchBtn" type="button">搜索</button>
+                                                <button class="btn btn btn-dark pull-left ml15" id="searchBtn" type="button">
+                                                    {{ __('common.search') }}
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="toolbar-btn-action pull-right">
-                                        <button class="btn btn-success m-r-5 create" data-url="{{ route('merchant.strategy_update.create') }}"> 新建策略</button>
-                                        <button class="btn btn-warning m-r-5" onClick="TObj.bacthDelete(this)"> 批量删除</button>
+                                        <button class="btn btn-success m-r-5 create" data-url="{{ route('merchant.strategy_update.create') }}">
+                                            {{ __('merchant_view.strategy_update_new_strategy') }}
+                                        </button>
+                                        <button class="btn btn-warning m-r-5" onClick="TObj.bacthDelete(this)">
+                                            {{ __('common.batch_delete') }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -59,12 +67,12 @@
                                                 </label>
                                             </th>
                                             <th>ID</th>
-                                            <th>更新策略名称</th>
-                                            <th>客户端提示更新</th>
-                                            <th>文件个数</th>
-                                            <th>策略生效时间</th>
-                                            <th>创建时间</th>
-                                            <th>操作</th>
+                                            <th>{{ __('merchant_view.update_policy_name') }}</th>
+                                            <th>{{ __('merchant_view.client_prompts_to_update') }}</th>
+                                            <th>{{ __('merchant_view.number_of_files') }}</th>
+                                            <th>{{ __('merchant_view.policy_effective_time') }}</th>
+                                            <th>{{ __('common.created_time') }}</th>
+                                            <th>{{ __('common.operation') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -79,9 +87,9 @@
                                             <td>{{ $data->name }}</td>
                                             <td>
                                                 @if($data->automatic_update_prompt == 1)
-                                                    是
+                                                    {{ __('merchant_view.yes') }}
                                                 @else
-                                                    否
+                                                    {{ __('merchant_view.no') }}
                                                 @endif
                                             </td>
                                             <td>{{ $data->files_count }}</td>
@@ -89,10 +97,10 @@
                                             <td>{{ $data->created_at }}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default edit" title="编辑" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.edit', ['strategy_update' => $data->id]) }}">
+                                                    <a class="btn btn-xs btn-default edit" title="{{ __('merchant_view.edit') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.edit', ['strategy_update' => $data->id]) }}">
                                                         <i class="ftsucai-edit-2"></i>
                                                     </a>
-                                                    <a class="btn btn-xs btn-default delete" title="删除" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.delete', ['strategy_update' => $data->id]) }}" data-type="DELETE">
+                                                    <a class="btn btn-xs btn-default delete" title="{{ __('merchant_view.delete') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.delete', ['strategy_update' => $data->id]) }}" data-type="DELETE">
                                                         <i class="ftsucai-del"></i>
                                                     </a>
                                                 </div>
@@ -142,7 +150,7 @@
 
                 $('.delete').click(function () {
                     var _that = $(this);
-                    _jM.dialogHint('是否删除', function() {
+                    _jM.dialogHint("{{ __('merchant_view.strategy_update_delete_or_not') }}", function() {
                         _jM.submit(_that, {}, function () {
                             window.location.reload();
                         });
@@ -158,11 +166,11 @@
                 });
                 var ids = checkID.join('|');
                 if(!ids){
-                    _jM.dialogErMsg('请选择需要操作数据');
+                    _jM.dialogErMsg("{{ __('merchant_view.strategy_update_please_select_the_data_you_need_to_operate') }}");
                     return false;
                 }
 
-                _jM.dialogHint('是否删除', function() {
+                _jM.dialogHint("{{ __('merchant_view.strategy_update_delete_or_not') }}", function() {
                     _jM.disabled(obj);
                     _jM.ajax({
                         url: '{{ route("merchant.strategy_update.delete.bacth") }}',
@@ -174,7 +182,7 @@
                             _jM.dialogMsg(errMsg);
                         },
                         success: function () {
-                            _jM.dialogSuccess('操作成功', function () {
+                            _jM.dialogSuccess("{{ __('common.operation_succeeded') }}", function () {
                                 window.location.reload();
                             });
                         },

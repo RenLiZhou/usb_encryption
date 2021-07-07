@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>编辑更新策略</title>
+    <title>{{ __('merchant_view.edit_update_strategy') }}</title>
 @endsection
 
 @section("css")
@@ -23,38 +23,54 @@
             <div class="row mt15 mb60">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><h4>编辑更新策略 | <a class="text-cyan" href="javascript:;" onclick="_jM.dialogCloseCurIf()">返回列表</a></h4></div>
+                        <div class="card-header">
+                            <h4>
+                                {{ __('merchant_view.edit_update_strategy') }} |
+                                <a class="text-cyan" href="javascript:;" onclick="_jM.dialogCloseCurIf()">
+                                    {{ __('merchant_view.strategy_update_return_to_list') }}
+                                </a>
+                            </h4>
+                        </div>
 
                         <div class="card-body">
 
                             <form class="row" id="formsubmit">
 
                                 <div class="form-group col-md-12">
-                                    <label for="title">更新策略名称</label>
-                                    <input type="text" class="form-control" name="name" value="{{ $data->name }}" placeholder="请输入更新策略名称"/>
+                                    <label for="title">
+                                        {{ __('merchant_view.update_policy_name') }}
+                                    </label>
+                                    <input type="text" class="form-control" name="name" value="{{ $data->name }}"
+                                           placeholder="{{ __('merchant_view.please_enter_the_update_policy_name') }}"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <label for="title">自动更新提示</label>
+                                    <label for="title">
+                                        {{ __('merchant_view.automatic_update_prompt') }}
+                                    </label>
                                     <div class="example-box">
                                         <label class="ftdms-checkbox checkbox-primary m-t-10">
-                                            <input type="checkbox" name="hint" value="1" @if($data->automatic_update_prompt == 1) checked @endif><span>U盘运行后自动提示更新文件</span>
+                                            <input type="checkbox" name="hint" value="1" @if($data->automatic_update_prompt == 1) checked @endif>
+                                            <span>{{ __('merchant_view.automatically_prompt_to_update_files_after_the_u_disk_is_running') }}</span>
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-12 clearfix">
-                                    <label for="valid_time">策略生效时间</label>
+                                    <label for="valid_time">{{ __('merchant_view.policy_effective_time') }}</label>
                                     <div class="example-box">
                                         <label class="ftdms-radio radio-primary m-t-10">
-                                            <input type="radio" name="valid_type" value="1"><span>不生效</span>
+                                            <input type="radio" name="valid_type" value="1">
+                                            <span>{{ __('merchant_view.not_effective') }}</span>
                                         </label>
                                         <label class="ftdms-radio radio-primary mt15">
-                                            <input type="radio" name="valid_type" checked value="2"><span>立即生效</span>
+                                            <input type="radio" name="valid_type" checked value="2">
+                                            <span>{{ __('merchant_view.effective_immediately') }}</span>
                                         </label>
                                         <div>
                                             <label class="ftdms-radio radio-primary mt15 pull-left">
-                                                <input type="radio" name="valid_type" checked value="3"><span>指定日期</span>
+                                                <input type="radio" name="valid_type" checked value="3">
+                                                <span>{{ __('merchant_view.specified_date') }}</span>
                                             </label>
                                             <span class="col-sm-2 ml15">
                                                 <div class="input-group m-t-5">
@@ -70,8 +86,10 @@
 
                                 <div class="form-group col-md-12 mt15">
                                     <div>
-                                        <label>从文件库选择文件</label>
-                                        <button class="btn btn-dark btn-w-md m-l-10" type="button" onclick="TObj.selectFileOpen()">选择文件</button>
+                                        <label><span>{{ __('merchant_view.select_file_the_file_library') }}</span></label>
+                                        <button class="btn btn-dark btn-w-md m-l-10" type="button" onclick="TObj.selectFileOpen()">
+                                            {{ __('merchant_view.strategy_update_select_file') }}
+                                        </button>
                                     </div>
 
                                     <div class="table-responsive">
@@ -79,14 +97,18 @@
                                         </table>
 
                                         <div class="mt15 text-danger">
-                                            说明：以上更新的文件在U盘的存储路径与文件库中的文件路径保持一致。
+                                            {{ __('merchant_view.strategy_update_description') }}
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-12 text-center">
-                                    <button type="button" class="btn btn-primary" data-url="{{ route('merchant.strategy_update.update',['strategy_update'=>$data->id]) }}" data-type="PATCH" onClick="TObj.submit(this)">确定</button>
-                                    <button type="button" class="btn btn-default ml15">取消</button>
+                                    <button type="button" class="btn btn-primary" data-url="{{ route('merchant.strategy_update.update',['strategy_update'=>$data->id]) }}" data-type="PATCH" onClick="TObj.submit(this)">
+                                        {{ __('common.ok') }}
+                                    </button>
+                                    <button type="button" class="btn btn-default ml15">
+                                        {{ __('common.cancel') }}
+                                    </button>
                                 </div>
                             </form>
 
@@ -102,14 +124,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">选择文件</h4>
+                        <h4 class="modal-title">{{ __('merchant_view.strategy_update_select_file') }}</h4>
                     </div>
                     <div class="modal-body" style="max-height: 50vh;overflow-y: auto">
                         <div id="procitytree" class="folder-modal"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="TObj.addFile()">确认选择</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('merchant_view.strategy_update_close') }}</button>
+                        <button type="button" class="btn btn-primary" onclick="TObj.addFile()">{{ __('merchant_view.confirm_selection') }}</button>
                     </div>
                 </div>
             </div>
@@ -126,7 +148,7 @@
     <script type="text/javascript" src="{{ asset('merchant-static/js/bootstrap-treeview/js/bootstrap-treeview.js') }}"></script>
     <script type="text/javascript" src="{{ asset('layui/layui.js') }}"></script>
     <script type="text/html" id="barFile">
-        <a class='btn btn-xs btn-default delete' title='删除' data-toggle='tooltip' lay-event="del"><i class='ftsucai-del'></i></a>
+        <a class='btn btn-xs btn-default delete' title="{{ __('common.delete') }}" data-toggle='tooltip' lay-event="del"><i class='ftsucai-del'></i></a>
     </script>
     <script>
         var TObject = function(){
@@ -171,7 +193,7 @@
                     name: {
                         validators: {
                             notEmpty: {
-                                message: '策略名称为空'
+                                message: "{{ __('merchant_view.strategy_update_policy_name_is_empty') }}"
                             }
                         }
                     }
@@ -205,11 +227,11 @@
                         ,page: true
                         ,limits: [10,30,50,100]
                         ,cols: [[
-                            {field:'name', title: '文件名', sort: true},
-                            {field:'path', title: '路径', sort: true},
-                            {field:'type', title: '类型', sort: true, width: 150},
-                            {field:'size', title: '大小', sort: true, width: 150},
-                            {title:'操作', toolbar: '#barFile', width: 100}
+                            {field:'name', title: "{{ __('merchant_view.strategy_update_file_name') }}", sort: true},
+                            {field:'path', title: "{{ __('merchant_view.path') }}", sort: true},
+                            {field:'type', title: "{{ __('merchant_view.strategy_update_type') }}", sort: true, width: 150},
+                            {field:'size', title: "{{ __('merchant_view.strategy_update_size') }}", sort: true, width: 150},
+                            {title:"{{ __('common.operation') }}", toolbar: '#barFile', width: 100}
                         ]]
                     });
 
@@ -228,7 +250,7 @@
                 var select_file = $(_self.treeId).treeview('getSelected');
 
                 if(select_file.length <= 0){
-                    _jM.dialogMsg('请选择文件');
+                    _jM.dialogMsg("{{ __('merchant_view.please_select_a_file') }}");
                     return false;
                 }
 
@@ -251,12 +273,12 @@
                 });
 
                 if(channel){
-                    _jM.dialogMsg('不允许选择文件夹');
+                    _jM.dialogMsg("{{ __('merchant_view.no_folder_selection_allowed') }}");
                     return false;
                 }
 
                 if(_jM.validate.isEmpty(files_data)){
-                    _jM.dialogMsg('请选择文件');
+                    _jM.dialogMsg("{{ __('merchant_view.please_select_a_file') }}");
                     return false;
                 }
 
@@ -272,7 +294,7 @@
                     if(!is_exist){
                         _self.files.push(item);
                     }else{
-                        _jM.dialogMsg(item.name + '重复,已自动过滤');
+                        _jM.dialogMsg(item.name + "{{ __('merchant_view.duplicate_filtered_automatically') }}");
                     }
                 });
 
@@ -290,7 +312,7 @@
                     var ajaxdata = _jM.getFormJson(_self.formId);
 
                     if(_jM.validate.isEmpty(ajaxdata['valid_type']) || (ajaxdata['valid_type'] == 3 && _jM.validate.isEmpty(ajaxdata['valid_time']))){
-                        _jM.dialogErMsg('请设置生效时间');
+                        _jM.dialogErMsg("{{ __('merchant_view.strategy_update_please_set_the_effective_time') }}");
                         return false;
                     }
 
@@ -308,7 +330,7 @@
                             _jM.dialogMsg(errMsg);
                         },
                         success: function () {
-                            _jM.dialogSuccess('编辑成功', function () {
+                            _jM.dialogSuccess("{{ __('common.update_successfully') }}", function () {
                                 parent.location.reload();
                             });
                         },
@@ -322,7 +344,7 @@
             //选择文件
             this.selectFileOpen = function () {
                 if(_self.select_file_status){
-                    _jM.dialogMsg('加载中');
+                    _jM.dialogMsg("{{ __('common.loading') }}");
                     return false;
                 }
 

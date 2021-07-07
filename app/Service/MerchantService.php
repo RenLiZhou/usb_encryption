@@ -15,12 +15,12 @@ class MerchantService{
     public static function auth(string $username, string $password){
         $merchant = Merchant::where('username', $username)->first();
         if ($merchant === null){
-            throw new OrException('用户名或密码错误');
+            throw new OrException(__('merchant_service.username_or_password_is_wrong'));
         }
 
         $res = password_verify($password, $merchant->password);
         if ($res === false){
-            throw new OrException('用户名或密码错误');
+            throw new OrException(__('merchant_service.username_or_password_is_wrong'));
         }
 
         $validate = self::validateStatus($merchant);
@@ -37,10 +37,10 @@ class MerchantService{
      */
     public static function validateStatus($merchant){
         if ($merchant->status === Merchant::NOT_ACTIVE){
-            return resultError('商户已禁用');
+            return resultError(__('merchant_service.the_merchant_has_been_disabled'));
         }
         if ($merchant->is_permanent != Merchant::PERMANENT && $merchant->expire_time <= Carbon::now()->toDateTimeString()){
-            return resultError('商户已到期');
+            return resultError(__('merchant_service.the_merchant_has_expired'));
         }
         return resultSuccess();
     }

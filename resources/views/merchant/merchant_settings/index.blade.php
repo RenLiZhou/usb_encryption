@@ -1,7 +1,7 @@
 ﻿@extends("merchant.layouts.main")
 
 @section("title")
-    <title>高级设置</title>
+    <title>{{ __('merchant_view.advanced_settings') }}</title>
 @endsection
 
 @section("css")
@@ -18,12 +18,20 @@
 
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-header"><h4>高级设置</h4></div>
+                            <div class="card-header"><h4>{{ __('merchant_view.advanced_settings') }}</h4></div>
                             <div class="card-body">
 
                                 <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                                    <li class="active"><a href="#screen_recording" id="screen_recording-tab" role="tab" data-toggle="tab">防录屏检测设置</a></li>
-                                    <li><a href="#watermark" role="tab" id="watermark-tab" data-toggle="tab">水印设置</a></li>
+                                    <li class="active">
+                                        <a href="#screen_recording" id="screen_recording-tab" role="tab" data-toggle="tab">
+                                            {{ __('merchant_view.anti_screen_recording_detection_settings') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#watermark" role="tab" id="watermark-tab" data-toggle="tab">
+                                            {{ __('merchant_view.watermark_settings') }}
+                                        </a>
+                                    </li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content">
 
@@ -32,25 +40,27 @@
 
                                         <form id="form_screen_recording">
                                             <div class="card">
-                                                <div class="card-header"><h4>基础设置</h4></div>
+                                                <div class="card-header"><h4>{{ __('merchant_view.basic_settings') }}</h4></div>
                                                 <div class="card-body clearfix">
                                                     <div class="form-group col-sm-7 clearfix">
-                                                        <label>防翻录功能</label>
+                                                        <label>{{ __('merchant_view.anti_rip_function') }}</label>
                                                         <div class="controls-box m-t-10">
                                                             <label class="ftdms-radio radio-inline radio-primary">
-                                                                <input type="radio" name="status" value="0" @if($screen_recording->data['status'] == 0) checked @endif /><span>启用</span>
+                                                                <input type="radio" name="status" value="0" @if($screen_recording->data['status'] == 0) checked @endif /><span>{{ __('common.enable') }}</span>
                                                             </label>
                                                             <label class="ftdms-radio radio-inline radio-primary">
-                                                                <input type="radio" name="status" value="1" @if($screen_recording->data['status'] == 1) checked @endif /><span>禁用</span>
+                                                                <input type="radio" name="status" value="1" @if($screen_recording->data['status'] == 1) checked @endif /><span>{{ __('common.disable') }}</span>
                                                             </label>
                                                         </div>
-                                                        <p class="m-t-10 text-cyan">*说明：关闭该功能后，将不能进行防翻录</p>
+                                                        <p class="m-t-10 text-cyan">{{ __('merchant_view.anti_rip_function_description') }}</p>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group mt35">
-                                                <button class="btn btn-primary" type="button" data-url="{{ route('merchant.merchant_setting.screen_recording') }}" data-type="POST" onClick="TObj.ScreeRecordingSubmit(this)">提交</button>
+                                                <button class="btn btn-primary" type="button" data-url="{{ route('merchant.merchant_setting.screen_recording') }}" data-type="POST" onClick="TObj.ScreeRecordingSubmit(this)">
+                                                    {{ __('common.submit') }}
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -61,26 +71,26 @@
                                         <form id="form_watermark">
 
                                             <div class="card clearfix">
-                                                <div class="card-header"><h4>基础设置</h4></div>
+                                                <div class="card-header"><h4>{{ __('merchant_view.basic_settings') }}</h4></div>
                                                 <div class="card-body clearfix">
                                                     <div class="form-group col-sm-7 clearfix">
-                                                        <label>启用水印</label>
+                                                        <label>{{ __('merchant_view.enable_watermark') }}</label>
                                                         <div class="controls-box m-t-5">
                                                             <label class="ftdms-radio radio-inline radio-primary">
-                                                                <input type="radio" name="status" value="0" @if($watermark->data['status'] == 0) checked @endif /><span>启用</span>
+                                                                <input type="radio" name="status" value="0" @if($watermark->data['status'] == 0) checked @endif /><span>{{ __('common.enable') }}</span>
                                                             </label>
                                                             <label class="ftdms-radio radio-inline radio-primary">
-                                                                <input type="radio" name="status" value="1" @if($watermark->data['status'] == 1) checked @endif /><span>禁用</span>
+                                                                <input type="radio" name="status" value="1" @if($watermark->data['status'] == 1) checked @endif /><span>{{ __('common.disable') }}</span>
                                                             </label>
                                                         </div>
-                                                        <p class="m-t-10 text-cyan">*说明：启用该功能后，在加密后的文件中将显示设置的水印</p>
+                                                        <p class="m-t-10 text-cyan">{{ __('merchant_view.watermark_description') }}</p>
                                                     </div>
 
                                                     <div class="form-group col-sm-7 clearfix">
                                                         <label>水印内容</label>
                                                         <select class="form-control m-t-5" name="content">
-                                                            <option value="1" @if($watermark->data['content'] == 1) selected @endif>U盘物理序列号</option>
-                                                            <option value="2" @if($watermark->data['content'] == 2) selected @endif>U盘备注名</option>
+                                                            <option value="1" @if($watermark->data['content'] == 1) selected @endif>{{ __('merchant_view.merchant_settings_u_disk_physical_serial_number') }}</option>
+                                                            <option value="2" @if($watermark->data['content'] == 2) selected @endif>{{ __('merchant_view.merchant_settings_u_disk_remarks_name') }}</option>
                                                         </select>
                                                     </div>
                                                     <br/>
@@ -88,21 +98,21 @@
                                             </div>
 
                                             <div class="card clearfix">
-                                                <div class="card-header"><h4>水印文字</h4></div>
+                                                <div class="card-header"><h4>{{ __('merchant_view.watermark_text') }}</h4></div>
                                                 <div class="card-body clearfix">
                                                     <div class="form-group col-sm-7 clearfix">
-                                                        <label>字体大小</label>
+                                                        <label>{{ __('merchant_view.font_size') }}</label>
                                                         <input class="form-control" type="number" name="size" value="{{ $watermark->data['size'] }}" />
                                                     </div>
                                                     <div class="form-group col-sm-7 clearfix">
-                                                        <label>字体颜色</label>
+                                                        <label>{{ __('merchant_view.font_color') }}</label>
                                                         <div class="colorpicker input-group colorpicker-element">
                                                             <input class="form-control" type="text" name="color" value="{{ $watermark->data['color'] }}" />
                                                             <span class="input-group-addon"><i style="background-color: {{ $watermark->data['color'] }};"></i></span>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-sm-7 clearfix">
-                                                        <label>透明度(%)</label>
+                                                        <label>{{ __('merchant_view.transparency') }}(%)</label>
                                                         <input class="transparency" name="transparency" value="{{ $watermark->data['transparency'] }}" />
                                                     </div>
                                                 </div>
@@ -110,44 +120,44 @@
 
 
                                             <div class="card">
-                                                <div class="card-header"><h4>视频文件水印</h4></div>
+                                                <div class="card-header"><h4>{{ __('merchant_view.video_file_watermark') }}</h4></div>
                                                 <div class="card-body clearfix">
                                                     <div class="col-sm-5 clearfix">
                                                         <div class="form-group">
-                                                            <label>水印样式</label>
+                                                            <label>{{ __('merchant_view.watermark_style') }}</label>
                                                             <div class="example-box m-t-10 clearfix">
                                                                 <label class="ftdms-radio radio-primary">
                                                                     <input type="radio" name="video_style" value="1" @if($watermark->data['video_style'] == 1) checked @endif />
-                                                                    <span>固定水印</span>
+                                                                    <span>{{ __('merchant_view.fixed_watermark') }}</span>
                                                                 </label>
-                                                                <p class="m-t-10 text-cyan">*水印位于屏幕右上方</p>
+                                                                <p class="m-t-10 text-cyan">*{{ __('merchant_view.the_top_right_of_the_screen') }}</p>
 
                                                                 <label class="ftdms-radio radio-primary m-t-10">
                                                                     <input type="radio" name="video_style" value="2" @if($watermark->data['video_style'] == 2) checked @endif />
-                                                                    <span>*跑马灯水印</span>
+                                                                    <span>{{ __('merchant_view.marquee_watermark') }}</span>
                                                                 </label>
-                                                                <p class="m-t-10 text-cyan">*水印将在视频顶部从左向右移动显示</p>
+                                                                <p class="m-t-10 text-cyan">*{{ __('merchant_view.move_right_to_display') }}</p>
 
                                                                 <label class="ftdms-radio radio-primary m-t-10">
                                                                     <input type="radio" name="video_style" value="3" @if($watermark->data['video_style'] == 3) checked @endif />
-                                                                    <span>*四周浮动水印</span>
+                                                                    <span>{{ __('merchant_view.floating_watermark_around') }}</span>
                                                                 </label>
-                                                                <p class="m-t-10 text-cyan">*水印将随机出现在屏幕四周边缘</p>
+                                                                <p class="m-t-10 text-cyan">*{{ __('merchant_view.peripheral_edge') }}</p>
 
                                                                 <label class="ftdms-radio radio-primary m-t-10">
                                                                     <input type="radio" name="video_style" value="4" @if($watermark->data['video_style'] == 4) checked @endif />
-                                                                    <span>*全屏浮动水印</span>
+                                                                    <span>{{ __('merchant_view.full_screen_floating_watermark') }}</span>
                                                                 </label>
-                                                                <p class="m-t-10 text-cyan">*全屏随机浮动显示水印</p>
+                                                                <p class="m-t-10 text-cyan">*{{ __('merchant_view.full_screen_random_floating_display_watermark') }}</p>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group m-r-10">
-                                                            <label>浮动水印刷新间隔</label>
+                                                            <label>{{ __('merchant_view.floating_water_printing_new_interval') }}</label>
                                                             <div class="input-group m-r-5">
                                                                 <input type="number" class="form-control" name="video_refresh_interval" value="{{ $watermark->data['video_refresh_interval'] }}"/>
                                                                 <span class="input-group-btn">
-                                                                <span class="btn btn-default">秒</span>
+                                                                <span class="btn btn-default">{{ __('merchant_view.seconds') }}</span>
                                                             </span>
                                                             </div>
                                                         </div>
@@ -165,34 +175,34 @@
                                             </div>
 
                                             <div class="card">
-                                                <div class="card-header"><h4>PDF&图片水印设置</h4></div>
+                                                <div class="card-header"><h4>{{ __('merchant_view.image_watermark_settings') }}</h4></div>
                                                 <div class="card-body clearfix">
                                                     <div class="form-group col-sm-7 clearfix">
                                                         <label>Position</label>
                                                         <div class="example-box m-t-10">
                                                             <label class="ftdms-radio radio-primary">
                                                                 <input type="radio" name="picture_style" value="1" @if($watermark->data['picture_style'] == 1) checked @endif />
-                                                                <span>全屏</span>
+                                                                <span>{{ __('merchant_view.full_screen') }}</span>
                                                             </label>
 
                                                             <label class="ftdms-radio radio-primary m-t-10">
                                                                 <input type="radio" name="picture_style" value="2" @if($watermark->data['picture_style'] == 2) checked @endif />
-                                                                <span>顶部居中</span>
+                                                                <span>{{ __('merchant_view.top_centered') }}</span>
                                                             </label>
 
                                                             <label class="ftdms-radio radio-primary m-t-10">
                                                                 <input type="radio" name="picture_style" value="3" @if($watermark->data['picture_style'] == 3) checked @endif />
-                                                                <span>居中</span>
+                                                                <span>{{ __('merchant_view.centered') }}</span>
                                                             </label>
 
                                                             <label class="ftdms-radio radio-primary m-t-10">
                                                                 <input type="radio" name="picture_style" value="4" @if($watermark->data['picture_style'] == 4) checked @endif />
-                                                                <span>底部居中</span>
+                                                                <span>{{ __('merchant_view.bottom_centered') }}</span>
                                                             </label>
 
                                                             <label class="ftdms-radio radio-primary m-t-10">
                                                                 <input type="radio" name="picture_style" value="5" @if($watermark->data['picture_style'] == 5) checked @endif />
-                                                                <span>随机位置</span>
+                                                                <span>{{ __('merchant_view.random_position') }}</span>
                                                             </label>
 
                                                         </div>
@@ -274,7 +284,7 @@
                 var ajaxdata = _jM.getFormJson(_self.formScreenRecordingId);
 
                 if(_jM.validate.isEmpty(ajaxdata['status'])){
-                    _jM.dialogErMsg('未设置防翻录功能');
+                    _jM.dialogErMsg("{{ __('merchant_view.the_anti_rip_function_is_not_set') }}");
                     return false;
                 }
 
@@ -290,7 +300,7 @@
                         _jM.dialogMsg(errMsg);
                     },
                     success: function () {
-                        _jM.dialogSuccess('操作成功', function () {
+                        _jM.dialogSuccess("{{ __('common.operation_succeeded') }}", function () {
                             location.reload();
                         });
                     },
@@ -304,7 +314,7 @@
                 var ajaxdata = _jM.getFormJson(_self.formWatermarkId);
 
                 if(_jM.validate.isEmpty(ajaxdata['status'])){
-                    _jM.dialogErMsg('未设置水印功能');
+                    _jM.dialogErMsg("{{ __('merchant_view.watermark_function_is_not_set') }}");
                     return false;
                 }
 
@@ -320,7 +330,7 @@
                         _jM.dialogMsg(errMsg);
                     },
                     success: function () {
-                        _jM.dialogSuccess('操作成功', function () {
+                        _jM.dialogSuccess("{{ __('common.operation_succeeded') }}", function () {
                             location.reload();
                         });
                     },
