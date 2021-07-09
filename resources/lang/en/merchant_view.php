@@ -65,6 +65,7 @@ return [
     'file_management' =>'File Management',
     'select_all' =>'Select All',
     'new_folder' =>'New Folder',
+    'folder' => 'Folder',
     'upload_file' =>'Upload Files',
     'delete_file' =>'Delete Files',
     'move_files' =>'Move Files',

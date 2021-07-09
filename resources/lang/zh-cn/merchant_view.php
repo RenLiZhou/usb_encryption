@@ -65,6 +65,7 @@ return [
     'file_management' => '文件管理',
     'select_all' => '全选',
     'new_folder' => '新建文件夹',
+    'folder' => '文件夹',
     'upload_file' => '上传文件',
     'delete_file' => '删除文件',
     'move_files' => '移动文件',

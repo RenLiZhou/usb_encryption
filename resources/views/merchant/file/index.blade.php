@@ -855,7 +855,7 @@
                                 var type = '';
                                 if(pathData[i].type == 'folder') {
                                     _html += "    <img class='folder-img' src='{{ asset('merchant-static/images/folder.png') }}' />";
-                                    type = '文件夹';
+                                    type = '{{ __("merchant_view.folder") }}';
                                 }else{
                                     _html += "    <img class='folder-img' src='{{ asset("merchant-static/images/file.png") }}' />";
                                     type = pathData[i].name.substr(pathData[i].name.lastIndexOf(".")+1)
