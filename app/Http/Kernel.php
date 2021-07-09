@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
         'merchant.permission' => \App\Http\Middleware\MerchantPermission::class,
         'merchant.language' => \App\Http\Middleware\MerchantLanguage::class,
+        'refreshtoken' => \App\Http\Middleware\RefreshToken::class,
     ];
 }

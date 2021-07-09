@@ -93,17 +93,19 @@
                                                 @endif
                                             </td>
                                             <td>{{ $data->files_count }}</td>
-                                            <td>{{ $data->valid_time }}</td>
+                                            <td>{{ $data->valid_time == null ? __('merchant_view.not_effective') : $data->valid_time }}</td>
                                             <td>{{ $data->created_at }}</td>
                                             <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default edit" title="{{ __('merchant_view.edit') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.edit', ['strategy_update' => $data->id]) }}">
-                                                        <i class="ftsucai-edit-2"></i>
-                                                    </a>
-                                                    <a class="btn btn-xs btn-default delete" title="{{ __('merchant_view.delete') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.delete', ['strategy_update' => $data->id]) }}" data-type="DELETE">
-                                                        <i class="ftsucai-del"></i>
-                                                    </a>
-                                                </div>
+                                                @if($data->valid_time != null)
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-default edit" title="{{ __('merchant_view.edit') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.edit', ['strategy_update' => $data->id]) }}">
+                                                            <i class="ftsucai-edit-2"></i>
+                                                        </a>
+                                                        <a class="btn btn-xs btn-default delete" title="{{ __('merchant_view.delete') }}" data-toggle="tooltip" data-url="{{ route('merchant.strategy_update.delete', ['strategy_update' => $data->id]) }}" data-type="DELETE">
+                                                            <i class="ftsucai-del"></i>
+                                                        </a>
+                                                    </div>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

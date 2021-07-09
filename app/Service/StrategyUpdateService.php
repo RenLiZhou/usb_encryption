@@ -30,7 +30,7 @@ class StrategyUpdateService{
                 $valid_time = conversionSetTime($valid_time);
             }
         }else{
-            $valid_time = NULL;
+            return resultError(__('common.parameter_error'));
         }
 
         $automatic_update_prompt = StrategyUpdate::NOT_AUTO_UPDATE;
@@ -60,10 +60,8 @@ class StrategyUpdateService{
                             $name = $ResourceService->basename($real_path);
                             $type = explode('.', $name);
                             $insert_files[] = [
+                                'merchant_id' => $merchant_id,
                                 'strategy_id' => $createStrategy->id,
-                                'name' => $name,
-                                'size' => $ResourceService->size($real_path),
-                                'type' => $type[count($type)-1],
                                 'path' => $path,
                                 'updated_at' => date('Y-m-d H:i:s'),
                                 'created_at' => date('Y-m-d H:i:s')
@@ -95,6 +93,9 @@ class StrategyUpdateService{
         $merchant_id = $merchant->id;
 
         $strategy = StrategyUpdate::query()->where('merchant_id', $merchant_id)->findOrFail($strategy_id);
+        if(is_null($strategy->valid_time)){
+            return resultError(__('common.parameter_error'));
+        }
 
         $name = $params['name']??'New Strategy';
         $hint = $params['hint']??StrategyUpdate::NOT_AUTO_UPDATE;
@@ -111,7 +112,7 @@ class StrategyUpdateService{
                 $valid_time = conversionSetTime($valid_time);
             }
         }else{
-            $valid_time = NULL;
+            return resultError(__('common.parameter_error'));
         }
 
         $automatic_update_prompt = StrategyUpdate::NOT_AUTO_UPDATE;
@@ -138,10 +139,8 @@ class StrategyUpdateService{
                             $name = $ResourceService->basename($real_path);
                             $type = explode('.', $name);
                             $insert_files[] = [
+                                'merchant_id' => $merchant_id,
                                 'strategy_id' => $strategy_id,
-                                'name' => $name,
-                                'size' => $ResourceService->size($real_path),
-                                'type' => $type[count($type)-1],
                                 'path' => $path,
                                 'updated_at' => date('Y-m-d H:i:s'),
                                 'created_at' => date('Y-m-d H:i:s')

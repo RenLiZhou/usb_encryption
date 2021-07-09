@@ -10,6 +10,7 @@ class StrategyUpdate extends BaseModel
     const NOW_VALID = 2;//立即生效
     const DATE_VALID = 3;//生效日期
 
+    //自动更新
     const AUTO_UPDATE = 1;
     const NOT_AUTO_UPDATE = 0;
 

@@ -17,14 +17,15 @@ class MerchantSettingController extends Controller
 
     public function index(){
         //防录屏设置
-        $screen_recording = MerchantSettingService::getSetting(MerchantSetting::SCREEN_RECORDING);
+        $merchant_id = Auth::guard('merchant')->id();
+        $screen_recording = MerchantSettingService::getSetting($merchant_id, MerchantSetting::SCREEN_RECORDING);
         if (!$screen_recording['result']){
             abort(403,$screen_recording['msg']);
         }
         $screen_recording = $screen_recording['data'];
 
         //水印设置
-        $watermark = MerchantSettingService::getSetting(MerchantSetting::WATERMARK);
+        $watermark = MerchantSettingService::getSetting($merchant_id, MerchantSetting::WATERMARK);
         if (!$watermark['result']){
             abort(403,$watermark['msg']);
         }
@@ -46,7 +47,8 @@ class MerchantSettingController extends Controller
         $error = $validator->errors()->first();
         if ($error) return responseError($error);
 
-        $result = MerchantSettingService::setSetting(MerchantSetting::SCREEN_RECORDING, $request->all());
+        $merchant_id = Auth::guard('merchant')->id();
+        $result = MerchantSettingService::setSetting($merchant_id,MerchantSetting::SCREEN_RECORDING, $request->all());
         if(!$result['result']){
             return responseError($result['msg']);
         }
@@ -110,7 +112,8 @@ class MerchantSettingController extends Controller
         $error = $validator->errors()->first();
         if ($error) return responseError($error);
 
-        $result = MerchantSettingService::setSetting(MerchantSetting::WATERMARK, $request->all());
+        $merchant_id = Auth::guard('merchant')->id();
+        $result = MerchantSettingService::setSetting($merchant_id,MerchantSetting::WATERMARK, $request->all());
         if(!$result['result']){
             return responseError($result['msg']);
         }

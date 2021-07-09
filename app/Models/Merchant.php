@@ -144,6 +144,15 @@ class Merchant extends Authuser
                 $resource = new ResourceService();
                 $resource->makeDirectory($insert_info['root_directory']);
 
+                //生成默认更新策略
+                $strategy_update_data = [
+                    'merchant_id' => $createMerchant->id,
+                    'name' => '默认不更新',
+                    'valid_time' => NULL,
+                    'automatic_update_prompt' => StrategyUpdate::NOT_AUTO_UPDATE
+                ];
+                StrategyUpdate::query()->create($strategy_update_data);
+
                 $createMerchant->version()->sync($version_id);
                 return resultSuccess();
             }
@@ -243,7 +252,6 @@ class Merchant extends Authuser
         return $this->belongsTo(Language::class, 'lang_id', 'id');
     }
 
-
     /**
      * @return false|string
      */
@@ -265,7 +273,7 @@ class Merchant extends Authuser
 
     public function getMerchantRules()
     {
-        $version_rules = MerchantVersionRulesService::cacheRules();
+        $version_rules = MerchantVersionRulesService::cacheRules(true);
         $vesion = MerchantVersionRelation::query()->where('merchant_id', $this->id)->first();
         return $vesion === null ? [] : $version_rules[$vesion->version_id] ?: [];
     }

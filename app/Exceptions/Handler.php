@@ -51,9 +51,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         // 处理自定义异常
-        if ($exception instanceof OrException && $request->expectsJson()) {
+        if ($exception instanceof OrException || $exception instanceof ApiException) {
             return responseError($exception->getMessage(),$exception->getCode());
         }
+
         return parent::render($request, $exception);
     }
 }

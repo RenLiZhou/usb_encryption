@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Models\StrategyUpdate;
 use App\Models\StrategyUpdateFiles;
+use App\Service\ResourceService;
 use App\Service\StrategyUpdateService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -87,13 +89,30 @@ class StrategyUpdateController extends Controller
      */
     public function edit(int $strategy_id)
     {
-        $merchant_id = Auth::guard('merchant')->id();
+        $merchant = Auth::guard('merchant')->user();
+        $merchant_id = $merchant->id;
+
         $data = StrategyUpdate::query()
             ->with('files')
             ->where('merchant_id', $merchant_id)
             ->findOrFail($strategy_id);
 
-        $strategy_files = json_encode($data->files);
+        $ResourceService = new ResourceService();
+        $strategy_files = $data->files;
+        $files = [];
+        foreach($strategy_files as $key => $file){
+            $path = $merchant->root_directory.$file->path;
+            $exists = $ResourceService->exists($path);
+            if($exists){
+                $files[] = [
+                    'path' => $file->path,
+                    'name' => $ResourceService->basename($path),
+                    'size' => $ResourceService->size($path)
+                ];
+            }
+        }
+
+        $strategy_files = json_encode($files);
 
         return view($this->v . 'edit', compact('data','strategy_files'));
     }

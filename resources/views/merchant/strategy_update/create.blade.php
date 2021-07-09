@@ -58,10 +58,10 @@
                                         {{ __('merchant_view.policy_effective_time') }}
                                     </label>
                                     <div class="example-box">
-                                        <label class="ftdms-radio radio-primary m-t-10">
-                                            <input type="radio" name="valid_type" value="1">
-                                            <span>{{ __('merchant_view.not_effective') }}</span>
-                                        </label>
+{{--                                        <label class="ftdms-radio radio-primary m-t-10">--}}
+{{--                                            <input type="radio" name="valid_type" value="1">--}}
+{{--                                            <span>{{ __('merchant_view.not_effective') }}</span>--}}
+{{--                                        </label>--}}
                                         <label class="ftdms-radio radio-primary mt15">
                                             <input type="radio" name="valid_type" checked value="2">
                                             <span>{{ __('merchant_view.effective_immediately') }}</span>
@@ -258,7 +258,7 @@
                         files_data.push({
                             'path': item.path,
                             'name': item.text,
-                            'size': (item.size/1024).toFixed(1) + 'kb',
+                            'size': _jM.changeSize(item.size),
                             'type': item.text.substr(item.text.lastIndexOf('.')+1)
                         })
                     }

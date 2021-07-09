@@ -22,9 +22,12 @@ class IndexController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
-        $merchant = Auth::guard('merchant')->user()
+        $merchant_id = Auth::guard('merchant')->id();
+
+        $merchant = Merchant::query()
             ->with('version')
-            ->first();
+            ->find($merchant_id);
+
         $menus = $merchant->getMerchantRules();
         $menus = MerchantService::treeMenu($menus);
         $merchant_timezone = $request->cookie('merchant_timezone', 'local');
@@ -36,9 +39,11 @@ class IndexController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function overview(){
-        $merchant = Auth::guard('merchant')->user()
+        $merchant_id = Auth::guard('merchant')->id();
+
+        $merchant = Merchant::query()
             ->with(['version','language'])
-            ->first();
+            ->find($merchant_id);
         return view($this->v . 'overview', compact('merchant'));
     }
 

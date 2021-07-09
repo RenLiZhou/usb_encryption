@@ -100,7 +100,7 @@
                                             <td>{{ $data->id }}</td>
                                             <td>{{ $data->usb_serial }}</td>
                                             <td>{{ $data->name }}</td>
-                                            <td>{{ round($data->capacity/1024/1024/1024,2) }}GB</td>
+                                            <td>{{ getFilesize($data->capacity) }}</td>
                                             <td>{{ $data->encrypt_count }}次</td>
                                             <td>{{ empty($data->strategy_update)? __('common.none') : $data->strategy_update->name }}</td>
                                             <td>{{ empty($data->strategy_auth)? __('common.none') : $data->strategy_auth->name }}</td>

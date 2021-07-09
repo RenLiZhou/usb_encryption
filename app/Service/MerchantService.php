@@ -3,14 +3,16 @@
 namespace App\Service;
 
 use App\Exceptions\OrException;
+use App\Models\ApiMerchant;
 use App\Models\Merchant;
+use App\Models\MerchantVersion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class MerchantService{
     /**
-     * CRM管理员登录
+     * 商户登录
      */
     public static function auth(string $username, string $password){
         $merchant = Merchant::where('username', $username)->first();
@@ -23,10 +25,7 @@ class MerchantService{
             throw new OrException(__('merchant_service.username_or_password_is_wrong'));
         }
 
-        $validate = self::validateStatus($merchant);
-        if(!$validate['result']){
-            throw new OrException($validate['msg']);
-        }
+        self::validateStatus($merchant);
 
         Auth::guard('merchant')->login($merchant);
     }
@@ -37,12 +36,11 @@ class MerchantService{
      */
     public static function validateStatus($merchant){
         if ($merchant->status === Merchant::NOT_ACTIVE){
-            return resultError(__('merchant_service.the_merchant_has_been_disabled'));
+            throw new OrException(__('merchant_service.the_merchant_has_been_disabled'));
         }
         if ($merchant->is_permanent != Merchant::PERMANENT && $merchant->expire_time <= Carbon::now()->toDateTimeString()){
-            return resultError(__('merchant_service.the_merchant_has_expired'));
+            throw new OrException(__('merchant_service.the_merchant_has_expired'));
         }
-        return resultSuccess();
     }
 
     /**

@@ -64,7 +64,6 @@ class StrategyAuthService{
         $run_number = $params['run_number']??0;
         $expired_type = $params['expired_type']??StrategyAuth::EXPIRED_PERPETUAL;
 
-
         $expired_day = 0;
         $expired_time = NULL;
         if ($expired_type == StrategyAuth::EXPIRED_DAY && !empty($params['expired_day']) && $params['expired_day'] > 0){

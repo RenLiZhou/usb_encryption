@@ -59,10 +59,10 @@
                                 <div class="form-group col-md-12 clearfix">
                                     <label for="valid_time">{{ __('merchant_view.policy_effective_time') }}</label>
                                     <div class="example-box">
-                                        <label class="ftdms-radio radio-primary m-t-10">
-                                            <input type="radio" name="valid_type" value="1">
-                                            <span>{{ __('merchant_view.not_effective') }}</span>
-                                        </label>
+{{--                                        <label class="ftdms-radio radio-primary m-t-10">--}}
+{{--                                            <input type="radio" name="valid_type" value="1">--}}
+{{--                                            <span>{{ __('merchant_view.not_effective') }}</span>--}}
+{{--                                        </label>--}}
                                         <label class="ftdms-radio radio-primary mt15">
                                             <input type="radio" name="valid_type" checked value="2">
                                             <span>{{ __('merchant_view.effective_immediately') }}</span>
@@ -103,9 +103,11 @@
                                 </div>
 
                                 <div class="form-group col-md-12 text-center">
+                                    @if($data->valid_time != null)
                                     <button type="button" class="btn btn-primary" data-url="{{ route('merchant.strategy_update.update',['strategy_update'=>$data->id]) }}" data-type="PATCH" onClick="TObj.submit(this)">
                                         {{ __('common.ok') }}
                                     </button>
+                                    @endif
                                     <button type="button" class="btn btn-default ml15">
                                         {{ __('common.cancel') }}
                                     </button>
@@ -213,8 +215,8 @@
                     _self.files.push({
                         'path': item.path,
                         'name': item.name,
-                        'size': (item.size/1024).toFixed(1) + 'kb',
-                        'type': item.type
+                        'size': _jM.changeSize(item.size),
+                        'type': item.name.substr(item.name.lastIndexOf('.')+1)
                     });
                 })
 
@@ -266,7 +268,7 @@
                         files_data.push({
                             'path': item.path,
                             'name': item.text,
-                            'size': (item.size/1024).toFixed(1) + 'kb',
+                            'size': _jM.changeSize(item.size),
                             'type': item.text.substr(item.text.lastIndexOf('.')+1)
                         })
                     }

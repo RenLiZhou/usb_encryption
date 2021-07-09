@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\OrException;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class RedirectIfAuthenticated
                 }
                 return redirect()->route('merchant.login');  // 处理登录
             }else{
-                return redirect()->route('/');
+                return responseError('您未登录', OrException::NOT_LOGIN);
             }
         }
 

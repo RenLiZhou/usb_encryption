@@ -8,24 +8,28 @@ use Illuminate\Support\Facades\Log;
 
 class MerchantSettingService{
 
-    public static function getSetting($name){
-        $setting = MerchantSetting::query()->where('name',$name)->first();
+    public static function getSetting($merchant_id, $name){
+        $setting = MerchantSetting::query()
+            ->where('merchant_id', $merchant_id)
+            ->where('name', $name)
+            ->first();
         if(empty($setting)){
             if(in_array($name, [MerchantSetting::SCREEN_RECORDING,MerchantSetting::WATERMARK])){
-                $result = self::setSetting($name);
+                $result = self::setSetting($merchant_id, $name);
                 if(!$result['result']) return $result;
             }else{
                 return resultError(__('merchant_service.the_configuration_does_not_exist'));
             }
-            $setting = MerchantSetting::query()->where('name',$name)->first();
+            $setting = MerchantSetting::query()
+                ->where('merchant_id', $merchant_id)
+                ->where('name', $name)
+                ->first();
         }
         return resultSuccess($setting);
     }
 
-    public static function setSetting($name, $params = []){
-        $merchant_id = Auth::guard('merchant')->id();
+    public static function setSetting($merchant_id, $name, $params = []){
         $data = self::getSettingData($name, $params);
-
         try {
             $setting = [
                 'merchant_id' => $merchant_id,
@@ -33,9 +37,16 @@ class MerchantSettingService{
                 'data' => json_encode($data)
             ];
 
-            $exists = MerchantSetting::query()->where('name',$name)->exists();
+            $exists = MerchantSetting::query()
+                ->where('merchant_id', $merchant_id)
+                ->where('name', $name)
+                ->exists();
+
             if($exists){
-                $result = MerchantSetting::query()->where('name',$name)->update($setting);
+                $result = MerchantSetting::query()
+                    ->where('merchant_id', $merchant_id)
+                    ->where('name', $name)
+                    ->update($setting);
             }else{
                 $result = MerchantSetting::query()->create($setting);
             }

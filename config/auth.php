@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -36,10 +36,6 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
         'merchant' => [
             'driver' => 'session',
             'provider' => 'merchants',
@@ -50,7 +46,7 @@ return [
         ],
         'api' => [
             'driver' => 'jwt',      // 原来是 token 改成jwt
-            'provider' => 'api_users',
+            'provider' => 'api_merchants',
         ],
     ],
 
@@ -72,19 +68,14 @@ return [
     */
 
     'providers' => [
-        'api_users' => [
+        'api_merchants' => [
             'driver' => 'eloquent',
-            'model' => \App\Models\ApiUser::class,
+            'model' => \App\Models\ApiMerchant::class,
         ],
 
         'merchants' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Merchant::class,
-        ],
-
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => 'users',
         ],
 
         'crms' => [

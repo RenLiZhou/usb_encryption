@@ -33,4 +33,6 @@ return [
     'crm_admin_log' => env('CRM_ADMIN_LOG'),
 
     'disk_encryption_count' => env('DISK_ENCRYPTION_COUNT'),
+
+    'resource_url' => env('RESOURCE_URL'),
 ];
