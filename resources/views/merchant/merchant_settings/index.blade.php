@@ -87,7 +87,7 @@
                                                     </div>
 
                                                     <div class="form-group col-sm-7 clearfix">
-                                                        <label>水印内容</label>
+                                                        <label>{{ __("merchant_view.watermark_content") }}{{ __("merchant_view.watermark_content") }}</label>
                                                         <select class="form-control m-t-5" name="content">
                                                             <option value="1" @if($watermark->data['content'] == 1) selected @endif>{{ __('merchant_view.merchant_settings_u_disk_physical_serial_number') }}</option>
                                                             <option value="2" @if($watermark->data['content'] == 2) selected @endif>{{ __('merchant_view.merchant_settings_u_disk_remarks_name') }}</option>
@@ -211,7 +211,9 @@
                                             </div>
 
                                             <div class="form-group mt35">
-                                                <button class="btn btn-primary" type="button" data-url="{{ route('merchant.merchant_setting.watermark') }}" data-type="POST" onClick="TObj.WatermarkSubmit(this)">提交</button>
+                                                <button class="btn btn-primary" type="button" data-url="{{ route('merchant.merchant_setting.watermark') }}" data-type="POST" onClick="TObj.WatermarkSubmit(this)">
+                                                    {{ __('common.submit') }}
+                                                </button>
                                             </div>
                                         </form>
 

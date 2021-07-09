@@ -29,7 +29,7 @@ return [
      */
     'u_disk_editing' =>'U Disk Edit',
     'physical_serial_number' =>'Physical serial number',
-    'u_disk_remarks_name_disk' =>'U disk remarks name',
+    'u_disk_remarks_name_disk' =>'Remarks name',
     'please_enter_the_remark_name' =>'please enter the remark name',
     'file_update_strategy' =>'File update strategy',
     'privilege_policy' =>'Permission Strategy',
@@ -38,11 +38,11 @@ return [
     'u_disk_list' =>'U Disk List',
     'please_enter_the_physical_serial_number' =>'Please enter the physical serial number',
     'please_enter_the_u_disk_remarks_name' =>'Please enter the U disk remark name',
-    'u_disk_capacity_disk' =>'U Disk Capacity',
+    'u_disk_capacity_disk' =>'Capacity',
     'the_number_of_times_the_u_disk_has_been_encrypted' =>'Encrypted Times',
     'update_strategy' =>'Update Strategy',
-    'u_disk_validity_period' =>'U disk validity period',
-    'number_of_runs_number_of_runs_allowed' =>'number of runs/Allowed number of runs',
+    'u_disk_validity_period' =>'validity period',
+    'number_of_runs_number_of_runs_allowed' =>'number of runs/Allowed',
     'use_track' =>'Use Track',
     'edit' =>'Edit',
     'please_select_the_data_you_need_to_manipulate' =>'Please select the data to be manipulated',
@@ -74,7 +74,7 @@ return [
     'my_documents' =>'My Documents',
     'select_folder' =>'Select Folder',
     'close' =>'Close',
-    'move_to_this_folder' =>'Move to this folder',
+    'move_to_this_folder' =>'Move',
     'please_enter_the_folder_name' =>'please enter the folder name',
     'create' =>'Create',
     'rename' =>'Rename',
@@ -169,7 +169,7 @@ return [
      * merchant_settings
      */
     'advanced_settings' =>'Advanced Settings',
-    'anti_screen_recording_detection_settings' =>'Anti-screen recording detection settings',
+    'anti_screen_recording_detection_settings' =>'Anti-rip settings',
     'watermark_settings' =>'Watermark Settings',
     'basic_settings' =>'Basic Settings',
     'anti_rip_function' =>'Anti-rip Function',
@@ -194,7 +194,7 @@ return [
     'full_screen_random_floating_display_watermark' =>'Randomly floating watermark on full screen',
     'floating_water_printing_new_interval' =>'Interval(s)',
     'seconds' =>'Seconds',
-    'pdf&image_watermark_settings' =>'PDF&Image watermark settings',
+    'image_watermark_settings' =>'PDF&Image watermark settings',
     'full_screen' =>'Full Screen',
     'top_centered' =>'Top Center',
     'centered' =>'Center',
@@ -202,6 +202,7 @@ return [
     'random_position' =>'Random Position',
     'the_anti_rip_function_is_not_set' =>'The anti-ripping function is not set',
     'watermark_function_is_not_set' =>'The watermark function is not set',
+    'watermark_content' => 'Watermark Content',
 
 
     /**
@@ -245,7 +246,7 @@ return [
     'strategy_update_select_file' =>'Select File',
     'strategy_update_description' =>'Note: The storage path of the above updated files in the U disk is consistent with the file path in the file library. ',
     'strategy_update_close' =>'Close',
-    'confirm_selection' =>'Confirm Selection',
+    'confirm_selection' =>'Confirm',
     'strategy_update_policy_name_is_empty' =>'Strategy name is empty',
     'strategy_update_file_name' =>'File Name',
     'path' =>'Path',

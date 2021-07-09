@@ -226,7 +226,9 @@
                     _self.filesTable = table.render({
                         elem: '#file_list'
                         ,data: _self.files
-                        ,page: true
+                        ,page: {
+                            layout: [ 'prev', 'page', 'next', 'count', 'limit'], //自定义分页布局
+                        }
                         ,limits: [10,30,50,100]
                         ,cols: [[
                             {field:'name', title: "{{ __('merchant_view.strategy_update_file_name') }}", sort: true},

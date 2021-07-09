@@ -22,7 +22,7 @@
                                     <form class="search-from" id="searchForm">
                                         <input type="hidden" name="per_page" value="{{ $search_data['per_page'] }}">
                                         <div class="row">
-                                            <div class="input-group col-sm-3">
+                                            <div class="input-group col-sm-5">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button">
                                                         {{ __('merchant_view.physical_serial_number') }}
@@ -32,7 +32,7 @@
                                                        placeholder="{{ __('merchant_view.please_enter_the_physical_serial_number') }}"
                                                        value="{{ $search_data['usb_serial'] }}" >
                                             </div>
-                                            <div class="input-group col-md-3">
+                                            <div class="input-group col-md-5">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button">
                                                         {{ __('merchant_view.u_disk_remarks_name_disk') }}

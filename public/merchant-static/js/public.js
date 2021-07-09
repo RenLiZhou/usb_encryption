@@ -183,7 +183,6 @@ jModule.prototype.getCookie = function(name){
 jModule.prototype.maxDecimal = function(num, max) {
     var result = parseFloat(num);
     if (isNaN(result)) {
-        console.log('传递参数错误，请检查！');
         return false;
     }
     var defaultDec = max || 6;
@@ -352,25 +351,25 @@ jModule.prototype.ajax = function (config) {
             var errorInfo;
             switch (error.status) {
                 case 400:
-                    errorInfo = '请求错误'; break;
+                    errorInfo = 'Request Error'; break;
                 case 401:
-                    errorInfo = '未经认证的请求'; break;
+                    errorInfo = 'Unauthenticated request'; break;
                 case 403:
-                    errorInfo = '请求没有权限'; break;
+                    errorInfo = 'Request without permission'; break;
                 case 404:
-                    errorInfo = '请求未找到'; break;
+                    errorInfo = 'Request not found'; break;
                 case 500:
-                    errorInfo = '服务异常:';
+                    errorInfo = 'Service exception:';
                     if (error.responseJSON) {
                         errorInfo += error.responseJSON.message ? error.responseJSON.message : error.responseJSON.exception
                     }
                     break;
                 case 501:
-                    errorInfo = '服务未实现'; break;
+                    errorInfo = 'Service not implemented'; break;
                 case 0:
-                    errorInfo = '网络异常,请刷新再试'; break;
+                    errorInfo = 'Please refresh and try again'; break;
                 case 419:
-                    errorInfo = '页面超时，请刷新再试'; break;    // 适用于csrfToken
+                    errorInfo = 'Please refresh and try again'; break;    // 适用于csrfToken
                 default:
                     errorInfo = error.statusText;
                     if (error.responseJSON) {
@@ -396,7 +395,7 @@ jModule.prototype.ajax = function (config) {
 
 jModule.prototype.submit = function (jqdom, data, succallable, errcallable, completecallable) {
     data = data || {}
-    var loadindex = _jM.dialogLoad('提交中');
+    var loadindex = _jM.dialogLoad('Loading');
     _jM.ajax({
         url: jqdom.attr('data-url'),
         type: jqdom.attr('data-type'),
@@ -419,7 +418,7 @@ jModule.prototype.submit = function (jqdom, data, succallable, errcallable, comp
 }
 
 jModule.prototype.dialogSuccess = function (msg, callable) {
-    msg = msg || "操作成功";
+    msg = msg || "Successful";
     layer.alert(msg, {icon: 6,closeBtn: 0}, function (index) {
         layer.close(index);
         callable && callable();
@@ -427,7 +426,7 @@ jModule.prototype.dialogSuccess = function (msg, callable) {
 }
 
 jModule.prototype.dialogError = function (msg, callable) {
-    msg = msg || "操作失败";
+    msg = msg || "Failure";
     layer.alert(msg, {icon: 5,closeBtn: 0}, function (index) {
         layer.close(index);
         callable && callable();
@@ -440,7 +439,7 @@ jModule.prototype.dialogLoad = function (msg) {
 }
 
 jModule.prototype.dialogConfirm = function (msg, callable1, callable2) {
-    layer.confirm(msg, {btn: ["确定", "取消"]}, function (index) {
+    layer.confirm(msg, {btn: ["OK", "cancel"]}, function (index) {
         layer.close(index);
         callable1();
     }, function (index) {
@@ -474,11 +473,6 @@ jModule.prototype.dialogOpen = function (title, content) {
                 layer.full(index);
                 layer.iframeAuto(index);
             });
-            setTimeout(function () {
-                layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-                    tips: 3
-                });
-            }, 500)
         },
         cancel: function(index){
             $(window).off("resize", resizeFun);
@@ -562,18 +556,18 @@ jModule.prototype.dialogCloseAll = function (type) {
 
 jModule.prototype.dialogHint = function (msg, callable) {
     $.confirm({
-        title: '提示',
+        title: 'Prompt',
         content: msg,
         type: 'red',
         typeAnimated: true,
         buttons: {
             tryAgain: {
-                text: '确认',
+                text: 'OK',
                 btnClass: 'btn-red',
                 action: callable
             },
             close: {
-                text: '取消'
+                text: 'Cancel'
             }
         }
     });

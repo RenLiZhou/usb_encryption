@@ -140,3 +140,7 @@
 .l-h-26{
     line-height: 26px;
 }
+
+.table > thead > tr > th {
+    vertical-align:unset!important;
+}

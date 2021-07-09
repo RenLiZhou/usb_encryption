@@ -169,7 +169,7 @@ return [
      * merchant_settings
      */
     'advanced_settings' => '高级设置',
-    'anti_screen_recording_detection_settings' => '防录屏检测设置',
+    'anti_screen_recording_detection_settings' => '防翻录设置',
     'watermark_settings' => '水印设置',
     'basic_settings' => '基础设置',
     'anti_rip_function' => '防翻录功能',
@@ -194,7 +194,7 @@ return [
     'full_screen_random_floating_display_watermark' => '全屏随机浮动显示水印',
     'floating_water_printing_new_interval' => '浮动水印刷新间隔',
     'seconds' => '秒',
-    'pdf&image_watermark_settings' => 'PDF&图片水印设置',
+    'image_watermark_settings' => 'PDF&图片水印设置',
     'full_screen' => '全屏',
     'top_centered' => '顶部居中',
     'centered' => '居中',
@@ -202,6 +202,7 @@ return [
     'random_position' => '随机位置',
     'the_anti_rip_function_is_not_set' => '未设置防翻录功能',
     'watermark_function_is_not_set' => '未设置水印功能',
+    'watermark_content' => '水印内容',
 
 
     /**

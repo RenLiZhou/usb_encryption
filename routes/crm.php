@@ -70,10 +70,10 @@ Route::group(['namespace' => 'Crm', 'prefix' => 'crm'], function () {
             });
 
             // 设置
-            Route::group(['prefix' => 'setting'], function () {
-                Route::get('email', 'SettingController@email')->name('crm.setting.email');//邮件页面
-                Route::post('email', 'SettingController@updateEmail')->name('crm.setting.email.update');//更新邮件
-            });
+//            Route::group(['prefix' => 'setting'], function () {
+//                Route::get('email', 'SettingController@email')->name('crm.setting.email');//邮件页面
+//                Route::post('email', 'SettingController@updateEmail')->name('crm.setting.email.update');//更新邮件
+//            });
 
             // 商户
             Route::group(['prefix' => 'merchant'], function () {
