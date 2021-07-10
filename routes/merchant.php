@@ -5,12 +5,12 @@ Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant'], function () {
 
     Route::group(['middleware' => ['guest:merchant','merchant.language']], function () {
         Route::get('logout', 'LoginController@logout')->name('merchant.logout');
-        Route::get('index', 'indexController@index')->name('merchant.main');
+        Route::get('index', 'IndexController@index')->name('merchant.main');
 
-        Route::get('overview', 'indexController@overview')->name('merchant.overview');  //概括
+        Route::get('overview', 'IndexController@overview')->name('merchant.overview');  //概括
 
-        Route::get('update_password', 'indexController@editPassword')->name('merchant.password.edit');  //修改密码
-        Route::post('update_password', 'indexController@updatePassword')->name('merchant.password.update');  //修改密码
+        Route::get('update_password', 'IndexController@editPassword')->name('merchant.password.edit');  //修改密码
+        Route::post('update_password', 'IndexController@updatePassword')->name('merchant.password.update');  //修改密码
 
         Route::group(['middleware' => 'merchant.permission'], function () {
             //路由模块控制权限
