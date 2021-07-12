@@ -228,6 +228,7 @@ return [
     'run_times_title' => '运行次数',
     'strategy_auth_delete_or_not' => '是否删除',
     'please_select_the_data_you_need_to_operate' => '请选择需要操作数据',
+    'unlimited' => '不限',
 
 
     /**
@@ -269,6 +270,7 @@ return [
     'no' => '否',
     'strategy_update_delete_or_not' => '是否删除',
     'strategy_update_please_select_the_data_you_need_to_operate' => '请选择需要操作数据',
+    'do_not_update_by_default' => '默认不更新',
 
 
 

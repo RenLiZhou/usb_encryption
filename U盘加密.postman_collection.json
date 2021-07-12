@@ -1,0 +1,670 @@
+{
+	"info": {
+		"_postman_id": "bf7a3fd7-15bc-4ed7-9e87-0bee7e6ef867",
+		"name": "U盘加密",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "商家登录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"description": "用户名",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"description": "密码",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://local.usb_encryption.com/api/merchant/login?lang=en",
+					"protocol": "http",
+					"host": [
+						"local",
+						"usb_encryption",
+						"com"
+					],
+					"path": [
+						"api",
+						"merchant",
+						"login"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "en",
+							"description": "语言 en/zh-cn"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "商家登录",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "test",
+									"description": "用户名",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"description": "密码",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://local.usb_encryption.com/api/merchant/login",
+							"protocol": "http",
+							"host": [
+								"local",
+								"usb_encryption",
+								"com"
+							],
+							"path": [
+								"api",
+								"merchant",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.15.11"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.3.4"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 12 Jul 2021 06:36:42 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 0,\n    \"msg\": \"success\",\n    \"data\": {\n        \"type\": \"Bearer\",\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbWVyY2hhbnRcL2xvZ2luIiwiaWF0IjoxNjI2MDcxODAyLCJleHAiOjE2MjYxMTUwMDIsIm5iZiI6MTYyNjA3MTgwMiwianRpIjoielZGbVhXaDBIdVFMclJBbCIsInN1YiI6MiwicHJ2IjoiNWMwOWYyNTM3ZGU5MzFhNjE2NGFlM2I4OGJlZDU0NWE5MjgyMDE1YSJ9.oFeVTTcKar-e7ugat4Er6bdEGnL4uu-cxkWL7UQokmw\",\n        \"user\": {\n            \"id\": 2,\n            \"name\": \"test\", //商户名称\n            \"user_name\": \"test\",    //商户登录名\n            \"total_auth_amount\": 10,    //总授权数量\n            \"auth_amount\": 0,   //已授权数量\n            \"surplus_auth_amount\": 10,  //剩余授权\n            \"is_permanent\": 1,  //是否为永久(0：非永久  1：永久)\n            \"expiration_time\": \"\" //过期时间（日期类型）(is_permanent = 0,时检测该字段)\n        }   //用户信息\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "商家信息",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://local.usb_encryption.com/api/merchant?token=1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbWVyY2hhbnRcL2xvZ2luIiwiaWF0IjoxNjI2MDcyMTk3LCJleHAiOjE2MjYxMTUzOTcsIm5iZiI6MTYyNjA3MjE5NywianRpIjoiV3FLejdPSjhiaXlna0E1RCIsInN1YiI6MiwicHJ2IjoiNWMwOWYyNTM3ZGU5MzFhNjE2NGFlM2I4OGJlZDU0NWE5MjgyMDE1YSJ9.fqPALkaIqHeVVyz7OvU_gGDm-xpjYlCRoOuulI0pBP4&lang=en",
+					"protocol": "http",
+					"host": [
+						"local",
+						"usb_encryption",
+						"com"
+					],
+					"path": [
+						"api",
+						"merchant"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbWVyY2hhbnRcL2xvZ2luIiwiaWF0IjoxNjI2MDcyMTk3LCJleHAiOjE2MjYxMTUzOTcsIm5iZiI6MTYyNjA3MjE5NywianRpIjoiV3FLejdPSjhiaXlna0E1RCIsInN1YiI6MiwicHJ2IjoiNWMwOWYyNTM3ZGU5MzFhNjE2NGFlM2I4OGJlZDU0NWE5MjgyMDE1YSJ9.fqPALkaIqHeVVyz7OvU_gGDm-xpjYlCRoOuulI0pBP4",
+							"description": "用户token"
+						},
+						{
+							"key": "lang",
+							"value": "en"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "商家信息",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://local.usb_encryption.com/api/merchant?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbWVyY2hhbnRcL2xvZ2luIiwiaWF0IjoxNjI2MDcyMTk3LCJleHAiOjE2MjYxMTUzOTcsIm5iZiI6MTYyNjA3MjE5NywianRpIjoiV3FLejdPSjhiaXlna0E1RCIsInN1YiI6MiwicHJ2IjoiNWMwOWYyNTM3ZGU5MzFhNjE2NGFlM2I4OGJlZDU0NWE5MjgyMDE1YSJ9.fqPALkaIqHeVVyz7OvU_gGDm-xpjYlCRoOuulI0pBP4",
+							"protocol": "http",
+							"host": [
+								"local",
+								"usb_encryption",
+								"com"
+							],
+							"path": [
+								"api",
+								"merchant"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbWVyY2hhbnRcL2xvZ2luIiwiaWF0IjoxNjI2MDcyMTk3LCJleHAiOjE2MjYxMTUzOTcsIm5iZiI6MTYyNjA3MjE5NywianRpIjoiV3FLejdPSjhiaXlna0E1RCIsInN1YiI6MiwicHJ2IjoiNWMwOWYyNTM3ZGU5MzFhNjE2NGFlM2I4OGJlZDU0NWE5MjgyMDE1YSJ9.fqPALkaIqHeVVyz7OvU_gGDm-xpjYlCRoOuulI0pBP4",
+									"description": "用户token"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.15.11"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.3.4"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 12 Jul 2021 07:07:10 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 0,\n    \"msg\": \"success\",\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"test\",\n        \"username\": \"test\",\n        \"status\": 1,    //状态（0：未启用  1：启用）\n        \"total_auth_amount\": 10,    //总授权数量\n        \"auth_amount\": 0,   //已授权数量\n        \"surplus_auth_amount\": 10,  //剩余授权\n        \"is_permanent\": 1,  //是否为永久(0：非永久  1：永久)\n        \"expiration_time\": \"\", //过期时间（日期类型）(is_permanent = 0,时检测该字段)\n        \"language\": {\n            \"id\": 2,\n            \"name\": \"zh-cn\",\n            \"desc\": \"中文\"\n        }   //商家语言版本\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "商家退出",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://local.usb_encryption.com/api/user/logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbG9naW4iLCJpYXQiOjE2MjU3MjY3NDYsImV4cCI6MTYyNTc2OTk0NiwibmJmIjoxNjI1NzI2NzQ2LCJqdGkiOiIxNVVvNEJJcVJCOXJrbjdQIiwic3ViIjo3LCJwcnYiOiI1YzA5ZjI1MzdkZTkzMWE2MTY0YWUzYjg4YmVkNTQ1YTkyODIwMTVhIn0.J7GYw6MV8sLzTtlwZRUA_pZcd6CE23MOGWTTMEpc96U&lang=en",
+					"protocol": "http",
+					"host": [
+						"local",
+						"usb_encryption",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbG9naW4iLCJpYXQiOjE2MjU3MjY3NDYsImV4cCI6MTYyNTc2OTk0NiwibmJmIjoxNjI1NzI2NzQ2LCJqdGkiOiIxNVVvNEJJcVJCOXJrbjdQIiwic3ViIjo3LCJwcnYiOiI1YzA5ZjI1MzdkZTkzMWE2MTY0YWUzYjg4YmVkNTQ1YTkyODIwMTVhIn0.J7GYw6MV8sLzTtlwZRUA_pZcd6CE23MOGWTTMEpc96U"
+						},
+						{
+							"key": "lang",
+							"value": "en",
+							"description": "语言 en/zh-cn"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "加密u盘",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "pythcal_serial",
+							"value": "12345678944",
+							"description": "物理序列号",
+							"type": "text"
+						},
+						{
+							"key": "logical_serial",
+							"value": "111111111111111111111",
+							"description": "逻辑序列号",
+							"type": "text"
+						},
+						{
+							"key": "capacity",
+							"value": "154646545",
+							"description": "U盘容量",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://local.usb_encryption.com/api/merchant/encryptionUsb?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbWVyY2hhbnRcL2xvZ2luIiwiaWF0IjoxNjI2MDcyMTk3LCJleHAiOjE2MjYxMTUzOTcsIm5iZiI6MTYyNjA3MjE5NywianRpIjoiV3FLejdPSjhiaXlna0E1RCIsInN1YiI6MiwicHJ2IjoiNWMwOWYyNTM3ZGU5MzFhNjE2NGFlM2I4OGJlZDU0NWE5MjgyMDE1YSJ9.fqPALkaIqHeVVyz7OvU_gGDm-xpjYlCRoOuulI0pBP4",
+					"protocol": "http",
+					"host": [
+						"local",
+						"usb_encryption",
+						"com"
+					],
+					"path": [
+						"api",
+						"merchant",
+						"encryptionUsb"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC51c2JfZW5jcnlwdGlvbi5jb21cL2FwaVwvbWVyY2hhbnRcL2xvZ2luIiwiaWF0IjoxNjI2MDcyMTk3LCJleHAiOjE2MjYxMTUzOTcsIm5iZiI6MTYyNjA3MjE5NywianRpIjoiV3FLejdPSjhiaXlna0E1RCIsInN1YiI6MiwicHJ2IjoiNWMwOWYyNTM3ZGU5MzFhNjE2NGFlM2I4OGJlZDU0NWE5MjgyMDE1YSJ9.fqPALkaIqHeVVyz7OvU_gGDm-xpjYlCRoOuulI0pBP4",
+							"description": "用户token"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "U盘信息",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://local.usb_encryption.com/api/client/getUsbInfo?merchant_id=2&pythcal_serial=12345678944&lang=en",
+					"protocol": "http",
+					"host": [
+						"local",
+						"usb_encryption",
+						"com"
+					],
+					"path": [
+						"api",
+						"client",
+						"getUsbInfo"
+					],
+					"query": [
+						{
+							"key": "merchant_id",
+							"value": "2",
+							"description": "商家ID"
+						},
+						{
+							"key": "pythcal_serial",
+							"value": "12345678944",
+							"description": "物理序列号"
+						},
+						{
+							"key": "lang",
+							"value": "en"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "U盘信息",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://local.usb_encryption.com/api/client/getUsbInfo?merchant_id=2&pythcal_serial=12345678944",
+							"protocol": "http",
+							"host": [
+								"local",
+								"usb_encryption",
+								"com"
+							],
+							"path": [
+								"api",
+								"client",
+								"getUsbInfo"
+							],
+							"query": [
+								{
+									"key": "merchant_id",
+									"value": "2",
+									"description": "商家ID"
+								},
+								{
+									"key": "pythcal_serial",
+									"value": "12345678944",
+									"description": "物理序列号"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.15.11"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.3.4"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 12 Jul 2021 07:29:58 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 0,\n    \"msg\": \"success\",\n    \"data\": {\n        \"merchant_id\": 2,   // 商家ID\n        \"name\": \"12345678944\",   // U盘备注名称\n        \"capacity\": 154646545,   // U盘容量（byte）\n        \"pythcal_serial\": \"12345678944\",   // 物理序列号\n        \"expiration_time\": \"-1 or 2014-05-24 18:45:24\",   // 过期时间（\"-1\":表示永久）\n        \"limited_times\": -1,   // 剩余运行次数（-1:表示不限制）\n        \"watermark\": {\n            \"status\": 0,    // 状态（0：启用 1：禁用）\n            \"content\": 1,   // 水印文字内容(0：U盘物理序列号 1：U盘别名)\n            \"size\": 14,   // 水印文字大小（单位：px）\n            \"color\": \"#ffffff\",   // 水印文字颜色\n            \"transparency\": 50,   // 水印文字透明度\n            \"video_style\": 1,   // 视频文件水印样式（1：固定 2：跑马灯 3：四周浮动 4：全屏浮动）\n            \"video_refresh_interval\": 1.54,   // 浮动水印刷新间隔(单位：s)\n            \"picture_style\": 1   // PDF&图片水印设置（1：全屏 2：顶部居中 3：居中 4：底部居中 5：随机位置）\n        },   //水印设置\n        \"screen_recording\": {\n            \"status\": 0   // 状态（0:启用 1：禁用）\n        },   //防翻录设置\n        \"auto_update\": 0   //是否自动更新（0：不自动更新 1：自动更新）\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "U盘更新文件",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://local.usb_encryption.com/api/client/getUpdateList?merchant_id=2&pythcal_serial=12345678944",
+					"protocol": "http",
+					"host": [
+						"local",
+						"usb_encryption",
+						"com"
+					],
+					"path": [
+						"api",
+						"client",
+						"getUpdateList"
+					],
+					"query": [
+						{
+							"key": "merchant_id",
+							"value": "2",
+							"description": "商家ID"
+						},
+						{
+							"key": "pythcal_serial",
+							"value": "12345678944",
+							"description": "物理序列号"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "U盘更新文件",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://local.usb_encryption.com/api/client/getUpdateList?merchant_id=2&pythcal_serial=12345678944",
+							"protocol": "http",
+							"host": [
+								"local",
+								"usb_encryption",
+								"com"
+							],
+							"path": [
+								"api",
+								"client",
+								"getUpdateList"
+							],
+							"query": [
+								{
+									"key": "merchant_id",
+									"value": "2",
+									"description": "商家ID"
+								},
+								{
+									"key": "pythcal_serial",
+									"value": "12345678944",
+									"description": "物理序列号"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.15.11"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.3.4"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 12 Jul 2021 08:01:54 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 0,\n    \"msg\": \"success\",\n    \"data\": {\n        \"auto_update\": 0,   //是否自动更新（0：不自动更新 1：自动更新）\n        \"updated_date\": \"2021-07-12 13:49:41\",   //更新策略最后一次更新时间\n        \"created_date\": \"2021-07-12 13:49:41\",   //更新策略创建时间\n        \"files\": [],   //更新文件\n        \"files_count\": 0   //更新文件数量\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "U盘轨迹",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "merchant_id",
+							"value": "2",
+							"description": "商家ID",
+							"type": "text"
+						},
+						{
+							"key": "pythcal_serial",
+							"value": "12345678944",
+							"description": "物理序列号",
+							"type": "text"
+						},
+						{
+							"key": "event_username",
+							"value": "2512",
+							"description": "操作该产品的系统用户（非必填）",
+							"type": "text"
+						},
+						{
+							"key": "event_name",
+							"value": "544",
+							"description": "事件名",
+							"type": "text"
+						},
+						{
+							"key": "event_desc",
+							"value": "5454545",
+							"description": "事件详情（非必填）",
+							"type": "text"
+						},
+						{
+							"key": "machine_code",
+							"value": "5454",
+							"description": "机器码",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://local.usb_encryption.com/api/client/createUsbTrack",
+					"protocol": "http",
+					"host": [
+						"local",
+						"usb_encryption",
+						"com"
+					],
+					"path": [
+						"api",
+						"client",
+						"createUsbTrack"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

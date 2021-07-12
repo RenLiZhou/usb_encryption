@@ -108,7 +108,7 @@
                                         {{ __('common.ok') }}
                                     </button>
                                     @endif
-                                    <button type="button" class="btn btn-default ml15">
+                                    <button type="button" class="btn btn-default ml15" onclick="_jM.dialogCloseCurIf()">
                                         {{ __('common.cancel') }}
                                     </button>
                                 </div>

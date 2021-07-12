@@ -84,7 +84,7 @@
                                 <button type="button" class="btn btn-primary" data-url="{{ route('merchant.disk.update', ['disk' => $data->id]) }}" data-type="PATCH" onClick="TObj.submit(this)">
                                     {{ __('common.ok') }}
                                 </button>
-                                <button type="button" class="btn btn-default ml15">
+                                <button type="button" class="btn btn-default ml15" onclick="_jM.dialogCloseCurIf()">
                                     {{ __('common.cancel') }}
                                 </button>
                             </div>

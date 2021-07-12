@@ -84,7 +84,7 @@
                                             </td>
                                             <td>{{ $data->id }}</td>
                                             <td>{{ $data->name }}</td>
-                                            <td>{{ $data->run_number == -1 ? '不限' : $data->run_number }}</td>
+                                            <td>{{ $data->run_number == -1 ? __('merchant_view.unlimited') : $data->run_number }}</td>
                                             <td>{{ $data->expired_date }}</td>
                                             <td>{{ $data->created_at }}</td>
                                             <td>

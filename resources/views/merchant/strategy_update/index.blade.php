@@ -84,7 +84,13 @@
                                                 </label>
                                             </td>
                                             <td>{{ $data->id }}</td>
-                                            <td>{{ $data->name }}</td>
+                                            <td>
+                                                @if($data->valid_time != null)
+                                                    {{ $data->name }}
+                                                @else
+                                                    {{ __('merchant_view.do_not_update_by_default') }}
+                                                @endif
+                                                </td>
                                             <td>
                                                 @if($data->automatic_update_prompt == 1)
                                                     {{ __('merchant_view.yes') }}

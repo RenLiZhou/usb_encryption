@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
+use App\Http\Middleware\Language;
 use App\Service\MerchantService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 class LoginController extends Controller
 {
     public $v = 'merchant.login.';
+
+    public function __construct()
+    {
+        $this->middleware(Language::class);
+    }
 
     public function index()
     {

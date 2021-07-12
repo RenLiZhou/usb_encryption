@@ -145,7 +145,7 @@
         </div>
         <div id="loadingPage" style="display: none;">
             <div class="loading-shade"></div>
-            <div class="loading-content" onClick="$.loading(false)">{{ __('merchant_view.data_loading_please_wait') }}</div>
+            <div class="loading-content" onClick="$.loading(true, '{{ __("merchant_view.data_loading_please_wait") }}')">{{ __('merchant_view.data_loading_please_wait') }}</div>
         </div>
     </body>
 @endsection

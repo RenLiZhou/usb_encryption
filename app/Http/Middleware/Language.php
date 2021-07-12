@@ -10,7 +10,7 @@ use Closure;
  * Class Language
  * @package App\Http\Middleware
  */
-class ApiLanguage
+class Language
 {
 
     /**
