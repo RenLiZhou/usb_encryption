@@ -29,7 +29,7 @@ class MerchantSetting extends BaseModel
     const WATERMARK_STYLE_FLOAT_AROUND = 3;  //四周浮动
     const WATERMARK_STYLE_FLOAT_FULL_SCREEN = 4;  //全屏浮动
 
-    //视频文件水印样式
+    //PDF&图片水印设置
     const WATERMARK_PICTURE_STYLE_FULL_SCREEN = 1;  //全屏
     const WATERMARK_PICTURE_STYLE_TOP_CENTER= 2; //顶部居中
     const WATERMARK_PICTURE_STYLE_CENTER = 3;  //居中

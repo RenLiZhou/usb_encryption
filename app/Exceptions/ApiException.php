@@ -45,51 +45,55 @@ class ApiException extends Exception
     const U_DISK_CAPACITY_IS_EMPTY = 322;
     const U_DISK_CAPACITY_ERROR = 323;
 
-    public static $errorMsg = [
-        self::AUTHENTICATION_FAILED => '认证失败',
-        self::LOGIN_HAS_EXPIRED => '登录已失效',
-        self::TOKEN_IS_INVALID => 'token无效',
-        self::TOKEN_HAS_EXITED => 'token已退出',
-        self::TOKEN_IS_EMPTY => 'token为空',
-
-        self::USERNAME_DOES_NOT_EXIST => '用户名不存在',
-        self::PASSWORD_DOES_NOT_EXIST => '密码不存在',
-        self::THE_MERCHANT_HAS_BEEN_DISABLED => '商户已禁用',
-        self::THE_MERCHANT_HAS_EXPIRED => '商户已到期',
-        self::USER_NAME_OR_PASSWORD_IS_WRONG => '用户名或密码错误',
-
-        self::THE_REMAINING_AUTHORIZED_NUMBER_OF_U_DISK_IS_0 => 'U盘剩余授权数量为0',
-        self::PHYSICAL_SERIAL_NUMBER_IS_EMPTY => '物理序列号为空',
-        self::PHYSICAL_SERIAL_NUMBER_ERROR => '物理序列号错误',
-        self::LOGICAL_SERIAL_NUMBER_IS_EMPTY => '逻辑序列号为空',
-        self::LOGICAL_SERIAL_NUMBER_ERROR => '逻辑序列号错误',
-        self::INSUFFICIENT_NUMBER_OF_USB_FLASH_DRIVES => '商户可授权U盘数量不足',
-        self::U_DISK_ENCRYPTION_NUMBER_HAS_REACHED_THE_MAXIMUM => 'U盘加密次数已达到最大',
-        self::U_DISK_ENCRYPTION_FAILED => 'U盘加密失败',
-        self::THE_SYSTEM_IS_BUSY_PLEASE_TRY_AGAIN_LATER => '系统繁忙，请稍后重试',
-        self::BUSINESS_ID_IS_EMPTY => '商家ID为空',
-        self::BUSINESS_ID_ERROR => '商家ID错误',
-        self::THE_MERCHANT_DOES_NOT_EXIST => '商家不存在',
-        self::U_DISK_IS_DISABLED => 'U盘被禁用',
-        self::U_DISK_IS_NOT_VALID => 'U盘未生效',
-        self::U_DISK_HAS_EXPIRED => 'U盘已过期',
-        self::U_DISK_RUNNING_TIMES_REACHED_THE_MAXIMUM => 'U盘运行次数达到最大',
-        self::THE_MERCHANT_CONFIGURATION_IS_INCORRECT => '商家配置有误',
-        self::SERVICE_EXCEPTION => '服务异常',
-        self::NO_UPDATE_STRATEGY => '无更新策略',
-        self::EVENT_NAME_CANNOT_BE_EMPTY => '事件名不能为空',
-        self::THE_MACHINE_CODE_CANNOT_BE_EMPTY => '机器码不能为空',
-        self::U_DISK_CAPACITY_IS_EMPTY => 'U盘容量为空',
-        self::U_DISK_CAPACITY_ERROR => 'U盘容量错误',
-    ];
-
-    public function __construct($error)
+    public function __construct($msgCode)
     {
-        if (isset(self::$errorMsg[$error])) {
-            $this->message = self::$errorMsg[$error];
-            $this->code = $error;
+        $this->getMsg($msgCode);
+    }
+
+    public function getMsg ($msgCode){
+        $msgArray = [
+            self::AUTHENTICATION_FAILED => __('api.AUTHENTICATION_FAILED'),
+            self::LOGIN_HAS_EXPIRED => __('api.LOGIN_HAS_EXPIRED'),
+            self::TOKEN_IS_INVALID => __('api.TOKEN_IS_INVALID'),
+            self::TOKEN_HAS_EXITED => __('api.TOKEN_HAS_EXITED'),
+            self::TOKEN_IS_EMPTY => __('api.TOKEN_IS_EMPTY'),
+
+            self::USERNAME_DOES_NOT_EXIST => __('api.USERNAME_DOES_NOT_EXIST'),
+            self::PASSWORD_DOES_NOT_EXIST => __('api.PASSWORD_DOES_NOT_EXIST'),
+            self::THE_MERCHANT_HAS_BEEN_DISABLED => __('api.THE_MERCHANT_HAS_BEEN_DISABLED'),
+            self::THE_MERCHANT_HAS_EXPIRED => __('api.THE_MERCHANT_HAS_EXPIRED'),
+            self::USER_NAME_OR_PASSWORD_IS_WRONG => __('api.USER_NAME_OR_PASSWORD_IS_WRONG'),
+
+            self::THE_REMAINING_AUTHORIZED_NUMBER_OF_U_DISK_IS_0 => __('api.THE_REMAINING_AUTHORIZED_NUMBER_OF_U_DISK_IS_0'),
+            self::PHYSICAL_SERIAL_NUMBER_IS_EMPTY => __('api.PHYSICAL_SERIAL_NUMBER_IS_EMPTY'),
+            self::PHYSICAL_SERIAL_NUMBER_ERROR => __('api.PHYSICAL_SERIAL_NUMBER_ERROR'),
+            self::LOGICAL_SERIAL_NUMBER_IS_EMPTY => __('api.LOGICAL_SERIAL_NUMBER_IS_EMPTY'),
+            self::LOGICAL_SERIAL_NUMBER_ERROR => __('api.LOGICAL_SERIAL_NUMBER_ERROR'),
+            self::INSUFFICIENT_NUMBER_OF_USB_FLASH_DRIVES => __('api.INSUFFICIENT_NUMBER_OF_USB_FLASH_DRIVES'),
+            self::U_DISK_ENCRYPTION_NUMBER_HAS_REACHED_THE_MAXIMUM => __('api.U_DISK_ENCRYPTION_NUMBER_HAS_REACHED_THE_MAXIMUM'),
+            self::U_DISK_ENCRYPTION_FAILED => __('api.U_DISK_ENCRYPTION_FAILED'),
+            self::THE_SYSTEM_IS_BUSY_PLEASE_TRY_AGAIN_LATER => __('api.THE_SYSTEM_IS_BUSY_PLEASE_TRY_AGAIN_LATER'),
+            self::BUSINESS_ID_IS_EMPTY => __('api.BUSINESS_ID_IS_EMPTY'),
+            self::BUSINESS_ID_ERROR => __('api.BUSINESS_ID_ERROR'),
+            self::THE_MERCHANT_DOES_NOT_EXIST => __('api.THE_MERCHANT_DOES_NOT_EXIST'),
+            self::U_DISK_IS_DISABLED => __('api.U_DISK_IS_DISABLED'),
+            self::U_DISK_IS_NOT_VALID => __('api.U_DISK_IS_NOT_VALID'),
+            self::U_DISK_HAS_EXPIRED => __('api.U_DISK_HAS_EXPIRED'),
+            self::U_DISK_RUNNING_TIMES_REACHED_THE_MAXIMUM => __('api.U_DISK_RUNNING_TIMES_REACHED_THE_MAXIMUM'),
+            self::THE_MERCHANT_CONFIGURATION_IS_INCORRECT => __('api.THE_MERCHANT_CONFIGURATION_IS_INCORRECT'),
+            self::SERVICE_EXCEPTION => __('api.SERVICE_EXCEPTION'),
+            self::NO_UPDATE_STRATEGY => __('api.NO_UPDATE_STRATEGY'),
+            self::EVENT_NAME_CANNOT_BE_EMPTY => __('api.EVENT_NAME_CANNOT_BE_EMPTY'),
+            self::THE_MACHINE_CODE_CANNOT_BE_EMPTY => __('api.THE_MACHINE_CODE_CANNOT_BE_EMPTY'),
+            self::U_DISK_CAPACITY_IS_EMPTY => __('api.U_DISK_CAPACITY_IS_EMPTY'),
+            self::U_DISK_CAPACITY_ERROR => __('api.U_DISK_CAPACITY_ERROR'),
+        ];
+
+        if (isset($msgArray[$msgCode])) {
+            $this->message = $msgArray[$msgCode];
+            $this->code = $msgCode;
         } else {
-            $this->message = $error;
+            $this->message = $msgCode;
             $this->code = self::DEFAULT_ERROE;
         }
     }

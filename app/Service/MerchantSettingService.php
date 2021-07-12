@@ -66,21 +66,21 @@ class MerchantSettingService{
             //防录屏数据
             case MerchantSetting::SCREEN_RECORDING :{
                 $data = [
-                    'status' => $params['status']??MerchantSetting::SCREEN_RECORDING_ENABLE //是否启用
+                    'status' => intval($params['status']??MerchantSetting::SCREEN_RECORDING_ENABLE) //是否启用
                 ];
                 break;
             }
             //水印
             case MerchantSetting::WATERMARK :{
                 $data = [
-                    'status' => $params['status']??MerchantSetting::WATERMARK_ENABLE, //是否启用
-                    'content' => $params['content']??MerchantSetting::WATERMARK_CONTENT_USB_SERIAL, //水印内容
-                    'size' => $params['size']??14, //水印文字大小
+                    'status' => intval($params['status']??MerchantSetting::WATERMARK_ENABLE), //是否启用
+                    'content' => intval($params['content']??MerchantSetting::WATERMARK_CONTENT_USB_SERIAL), //水印内容
+                    'size' => intval($params['size']??14), //水印文字大小
                     'color' => $params['color']??'#ffffff', //水印文字颜色
-                    'transparency' => $params['transparency']??50, //水印文字透明度
-                    'video_style' => $params['video_style']??MerchantSetting::WATERMARK_STYLE_FIXED, //视频文件水印样式
-                    'video_refresh_interval' => $params['video_refresh_interval']??0, //视频文件水印刷新间隔
-                    'picture_style' => $params['picture_style']??MerchantSetting::WATERMARK_PICTURE_STYLE_FULL_SCREEN //图片&PDF水印设置
+                    'transparency' => intval($params['transparency']??50), //水印文字透明度
+                    'video_style' => intval($params['video_style']??MerchantSetting::WATERMARK_STYLE_FIXED), //视频文件水印样式
+                    'video_refresh_interval' => floatval($params['video_refresh_interval']??0), //视频文件水印刷新间隔
+                    'picture_style' => intval($params['picture_style']??MerchantSetting::WATERMARK_PICTURE_STYLE_FULL_SCREEN) //图片&PDF水印设置
                 ];
                 break;
             }

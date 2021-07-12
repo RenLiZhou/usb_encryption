@@ -18,6 +18,14 @@ class ApiMerchant extends Authenticatable implements JWTSubject
     }
 
     /**
+     * @return false|string
+     */
+    public function getExpireTimeAttribute($value)
+    {
+        return conversionTime($value);
+    }
+
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed

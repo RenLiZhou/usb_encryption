@@ -51,8 +51,8 @@ class MerchantService{
 
         //可授权次数
         $version_count = empty($merchant->version) ? 0 : $merchant->version[0]->disk_number;
-        $auth_amount = $version_count + $merchant->add_auth_count - $merchant->auth_number;
-        if($auth_amount <= 0){
+        $surplus_auth_amount = $version_count + $merchant->add_auth_count - $merchant->auth_number;
+        if($surplus_auth_amount <= 0){
             throw new ApiException(ApiException::THE_REMAINING_AUTHORIZED_NUMBER_OF_U_DISK_IS_0);
         }
 
@@ -62,8 +62,12 @@ class MerchantService{
             'user' => [
                 'id' => $merchant->id,
                 'name' => $merchant->name,
-                'user_name' => $merchant->username,
-                'auth_amount' => $auth_amount
+                'username' => $merchant->username,
+                'total_auth_amount' => $version_count + $merchant->add_auth_count,  //总授权
+                'auth_amount' => $merchant->auth_number,    //授权数量
+                'surplus_auth_amount' => $surplus_auth_amount,  //剩余授权
+                'is_permanent' => $merchant->is_permanent,  //是否永久
+                'expiration_time' => $merchant->expire_time //过期时间
             ]
         ];
     }

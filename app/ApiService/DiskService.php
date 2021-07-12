@@ -135,29 +135,30 @@ class DiskService{
         if(empty($disk)) throw new ApiException(ApiException::PHYSICAL_SERIAL_NUMBER_ERROR);
         if($disk->status == Disk::STATUS_DISABLED) throw new ApiException(ApiException::U_DISK_IS_DISABLED);
 
-        //U盘过期验证
-        if(empty($disk->strategy_auth)) throw new ApiException(ApiException::U_DISK_IS_NOT_VALID);
+        //U盘权限验证(有则验证)
+        if(!empty($disk->strategy_auth)){
 
-        $format = 'Y-m-d H:i:s';
-        $now_data = Carbon::now()->format($format);
+            $format = 'Y-m-d H:i:s';
+            $now_data = Carbon::now()->format($format);
 
-        if($disk->strategy_auth->expired_type == StrategyAuth::EXPIRED_DAY){
-            //过期天数
-            $expiration_date = Carbon::parse($disk->first_time_use)->addDays($disk->strategy_auth->expired_day)->format($format);
-            if($expiration_date <= $now_data){
-                throw new ApiException(ApiException::U_DISK_HAS_EXPIRED);
+            if($disk->strategy_auth->expired_type == StrategyAuth::EXPIRED_DAY){
+                //过期天数
+                $expiration_time = Carbon::parse($disk->first_time_use)->addDays($disk->strategy_auth->expired_day)->format($format);
+                if($expiration_time <= $now_data){
+                    throw new ApiException(ApiException::U_DISK_HAS_EXPIRED);
+                }
+            }elseif($disk->strategy_auth->expired_type == StrategyAuth::EXPIRED_DATE){
+                //过期时间
+                $expiration_time = $disk->strategy_auth->expired_time;
+                if($expiration_time <= $now_data){
+                    throw new ApiException(ApiException::U_DISK_HAS_EXPIRED);
+                }
             }
-        }elseif($disk->strategy_auth->expired_type == StrategyAuth::EXPIRED_DATE){
-            //过期时间
-            $expiration_date = $disk->strategy_auth->expired_time;
-            if($expiration_date <= $now_data){
-                throw new ApiException(ApiException::U_DISK_HAS_EXPIRED);
-            }
-        }
 
-        //U盘运行次数验证
-        if($disk->strategy_auth->run_number != -1 && $disk->strategy_auth->run_number <= $disk->run_count){
-            throw new ApiException(ApiException::U_DISK_RUNNING_TIMES_REACHED_THE_MAXIMUM);
+            //U盘运行次数验证
+            if($disk->strategy_auth->run_number != -1 && $disk->strategy_auth->run_number <= $disk->run_count){
+                throw new ApiException(ApiException::U_DISK_RUNNING_TIMES_REACHED_THE_MAXIMUM);
+            }
         }
     }
 
@@ -166,6 +167,7 @@ class DiskService{
      * 获取U盘信息
      */
     public static function getUsbInfo($merchant_id, $pythcal_serial){
+
         //商家
         $merchant = Merchant::query()->find($merchant_id);
 
@@ -179,18 +181,24 @@ class DiskService{
         //商家/U盘验证
         self::validateMerchantOrUsb($merchant, $disk);
 
-        if($disk->strategy_auth->expired_type == StrategyAuth::EXPIRED_PERPETUAL){
+        if(empty($disk->strategy_auth)){
+            //永久(未绑定权限策略也是永久)
+            $expiration_time = "-1";
+        }elseif($disk->strategy_auth->expired_type == StrategyAuth::EXPIRED_PERPETUAL){
             //永久
-            $expiration_date = "-1";
+            $expiration_time = "-1";
         }elseif($disk->strategy_auth->expired_type == StrategyAuth::EXPIRED_DAY){
             //过期天数
-            $expiration_date = Carbon::parse($disk->first_time_use)->addDays($disk->strategy_auth->expired_day)->format('Y-m-d H:i:s');
+            $expiration_time = Carbon::parse($disk->first_time_use)->addDays($disk->strategy_auth->expired_day)->format('Y-m-d H:i:s');
         }else{
             //过期时间
-            $expiration_date = $disk->strategy_auth->expired_time;
+            $expiration_time = $disk->strategy_auth->expired_time;
         }
 
-        $limited_times = $disk->strategy_auth->run_number == -1 ? -1 : $disk->strategy_auth->run_number-$disk->run_count;
+
+        $limited_times = empty($disk->strategy_auth)
+            ? -1
+            : ($disk->strategy_auth->run_number == -1 ? -1 : $disk->strategy_auth->run_number-$disk->run_count);
 
         $merchant_screen_recording = MerchantSettingService::getSetting($merchant_id, MerchantSetting::SCREEN_RECORDING);
         if (!$merchant_screen_recording['result']){
@@ -205,7 +213,7 @@ class DiskService{
         $watermark = $merchant_watermark['data']->data;
 
         //自动更新
-        $auto_update = empty($disk->strategy_update)? StrategyUpdate::NOT_AUTO_UPDATE : $disk->strategy_update->automatic_update_prompt;
+        $auto_update = empty($disk->strategy_update) ? StrategyUpdate::NOT_AUTO_UPDATE : $disk->strategy_update->automatic_update_prompt;
 
         //运行次数加1
         $add_run_count = Disk::query()
@@ -222,8 +230,8 @@ class DiskService{
             'name' => $disk->name,
             'capacity' => $disk->capacity,
             'pythcal_serial' => $disk->usb_serial,
-            'expiration_date' => $expiration_date,
-            'limited_times' => $limited_times-1,
+            'expiration_time' => $expiration_time,
+            'limited_times' => $limited_times == -1 ? -1 : $limited_times-1,
             'watermark' => $watermark,
             'screen_recording' => $screen_recording,
             'auto_update' => $auto_update

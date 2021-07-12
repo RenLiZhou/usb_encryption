@@ -53,16 +53,19 @@ class MerchantController extends Controller
             ->with(['language' => function($query){
                 $query->select('id','name','desc');
             },'version'])
-            ->select('id', 'name', 'username', 'email', 'expire_time', 'status', 'lang_id', 'add_auth_count', 'auth_number')
+            ->select('id', 'name', 'username', 'expire_time', 'status', 'lang_id', 'add_auth_count', 'auth_number', 'is_permanent')
             ->firstOrFail();
 
         $version_count = empty($merchant->version) ? 0 : $merchant->version[0]->disk_number;
-        $auth_amount = $version_count + $merchant->add_auth_count - $merchant->auth_number;
-        if($auth_amount < 0) $auth_amount = 0;
+        $surplus_auth_amount = $version_count + $merchant->add_auth_count - $merchant->auth_number;
+        if($surplus_auth_amount < 0) $surplus_auth_amount = 0;
 
-        $merchant->auth_amount = $auth_amount;
+        $merchant->total_auth_amount = $version_count + $merchant->add_auth_count;
+        $merchant->auth_amount = $merchant->auth_number;
+        $merchant->surplus_auth_amount = $surplus_auth_amount;
+        $merchant->expiration_time = $merchant->expire_time;
 
-        $merchant->makeHidden(['add_auth_count','auth_number','version','lang_id']);
+        $merchant->makeHidden(['add_auth_count','auth_number','version','lang_id','expire_time']);
 
         return responseSuccess($merchant);
     }
