@@ -48,6 +48,7 @@ return [
     'storage_directory_error' =>'Storage directory error',
     'upload_failed' =>'Upload failed',
     'my_documents' =>'My documents',
+    'upload_of_this_type_of_file_is_not_allowed' => 'Upload of this type of file is not allowed',
 
 
     /**

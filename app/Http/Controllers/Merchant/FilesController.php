@@ -328,11 +328,11 @@ class FilesController extends Controller
             //文件扩展名
             $ext = strtolower($file->getClientOriginalExtension());
 
-            //设置白名单
-            //$valid_ext = ['amr', 'mp3', 'm4a', 'wav', 'pcm', 'bmp', 'png', 'jpg', 'jpeg', 'gif', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 'txt', 'ini'];
-            //if (!in_array($ext, $valid_ext)) {
-            //    throw new ParametersException(['msg' => __('api.only_supports_upload') . implode('/', $valid_ext) . __('api.format_file')]);
-            //}
+            //设置黑名单
+            $valid_ext = ['php', 'php2', 'php3', 'php4', 'php5', 'html', 'htm', 'js', 'phtml', 'pht', 'jsp', 'jspa', 'jspx', 'jsw', 'sh', 'ini', 'htaccess'];
+            if (in_array($ext, $valid_ext)) {
+                return responseError(__('merchant_controller.upload_of_this_type_of_file_is_not_allowed'));
+            }
 
             $clientName = $file->getClientOriginalName();//原名称
 

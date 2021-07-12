@@ -414,18 +414,14 @@
                                 var tr = that.elemList.find('tr#upload-'+ index)
                                     ,tds = tr.children();
                                 tds.eq(0).text(res.data.name); //上传文件名
-                                tds.eq(3).html("<span class='text-success'>上传成功</span>"); //清空操作
+                                tds.eq(3).html("<span class='text-success'>{{ __('merchant_view.upload_successful') }}</span>"); //清空操作
                                 delete _self.upload_files[index]; //删除文件队列已经上传成功的文件
                                 return;
                             }
+                            _jM.dialogMsg(res.exception);
                             this.error(index, upload);
                         }
                         ,allDone: function(obj){ //多文件上传完毕后的状态回调
-                            if(obj.total == obj.successful){
-                                _jM.dialogMsg('{{ __("merchant_view.upload_successful") }}');
-                            }else{
-                                _jM.dialogMsg('{{ __("merchant_view.number_of_failed_upload_files") }}:' + obj.aborted);
-                            }
 
                             if(obj.successful > 0){
                                 _self.foldersData(_self.current_path);

@@ -48,6 +48,7 @@ return [
     'storage_directory_error' => '存储目录错误',
     'upload_failed' => '上传失败',
     'my_documents' => '我的文档',
+    'upload_of_this_type_of_file_is_not_allowed' => '不允许上传此类文件',
 
 
     /**
