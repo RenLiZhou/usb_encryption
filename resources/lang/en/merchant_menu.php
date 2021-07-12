@@ -6,7 +6,7 @@ return [
     */
 
     'overview' =>'Overview',
-    'usb_management' =>'U Disk Management',
+    'usb_management' =>'USB Drive Management',
     'update_file_strategy' =>'Update File Management',
     'file_management' =>'File Management',
     'file_update_strategy' =>'Update Strategy',
