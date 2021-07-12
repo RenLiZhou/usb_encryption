@@ -314,7 +314,9 @@
                     _self.upload_event = upload.render({
                         elem: '#uploadList'
                         ,data:{
-                           path: _self.current_path
+                            path: function () {
+                                return _self.current_path;
+                            }
                         }
                         ,elemList: $('#uploadListDom') //列表元素对象
                         ,url: '{{ route("merchant.file.upload") }}'

@@ -109,7 +109,7 @@ class MerchantsController extends Controller
     public function destroy(Merchant $merchant)
     {
 //        $merchant->version()->detach();
-        $merchant->username = $merchant->username.'_delete';
+        $merchant->username = $merchant->username.'_delete_'.date('YmdHis');
         $merchant->save();
         $merchant->delete();
 
