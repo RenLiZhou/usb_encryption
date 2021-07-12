@@ -108,11 +108,13 @@ class MerchantsController extends Controller
 
     public function destroy(Merchant $merchant)
     {
-        $merchant->version()->detach();
+//        $merchant->version()->detach();
+        $merchant->username = $merchant->username.'_delete';
+        $merchant->save();
         $merchant->delete();
 
-        $resource = new ResourceService();
-        $resource->deleteDirectory($merchant->root_directory);
+//        $resource = new ResourceService();
+//        $resource->deleteDirectory($merchant->root_directory);
 
         return responseSuccess();
     }

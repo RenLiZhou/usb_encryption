@@ -4,18 +4,14 @@ namespace App\Models;
 
 use App\Service\ResourceService;
 use App\Service\MerchantVersionRulesService;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authuser;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Merchant extends Authuser
 {
+    use SoftDeletes;
+
     public $guarded = ['id'];
 
     const PWD_COST     = 11; //密码加密
