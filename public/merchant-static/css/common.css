@@ -1,0 +1,146 @@
+.loginpage {
+    position: relative;
+}
+.login {
+    display: flex !important;
+    min-height: 100vh;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.login-center {
+    background: #fff;
+    min-width: 38rem;
+    padding: 2em 3em;
+    border-radius: 10px;
+    margin: 2em 0;
+}
+.login-header {
+    margin-bottom: 2rem !important;
+    font-size: 20px;
+    font-weight: 600;
+}
+.login-center .has-feedback.feedback-left .form-control {
+    padding-left: 38px;
+    padding-right: 12px;
+}
+.login-center .has-feedback.feedback-left span.form-control-feedback {
+    left: 0;
+    right: auto;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    z-index: 4;
+    color: #dcdcdc;
+}
+.login-center .has-feedback.feedback-left i.form-control-feedback {
+    left: auto;
+    right:0;
+}
+
+.login-center .has-feedback.feedback-left.row span.form-control-feedback {
+    left: 15px;
+}
+
+.login-center .has-feedback.feedback-left.row i.form-control-feedback {
+    right: 15px;
+}
+
+.icon-right{
+    left: auto!important;
+    right:0!important;
+}
+.font15{
+    font-size: 15px;
+}
+.font18{
+    font-size: 18px;
+}
+.font20{
+    font-size: 20px;
+}
+
+.mb0{
+    margin-bottom: 0px!important;
+}
+.mb10{
+    margin-bottom:10px!important;
+}
+.mb60{
+    margin-bottom:60px!important;
+}
+.mb70{
+    margin-bottom:70px!important;
+}
+.mb80{
+    margin-bottom:80px!important;
+}
+.mb90{
+    margin-bottom:90px!important;
+}
+
+.mt15{
+    margin-top:15px!important;
+}
+
+.mt20{
+    margin-top:20px!important;
+}
+
+.mt35{
+    margin-top:35px!important;
+}
+
+.ml15{
+    margin-left:15px!important;
+}
+
+.pl0{
+    padding-left: 0px!important;
+}
+
+
+
+.search-from .input-group{
+    float: left;
+    margin-left: 17px;
+}
+
+.paginator-select{
+    width: 80px;height:31px;float: left;margin-left: 5px;
+}
+
+.paginator-total{
+    margin-left: 15px;line-height: 30px;float: left;
+}
+
+.layui-layer-setwin .layui-layer-close2{
+    right: -5px!important;
+    top: -13px!important;
+}
+
+.right18{
+    right: 18px!important;
+}
+
+.top27{
+    top:27px!important;
+}
+
+.video_img{
+    background: url(/merchant-static/images/watermarkbox.png) no-repeat;
+    width: 455px;
+    height: 226px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%;
+    margin-top: 50px;
+}
+
+.l-h-26{
+    line-height: 26px;
+}
+
+.table > thead > tr > th {
+    vertical-align:unset!important;
+}
